@@ -5,7 +5,9 @@ import { render } from 'react-dom';
 import { createInertiaApp } from '@inertiajs/inertia-react';
 import { InertiaProgress } from '@inertiajs/progress';
 import { ThemeProvider } from './Components/Providers/ThemeProvider';
-
+import ModalProvider from './Components/Providers/ModalProvider';
+import { ToastContainer,Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
@@ -14,6 +16,8 @@ createInertiaApp({
     setup({ el, App, props }) {
         return render(
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+                <ToastContainer transition={Flip} autoClose={10000} pauseOnHover={false} theme='dark' />
+                <ModalProvider />
                 <App {...props} />
             </ThemeProvider>, el
         );

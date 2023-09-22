@@ -37,6 +37,9 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('/projects')->name('projects.')->group(function(){
         Route::get('/', [ProjectController::class,'index'])->name('index');
+        Route::post('/store', [ProjectController::class,'store'])->name('store');
+        Route::post('/update', [ProjectController::class,'update'])->name('update');
+        Route::post('/destroy', [ProjectController::class,'destroy'])->name('destroy');
     });
 
     Route::prefix('/pictures')->name('pictures.')->group(function(){

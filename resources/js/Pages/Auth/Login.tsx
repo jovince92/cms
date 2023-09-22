@@ -47,8 +47,8 @@ const Login:FC = () => {
                 </CardContent>
                 <CardFooter className="flex justify-end">
                     <Button form='login' disabled={processing} size='sm' className='text-base'>
-                        Continue
                         {processing&&<Loader2 className='mr-2 h-4 w-4 animate-spin' />}
+                        Continue
                     </Button>
                 </CardFooter>
             </Card>

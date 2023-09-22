@@ -19,10 +19,9 @@ const Layout:FC<Props> = ({children,className,label}) => {
         post('logout');
     }
     return (
-        <div className={cn('w-full h-screen relative flex',className)}>
-            <ModeToggle className='absolute top-2 right-2' /> 
-            <aside className='w-14 md:w-44 h-full'>
+        <div className={cn('w-full h-screen max-h-screen relative',className)}>
             
+            <aside className='w-14 md:w-44 h-full fixed left-0 inset-y-0 z-50 bg-background'>
                 <div className="space-y-4 py-4 h-full">
                     <div className="px-1.5 md:px-3 py-2 flex flex-col justify-between h-full">
                         <div>
@@ -38,24 +37,22 @@ const Layout:FC<Props> = ({children,className,label}) => {
                                         </Button>
                                     </Link>
                                 ))}
-
-                                
-
                             </div>
                         </div>
-                        <Button onClick={onLogout} variant='ghost' className="mt-auto p-0 md:p-2 w-full flex justify-center md:justify-start  items-center">
+                        <Button onClick={onLogout} variant='ghost' className="p-0 md:p-2 w-full flex justify-center md:justify-start  items-center">
                             <LogOut className='h-7 md:h-4 w-7 md:w-4 mr-0 md:mr-2' />
                             <span className='hidden md:inline'>Sign Out</span>
                         </Button>
                     </div>
                 </div>
-                
             </aside>
-            <main className='bg-muted flex-1 flex flex-col h-full'>
-                <div className=' top-0 w-full flex items-center text-3xl h-[3.7rem] bg-primary-foreground border-b border-secondary px-3.5 mb-6'>
-                    <p>{label}</p>
-                </div>
-                <div className='flex-1 px-3.5'>
+            <nav className='pl-16 md:pl-48 z-40 fixed top-0 inset-x-0 flex items-center justify-between text-3xl h-[3.7rem] bg-neutral-200 dark:bg-neutral-700 border-b border-secondary px-3.5 '>
+                <p>{label}</p>
+                <ModeToggle className='my-2' />
+            </nav>
+            <main className='pl-14 md:pl-44 relative bg-muted flex-1 flex flex-col h-full'>
+                
+                <div className='w-full h-full px-3.5 pt-16 bg-neutral-100 dark:bg-neutral-900'>
                     {children}
                 </div>
             </main>

@@ -17,12 +17,11 @@ export interface Project{
     manpower:number;
     in_house:number;
     third_party:number;
-    total_actual_cost:number;
     date_started:string;
     target_date:string;
-    status:string;
-    completion_date:string;
-    remarks:string;
+    status:ProjectStatusType;
+    completion_date?:string;
+    remarks?:string;
     created_at:string;
     updated_at:string;
 }
@@ -38,3 +37,12 @@ export declare global {
     function route(routeName?: string, parameters?: any[] | any, absolute? = true): Function[string]
 
 }
+
+
+export type  ProjectStatusType = 
+    "Done"|
+    "Ongoing"|
+    "On-hold"|
+    "Cancelled"|
+    "Not Started"|
+    "Planning"

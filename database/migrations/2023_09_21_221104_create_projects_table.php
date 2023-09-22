@@ -21,12 +21,12 @@ class CreateProjectsTable extends Migration
             $table->smallInteger('manpower')->default(0);
             $table->double('in_house',8,2)->default(0.00);
             $table->double('third_party',8,2)->default(0.00);
-            $table->double('total_actual_cost',8,2)->default(0.00);
+            //$table->double('total_actual_cost',8,2)->default(0.00);
             $table->date('date_started');
             $table->date('target_date');
             $table->string('status');
             $table->date('completion_date')->nullable();
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }
