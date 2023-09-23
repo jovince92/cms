@@ -68,7 +68,7 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
                         <PlusCircle className='mr-2 h-5 w-5' />
                         <span>New Project</span>
                     </Button>
-                    <ActionTooltip label='Reporting Work in Progress...'>
+                    <ActionTooltip side='right' label='Reporting Work in Progress...'>
                         <Button size='sm' variant='secondary' className='flex text-base justify-center md:justify-start items-center'>
                             <Download className='mr-2 h-5 w-5' />
                             <span>Download Report</span>

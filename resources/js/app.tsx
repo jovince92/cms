@@ -1,7 +1,7 @@
 import './bootstrap';
 
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/inertia-react';
 import { InertiaProgress } from '@inertiajs/progress';
 import { ThemeProvider } from './Components/Providers/ThemeProvider';
@@ -14,12 +14,15 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => require(`./Pages/${name}`),
     setup({ el, App, props }) {
-        return render(
+        const root = createRoot(el);
+
+        root.render(
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
                 <ToastContainer transition={Flip} autoClose={10000} pauseOnHover={false} theme='dark' />
                 <ModalProvider />
                 <App {...props} />
-            </ThemeProvider>, el
+            </ThemeProvider>
+            
         );
     },
 });

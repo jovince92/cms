@@ -42,8 +42,9 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/destroy', [ProjectController::class,'destroy'])->name('destroy');
     });
 
-    Route::prefix('/pictures/project/')->name('pictures.')->group(function(){
-        Route::get('/{project_id?}', [PictureController::class,'index'])->name('index');
+    Route::prefix('/pictures/project/{project_id?}')->name('pictures.')->group(function(){
+        Route::get('/', [PictureController::class,'index'])->name('index');
+        Route::post('/store', [PictureController::class,'store'])->name('store');
     });
 
     Route::prefix('/gantt_chart')->name('gantt_chart.')->group(function(){

@@ -30,6 +30,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     auth: {
         user: User;
     };
+    projects:Project[];
 };
 
 
@@ -69,4 +70,7 @@ export type  ProjectStatusType =
     "On-hold"|
     "Cancelled"|
     "Not Started"|
-    "Planning"
+    "Planning";
+
+
+    
