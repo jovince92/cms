@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,9 +13,12 @@ class PictureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($project_id=null)
     {
-        return Inertia::render('Pictures');
+        return Inertia::render('Pictures',[
+            'projects'=>Project::all(),
+            'project'=>$project_id?Project::findOrFail($project_id):null
+        ]);
     }
 
     /**

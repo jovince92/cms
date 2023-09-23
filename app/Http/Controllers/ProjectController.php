@@ -14,9 +14,20 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Projects',['projects'=>Project::orderBy('created_at','desc')->get()]);
+        $per_page=$request->perPage?intval($request->perPage):10;
+        $order=$request->order ?? 'desc' ;
+        $sort=$request->sort ?? 'created_at';
+        $filter=$request->filter ?? '';
+        $projects=Project::where('name','like','%'.$filter.'%')->orderBy($sort,$order)->paginate($per_page);
+        return Inertia::render('Projects',[
+            'projects'=>$projects,
+            'per_page'=>strval($per_page),
+            'sort'=>$sort,
+            'order'=>$order,
+            'filter'=>$filter
+        ]);
     }
 
     /**

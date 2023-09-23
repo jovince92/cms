@@ -39,6 +39,30 @@ export declare global {
 }
 
 
+export interface Pagination{
+    current_page:number;
+    first_page_url:string;
+    from:number;
+    last_page:number;
+    last_page_url:string;
+    next_page_url:string;
+    path:string;
+    per_page:number;
+    prev_page_url:string|null;
+    to:number;
+    total:number
+    links:{
+        url:string|null;
+        label:string;
+        active:boolean;
+    }[]
+}
+
+
+export interface PaginatedProject extends Pagination{
+    data:Project[];
+}
+
 export type  ProjectStatusType = 
     "Done"|
     "Ongoing"|

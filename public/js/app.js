@@ -2269,6 +2269,44 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/Components/ActionTooltip.tsx":
+/*!***************************************************!*\
+  !*** ./resources/js/Components/ActionTooltip.tsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ui_tooltip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui/tooltip */ "./resources/js/Components/ui/tooltip.tsx");
+
+
+var ActionTooltip = function ActionTooltip(_ref) {
+  var label = _ref.label,
+    children = _ref.children,
+    side = _ref.side,
+    align = _ref.align;
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_tooltip__WEBPACK_IMPORTED_MODULE_1__.TooltipProvider, {
+    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_tooltip__WEBPACK_IMPORTED_MODULE_1__.Tooltip, {
+      delayDuration: 50,
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_tooltip__WEBPACK_IMPORTED_MODULE_1__.TooltipTrigger, {
+        asChild: true,
+        children: children
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_tooltip__WEBPACK_IMPORTED_MODULE_1__.TooltipContent, {
+        side: side,
+        align: align,
+        children: label
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ActionTooltip);
+
+/***/ }),
+
 /***/ "./resources/js/Components/Modals/DeleteProjectModal.tsx":
 /*!***************************************************************!*\
   !*** ./resources/js/Components/Modals/DeleteProjectModal.tsx ***!
@@ -2732,6 +2770,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ProjectStatus: () => (/* binding */ ProjectStatus)
 /* harmony export */ });
 var ProjectStatus = ["Done", "Ongoing", "On-hold", "Cancelled", "Not Started", "Planning"];
+
+/***/ }),
+
+/***/ "./resources/js/Components/Project/ProjectHeader.tsx":
+/*!***********************************************************!*\
+  !*** ./resources/js/Components/Project/ProjectHeader.tsx ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ui_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ui/button */ "./resources/js/Components/ui/button.tsx");
+/* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utils */ "./resources/js/lib/utils.ts");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevrons-up-down.js");
+var __rest = undefined && undefined.__rest || function (s, e) {
+  var t = {};
+  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
+};
+
+
+
+
+
+var ProjectHeader = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(function (_a, ref) {
+  var children = _a.children,
+    className = _a.className,
+    props = __rest(_a, ["children", "className"]);
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_button__WEBPACK_IMPORTED_MODULE_2__.Button, Object.assign({
+    className: (0,_lib_utils__WEBPACK_IMPORTED_MODULE_3__.cn)('group whitespace-nowrap', className),
+    variant: 'ghost'
+  }, props, {
+    size: 'sm',
+    children: [children, (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: 'opacity-30 group-hover:opacity-100 transition ml-1.5 h-4 w-4'
+    })]
+  }));
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProjectHeader);
 
 /***/ }),
 
@@ -4113,6 +4198,55 @@ Textarea.displayName = "Textarea";
 
 /***/ }),
 
+/***/ "./resources/js/Components/ui/tooltip.tsx":
+/*!************************************************!*\
+  !*** ./resources/js/Components/ui/tooltip.tsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Tooltip: () => (/* binding */ Tooltip),
+/* harmony export */   TooltipContent: () => (/* binding */ TooltipContent),
+/* harmony export */   TooltipProvider: () => (/* binding */ TooltipProvider),
+/* harmony export */   TooltipTrigger: () => (/* binding */ TooltipTrigger)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _radix_ui_react_tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @radix-ui/react-tooltip */ "./node_modules/@radix-ui/react-tooltip/dist/index.mjs");
+/* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/utils */ "./resources/js/lib/utils.ts");
+var __rest = undefined && undefined.__rest || function (s, e) {
+  var t = {};
+  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
+};
+
+
+
+
+var TooltipProvider = _radix_ui_react_tooltip__WEBPACK_IMPORTED_MODULE_3__.Provider;
+var Tooltip = _radix_ui_react_tooltip__WEBPACK_IMPORTED_MODULE_3__.Root;
+var TooltipTrigger = _radix_ui_react_tooltip__WEBPACK_IMPORTED_MODULE_3__.Trigger;
+var TooltipContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(function (_a, ref) {
+  var className = _a.className,
+    _a$sideOffset = _a.sideOffset,
+    sideOffset = _a$sideOffset === void 0 ? 4 : _a$sideOffset,
+    props = __rest(_a, ["className", "sideOffset"]);
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_radix_ui_react_tooltip__WEBPACK_IMPORTED_MODULE_3__.Content, Object.assign({
+    ref: ref,
+    sideOffset: sideOffset,
+    className: (0,_lib_utils__WEBPACK_IMPORTED_MODULE_2__.cn)("z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className)
+  }, props));
+});
+TooltipContent.displayName = _radix_ui_react_tooltip__WEBPACK_IMPORTED_MODULE_3__.Content.displayName;
+
+
+/***/ }),
+
 /***/ "./resources/js/Hooks/useProjectModal.ts":
 /*!***********************************************!*\
   !*** ./resources/js/Hooks/useProjectModal.ts ***!
@@ -4163,8 +4297,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_SidebarItems__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/SidebarItems */ "./resources/js/Components/SidebarItems.ts");
 /* harmony import */ var _Components_ui_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/ui/button */ "./resources/js/Components/ui/button.tsx");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/log-out.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/log-out.js");
 /* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/utils */ "./resources/js/lib/utils.ts");
+/* harmony import */ var _Components_ui_separator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Components/ui/separator */ "./resources/js/Components/ui/separator.tsx");
+
 
 
 
@@ -4190,10 +4326,16 @@ var Layout = function Layout(_ref) {
         children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "px-1.5 md:px-3 py-2 flex flex-col justify-between h-full",
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", {
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h2", {
               className: "hidden md:block mb-2 px-4 text-lg font-semibold tracking-tight",
-              children: "Welcome to CMS"
-            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+                className: 'text-center',
+                children: " Welcome to"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+                className: 'text-center',
+                children: "CMS"
+              })]
+            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_separator__WEBPACK_IMPORTED_MODULE_6__.Separator, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
               className: "flex flex-col items-center justify-center space-y-1.5",
               children: _Components_SidebarItems__WEBPACK_IMPORTED_MODULE_2__.SideBarItems.map(function (_ref2) {
                 var Icon = _ref2.icon,
@@ -4219,7 +4361,7 @@ var Layout = function Layout(_ref) {
             onClick: onLogout,
             variant: 'ghost',
             className: "p-0 md:p-2 w-full flex justify-center md:justify-start  items-center",
-            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
               className: 'h-7 md:h-4 w-7 md:w-4 mr-0 md:mr-2'
             }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
               className: 'hidden md:inline',
@@ -4477,14 +4619,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var _Layout_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layout/Layout */ "./resources/js/Layout/Layout.tsx");
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-var Pictures = function Pictures() {
+
+
+var Pictures = function Pictures(_ref) {
+  var projects = _ref.projects,
+    selected_project = _ref.selected_project;
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.useForm)(),
+    get = _useForm.get;
+  var onSelect = function onSelect(projectId) {};
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    open = _useState2[0],
+    setOpen = _useState2[1];
   return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
     label: 'Pictures',
-    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-      className: 'h-full',
-      children: "Pictures"
+    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: 'h-full flex flex-col space-y-2.5 overflow-y-hidden',
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: 'overflow-hidden flex flex-col md:flex-row space-y-1 md:space-y-0 md:justify-start md:items-center'
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: 'flex-1 overflow-auto flex relative'
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: 'h-auto'
+      })]
     })
   });
 };
@@ -4506,11 +4673,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var _Components_ui_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/ui/button */ "./resources/js/Components/ui/button.tsx");
 /* harmony import */ var _Layout_Layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Layout/Layout */ "./resources/js/Layout/Layout.tsx");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus-circle.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/download.js");
-/* harmony import */ var _Components_ui_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/ui/table */ "./resources/js/Components/ui/table.tsx");
-/* harmony import */ var _Hooks_useProjectModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Hooks/useProjectModal */ "./resources/js/Hooks/useProjectModal.ts");
-/* harmony import */ var _Components_Project_ProjectItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Components/Project/ProjectItem */ "./resources/js/Components/Project/ProjectItem.tsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/download.js");
+/* harmony import */ var _Components_ui_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/ui/table */ "./resources/js/Components/ui/table.tsx");
+/* harmony import */ var _Hooks_useProjectModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Hooks/useProjectModal */ "./resources/js/Hooks/useProjectModal.ts");
+/* harmony import */ var _Components_Project_ProjectItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Components/Project/ProjectItem */ "./resources/js/Components/Project/ProjectItem.tsx");
+/* harmony import */ var _Components_ui_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Components/ui/select */ "./resources/js/Components/ui/select.tsx");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevrons-left.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevrons-right.js");
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var _Components_ui_input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Components/ui/input */ "./resources/js/Components/ui/input.tsx");
+/* harmony import */ var _Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/Components/Project/ProjectHeader */ "./resources/js/Components/Project/ProjectHeader.tsx");
+/* harmony import */ var _Components_ActionTooltip__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/Components/ActionTooltip */ "./resources/js/Components/ActionTooltip.tsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
 
 
 
@@ -4519,9 +4709,57 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Projects = function Projects(_ref) {
-  var projects = _ref.projects;
-  var _useProjectModal = (0,_Hooks_useProjectModal__WEBPACK_IMPORTED_MODULE_4__.useProjectModal)(),
+  var projects = _ref.projects,
+    per_page = _ref.per_page,
+    sort = _ref.sort,
+    order = _ref.order,
+    name_filter = _ref.name_filter;
+  var _useProjectModal = (0,_Hooks_useProjectModal__WEBPACK_IMPORTED_MODULE_5__.useProjectModal)(),
     onOpen = _useProjectModal.onOpen;
+  var input = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(name_filter || ""),
+    _useState2 = _slicedToArray(_useState, 2),
+    filter = _useState2[0],
+    setFilter = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(per_page || "10"),
+    _useState4 = _slicedToArray(_useState3, 2),
+    perPage = _useState4[0],
+    setPerPage = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)({
+      field: sort,
+      order: order
+    }),
+    _useState6 = _slicedToArray(_useState5, 2),
+    sortBy = _useState6[0],
+    setSortBy = _useState6[1];
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_8__.useForm)(),
+    get = _useForm.get;
+  var onSubmit = function onSubmit(e) {
+    e.preventDefault();
+    handleFilter();
+  };
+  var handleFilter = function handleFilter(newPerPage, sort) {
+    var newOrder = sortBy.order;
+    if (newPerPage) {
+      setPerPage(perPage);
+    }
+    if (sort) {
+      newOrder = sortBy.order !== 'asc' ? 'asc' : 'desc';
+      setSortBy({
+        field: sort,
+        order: newOrder
+      });
+    }
+    get(route('projects.index', {
+      filter: filter,
+      perPage: newPerPage ? newPerPage : perPage,
+      sort: sort ? sort : sortBy.field,
+      order: sort ? newOrder : sortBy.order
+    }), {
+      preserveScroll: true,
+      preserveState: sort ? true : false
+    });
+  };
   return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Layout_Layout__WEBPACK_IMPORTED_MODULE_2__["default"], {
     label: 'Projects',
     children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -4535,78 +4773,251 @@ var Projects = function Projects(_ref) {
           size: 'sm',
           variant: 'outline',
           className: 'flex text-base justify-center md:justify-start items-center',
-          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
             className: 'mr-2 h-5 w-5'
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
             children: "New Project"
           })]
-        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-          size: 'sm',
-          variant: 'secondary',
-          className: 'flex text-base justify-center md:justify-start items-center',
-          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            className: 'mr-2 h-5 w-5'
-          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-            children: "Download Report"
-          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ActionTooltip__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          label: 'Reporting Work in Progress...',
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+            size: 'sm',
+            variant: 'secondary',
+            className: 'flex text-base justify-center md:justify-start items-center',
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              className: 'mr-2 h-5 w-5'
+            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              children: "Download Report"
+            })]
+          })
         })]
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: 'max-w-[100vw] flex-1 overflow-auto flex',
-        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.Table, {
-          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHeader, {
-            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableRow, {
-              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
+        className: 'max-w-[150vw] flex-1 overflow-auto flex relative',
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.Table, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHeader, {
+            className: 'sticky top-0 z-50 bg-background',
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableRow, {
+              className: 'z-50 ring-1 ring-secondary',
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
                 colSpan: 4
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
                 colSpan: 2,
                 className: 'text-center text-base',
                 children: "Quotation"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                colSpan: 7
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                colSpan: 8
               })]
-            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableRow, {
-              className: 'text-sm',
-              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Name"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Description"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Location"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Manpower"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "In-House"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "3rd Party"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Date Started"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Target Date"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Status"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Completion Date"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Remarks"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Create Date"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Update Date"
-              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableHead, {
-                children: "Actions"
+            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableRow, {
+              className: '-mt-0.5 z-50 text-sm',
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'name');
+                  },
+                  children: "Name"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'description');
+                  },
+                  children: "Description"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'location');
+                  },
+                  children: "Location"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'manpower');
+                  },
+                  children: "Manpower"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'in_house');
+                  },
+                  children: "In-House"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'third_party');
+                  },
+                  children: "3rd Party"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'date_started');
+                  },
+                  children: "Date started"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'target_date');
+                  },
+                  children: "Targe Date"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'status');
+                  },
+                  children: "Status"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'completion_date');
+                  },
+                  children: "Completion Date"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'remarks');
+                  },
+                  children: "Remarks"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'created_at');
+                  },
+                  children: "Create Date"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'updated_at');
+                  },
+                  children: "Update Date"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableHead, {
+                children: " Actions "
               })]
             })]
-          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_3__.TableBody, {
-            children: projects.map(function (project) {
-              return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_4__.TableBody, {
+            className: 'z-40',
+            children: projects.data.map(function (project) {
+              return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
                 project: project
               }, project.id);
             })
           })]
         })
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: 'h-12',
-        children: "Projects"
+        className: 'h-auto',
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "flex flex-col space-y-1 md:space-y-0 md:flex-row items-center md:justify-between p-2",
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
+            className: 'w-full md:w-auto',
+            onSubmit: onSubmit,
+            children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_input__WEBPACK_IMPORTED_MODULE_9__.Input, {
+              className: 'w-full md:w-auto',
+              value: filter,
+              onChange: function onChange(_ref2) {
+                var target = _ref2.target;
+                return setFilter(target.value);
+              },
+              ref: input,
+              placeholder: 'Search Project Name....'
+            })
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "flex items-center space-x-6 lg:space-x-8",
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "flex items-center space-x-2",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+                className: "text-sm font-medium",
+                children: "Rows per page"
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_select__WEBPACK_IMPORTED_MODULE_7__.Select, {
+                value: perPage.toString(),
+                onValueChange: function onValueChange(val) {
+                  handleFilter(val);
+                },
+                children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_select__WEBPACK_IMPORTED_MODULE_7__.SelectTrigger, {
+                  className: "h-8 w-[4.375rem]",
+                  children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_select__WEBPACK_IMPORTED_MODULE_7__.SelectValue, {
+                    placeholder: 'Select...'
+                  })
+                }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_select__WEBPACK_IMPORTED_MODULE_7__.SelectContent, {
+                  side: "top",
+                  children: [10, 20, 30, 40, 50, 100].map(function (pageSize) {
+                    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_select__WEBPACK_IMPORTED_MODULE_7__.SelectItem, {
+                      value: "".concat(pageSize),
+                      children: pageSize
+                    }, pageSize);
+                  })
+                })]
+              })]
+            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "flex w-[100px] items-center justify-center text-sm font-medium",
+              children: ["Page\xA0", projects.current_page.toString(), "\xA0of\xA0", projects.last_page]
+            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "flex items-center space-x-2",
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                variant: "outline",
+                className: "hidden h-8 w-8 p-0 lg:flex",
+                onClick: function onClick() {
+                  return get(projects.first_page_url);
+                },
+                disabled: projects.current_page === 1,
+                children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "sr-only",
+                  children: "Go to first page"
+                }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  className: "h-4 w-4"
+                })]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                variant: "outline",
+                className: "h-8 w-8 p-0",
+                onClick: function onClick() {
+                  return projects.prev_page_url && get(projects.prev_page_url);
+                },
+                disabled: !(projects === null || projects === void 0 ? void 0 : projects.prev_page_url),
+                children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "sr-only",
+                  children: "Go to previous page"
+                }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  className: "h-4 w-4"
+                })]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                variant: "outline",
+                className: "h-8 w-8 p-0",
+                onClick: function onClick() {
+                  return projects.next_page_url && get(projects.next_page_url);
+                },
+                disabled: !(projects === null || projects === void 0 ? void 0 : projects.next_page_url),
+                children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "sr-only",
+                  children: "Go to next page"
+                }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_16__["default"], {
+                  className: "h-4 w-4"
+                })]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                variant: "outline",
+                className: "hidden h-8 w-8 p-0 lg:flex",
+                onClick: function onClick() {
+                  return get(projects.last_page_url);
+                },
+                disabled: projects.current_page === projects.last_page,
+                children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "sr-only",
+                  children: "Go to last page"
+                }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                  className: "h-4 w-4"
+                })]
+              })]
+            })]
+          })]
+        })
       })]
     })
   });
@@ -27873,6 +28284,34 @@ const ChevronDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defaul
 
 /***/ }),
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-left.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-left.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChevronLeft)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const ChevronLeft = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("ChevronLeft", [
+  ["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]
+]);
+
+
+//# sourceMappingURL=chevron-left.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/chevron-right.js ***!
@@ -27897,6 +28336,93 @@ const ChevronRight = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defau
 
 
 //# sourceMappingURL=chevron-right.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevrons-left.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevrons-left.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChevronsLeft)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const ChevronsLeft = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("ChevronsLeft", [
+  ["path", { d: "m11 17-5-5 5-5", key: "13zhaf" }],
+  ["path", { d: "m18 17-5-5 5-5", key: "h8a8et" }]
+]);
+
+
+//# sourceMappingURL=chevrons-left.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevrons-right.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevrons-right.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChevronsRight)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const ChevronsRight = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("ChevronsRight", [
+  ["path", { d: "m6 17 5-5-5-5", key: "xnjwq" }],
+  ["path", { d: "m13 17 5-5-5-5", key: "17xmmf" }]
+]);
+
+
+//# sourceMappingURL=chevrons-right.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevrons-up-down.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevrons-up-down.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChevronsUpDown)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const ChevronsUpDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("ChevronsUpDown", [
+  ["path", { d: "m7 15 5 5 5-5", key: "1hf1tw" }],
+  ["path", { d: "m7 9 5-5 5 5", key: "sgt6xg" }]
+]);
+
+
+//# sourceMappingURL=chevrons-up-down.js.map
 
 
 /***/ }),
@@ -71655,6 +72181,624 @@ function $5e63c961fc1ce211$var$mergeProps(slotProps, childProps) {
     };
 }
 const $5e63c961fc1ce211$export$be92b6f5f03c0fe9 = $5e63c961fc1ce211$export$8c6ed5c666ac1360;
+
+
+
+
+
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@radix-ui/react-tooltip/dist/index.mjs":
+/*!*************************************************************!*\
+  !*** ./node_modules/@radix-ui/react-tooltip/dist/index.mjs ***!
+  \*************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Arrow: () => (/* binding */ $a093c7e1ec25a057$export$21b07c8f274aebd5),
+/* harmony export */   Content: () => (/* binding */ $a093c7e1ec25a057$export$7c6e2c02157bb7d2),
+/* harmony export */   Portal: () => (/* binding */ $a093c7e1ec25a057$export$602eac185826482c),
+/* harmony export */   Provider: () => (/* binding */ $a093c7e1ec25a057$export$2881499e37b75b9a),
+/* harmony export */   Root: () => (/* binding */ $a093c7e1ec25a057$export$be92b6f5f03c0fe9),
+/* harmony export */   Tooltip: () => (/* binding */ $a093c7e1ec25a057$export$28c660c63b792dea),
+/* harmony export */   TooltipArrow: () => (/* binding */ $a093c7e1ec25a057$export$c27ee0ad710f7559),
+/* harmony export */   TooltipContent: () => (/* binding */ $a093c7e1ec25a057$export$e9003e2be37ec060),
+/* harmony export */   TooltipPortal: () => (/* binding */ $a093c7e1ec25a057$export$7b36b8f925ab7497),
+/* harmony export */   TooltipProvider: () => (/* binding */ $a093c7e1ec25a057$export$f78649fb9ca566b8),
+/* harmony export */   TooltipTrigger: () => (/* binding */ $a093c7e1ec25a057$export$8c610744efcf8a1d),
+/* harmony export */   Trigger: () => (/* binding */ $a093c7e1ec25a057$export$41fb9f06171c75f4),
+/* harmony export */   createTooltipScope: () => (/* binding */ $a093c7e1ec25a057$export$1c540a2224f0d865)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _radix_ui_primitive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @radix-ui/primitive */ "./node_modules/@radix-ui/primitive/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_compose_refs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @radix-ui/react-compose-refs */ "./node_modules/@radix-ui/react-compose-refs/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @radix-ui/react-context */ "./node_modules/@radix-ui/react-context/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_dismissable_layer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @radix-ui/react-dismissable-layer */ "./node_modules/@radix-ui/react-dismissable-layer/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_id__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @radix-ui/react-id */ "./node_modules/@radix-ui/react-id/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_popper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @radix-ui/react-popper */ "./node_modules/@radix-ui/react-popper/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_portal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @radix-ui/react-portal */ "./node_modules/@radix-ui/react-portal/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_presence__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @radix-ui/react-presence */ "./node_modules/@radix-ui/react-presence/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_primitive__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @radix-ui/react-primitive */ "./node_modules/@radix-ui/react-primitive/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_slot__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @radix-ui/react-slot */ "./node_modules/@radix-ui/react-slot/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_use_controllable_state__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @radix-ui/react-use-controllable-state */ "./node_modules/@radix-ui/react-use-controllable-state/dist/index.mjs");
+/* harmony import */ var _radix_ui_react_visually_hidden__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @radix-ui/react-visually-hidden */ "./node_modules/@radix-ui/react-visually-hidden/dist/index.mjs");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const [$a093c7e1ec25a057$var$createTooltipContext, $a093c7e1ec25a057$export$1c540a2224f0d865] = (0,_radix_ui_react_context__WEBPACK_IMPORTED_MODULE_2__.createContextScope)('Tooltip', [
+    _radix_ui_react_popper__WEBPACK_IMPORTED_MODULE_3__.createPopperScope
+]);
+const $a093c7e1ec25a057$var$usePopperScope = (0,_radix_ui_react_popper__WEBPACK_IMPORTED_MODULE_3__.createPopperScope)();
+/* -------------------------------------------------------------------------------------------------
+ * TooltipProvider
+ * -----------------------------------------------------------------------------------------------*/ const $a093c7e1ec25a057$var$PROVIDER_NAME = 'TooltipProvider';
+const $a093c7e1ec25a057$var$DEFAULT_DELAY_DURATION = 700;
+const $a093c7e1ec25a057$var$TOOLTIP_OPEN = 'tooltip.open';
+const [$a093c7e1ec25a057$var$TooltipProviderContextProvider, $a093c7e1ec25a057$var$useTooltipProviderContext] = $a093c7e1ec25a057$var$createTooltipContext($a093c7e1ec25a057$var$PROVIDER_NAME);
+const $a093c7e1ec25a057$export$f78649fb9ca566b8 = (props)=>{
+    const { __scopeTooltip: __scopeTooltip , delayDuration: delayDuration = $a093c7e1ec25a057$var$DEFAULT_DELAY_DURATION , skipDelayDuration: skipDelayDuration = 300 , disableHoverableContent: disableHoverableContent = false , children: children  } = props;
+    const [isOpenDelayed, setIsOpenDelayed] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true);
+    const isPointerInTransitRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
+    const skipDelayTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(0);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        const skipDelayTimer = skipDelayTimerRef.current;
+        return ()=>window.clearTimeout(skipDelayTimer)
+        ;
+    }, []);
+    return /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)($a093c7e1ec25a057$var$TooltipProviderContextProvider, {
+        scope: __scopeTooltip,
+        isOpenDelayed: isOpenDelayed,
+        delayDuration: delayDuration,
+        onOpen: (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+            window.clearTimeout(skipDelayTimerRef.current);
+            setIsOpenDelayed(false);
+        }, []),
+        onClose: (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+            window.clearTimeout(skipDelayTimerRef.current);
+            skipDelayTimerRef.current = window.setTimeout(()=>setIsOpenDelayed(true)
+            , skipDelayDuration);
+        }, [
+            skipDelayDuration
+        ]),
+        isPointerInTransitRef: isPointerInTransitRef,
+        onPointerInTransitChange: (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((inTransit)=>{
+            isPointerInTransitRef.current = inTransit;
+        }, []),
+        disableHoverableContent: disableHoverableContent
+    }, children);
+};
+/*#__PURE__*/ Object.assign($a093c7e1ec25a057$export$f78649fb9ca566b8, {
+    displayName: $a093c7e1ec25a057$var$PROVIDER_NAME
+});
+/* -------------------------------------------------------------------------------------------------
+ * Tooltip
+ * -----------------------------------------------------------------------------------------------*/ const $a093c7e1ec25a057$var$TOOLTIP_NAME = 'Tooltip';
+const [$a093c7e1ec25a057$var$TooltipContextProvider, $a093c7e1ec25a057$var$useTooltipContext] = $a093c7e1ec25a057$var$createTooltipContext($a093c7e1ec25a057$var$TOOLTIP_NAME);
+const $a093c7e1ec25a057$export$28c660c63b792dea = (props)=>{
+    const { __scopeTooltip: __scopeTooltip , children: children , open: openProp , defaultOpen: defaultOpen = false , onOpenChange: onOpenChange , disableHoverableContent: disableHoverableContentProp , delayDuration: delayDurationProp  } = props;
+    const providerContext = $a093c7e1ec25a057$var$useTooltipProviderContext($a093c7e1ec25a057$var$TOOLTIP_NAME, props.__scopeTooltip);
+    const popperScope = $a093c7e1ec25a057$var$usePopperScope(__scopeTooltip);
+    const [trigger, setTrigger] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const contentId = (0,_radix_ui_react_id__WEBPACK_IMPORTED_MODULE_4__.useId)();
+    const openTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(0);
+    const disableHoverableContent = disableHoverableContentProp !== null && disableHoverableContentProp !== void 0 ? disableHoverableContentProp : providerContext.disableHoverableContent;
+    const delayDuration = delayDurationProp !== null && delayDurationProp !== void 0 ? delayDurationProp : providerContext.delayDuration;
+    const wasOpenDelayedRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
+    const [open1 = false, setOpen] = (0,_radix_ui_react_use_controllable_state__WEBPACK_IMPORTED_MODULE_5__.useControllableState)({
+        prop: openProp,
+        defaultProp: defaultOpen,
+        onChange: (open)=>{
+            if (open) {
+                providerContext.onOpen(); // as `onChange` is called within a lifecycle method we
+                // avoid dispatching via `dispatchDiscreteCustomEvent`.
+                document.dispatchEvent(new CustomEvent($a093c7e1ec25a057$var$TOOLTIP_OPEN));
+            } else providerContext.onClose();
+            onOpenChange === null || onOpenChange === void 0 || onOpenChange(open);
+        }
+    });
+    const stateAttribute = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(()=>{
+        return open1 ? wasOpenDelayedRef.current ? 'delayed-open' : 'instant-open' : 'closed';
+    }, [
+        open1
+    ]);
+    const handleOpen = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+        window.clearTimeout(openTimerRef.current);
+        wasOpenDelayedRef.current = false;
+        setOpen(true);
+    }, [
+        setOpen
+    ]);
+    const handleClose = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+        window.clearTimeout(openTimerRef.current);
+        setOpen(false);
+    }, [
+        setOpen
+    ]);
+    const handleDelayedOpen = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+        window.clearTimeout(openTimerRef.current);
+        openTimerRef.current = window.setTimeout(()=>{
+            wasOpenDelayedRef.current = true;
+            setOpen(true);
+        }, delayDuration);
+    }, [
+        delayDuration,
+        setOpen
+    ]);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        return ()=>window.clearTimeout(openTimerRef.current)
+        ;
+    }, []);
+    return /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_popper__WEBPACK_IMPORTED_MODULE_3__.Root, popperScope, /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)($a093c7e1ec25a057$var$TooltipContextProvider, {
+        scope: __scopeTooltip,
+        contentId: contentId,
+        open: open1,
+        stateAttribute: stateAttribute,
+        trigger: trigger,
+        onTriggerChange: setTrigger,
+        onTriggerEnter: (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+            if (providerContext.isOpenDelayed) handleDelayedOpen();
+            else handleOpen();
+        }, [
+            providerContext.isOpenDelayed,
+            handleDelayedOpen,
+            handleOpen
+        ]),
+        onTriggerLeave: (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+            if (disableHoverableContent) handleClose();
+            else // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
+            window.clearTimeout(openTimerRef.current);
+        }, [
+            handleClose,
+            disableHoverableContent
+        ]),
+        onOpen: handleOpen,
+        onClose: handleClose,
+        disableHoverableContent: disableHoverableContent
+    }, children));
+};
+/*#__PURE__*/ Object.assign($a093c7e1ec25a057$export$28c660c63b792dea, {
+    displayName: $a093c7e1ec25a057$var$TOOLTIP_NAME
+});
+/* -------------------------------------------------------------------------------------------------
+ * TooltipTrigger
+ * -----------------------------------------------------------------------------------------------*/ const $a093c7e1ec25a057$var$TRIGGER_NAME = 'TooltipTrigger';
+const $a093c7e1ec25a057$export$8c610744efcf8a1d = /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, forwardedRef)=>{
+    const { __scopeTooltip: __scopeTooltip , ...triggerProps } = props;
+    const context = $a093c7e1ec25a057$var$useTooltipContext($a093c7e1ec25a057$var$TRIGGER_NAME, __scopeTooltip);
+    const providerContext = $a093c7e1ec25a057$var$useTooltipProviderContext($a093c7e1ec25a057$var$TRIGGER_NAME, __scopeTooltip);
+    const popperScope = $a093c7e1ec25a057$var$usePopperScope(__scopeTooltip);
+    const ref = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const composedRefs = (0,_radix_ui_react_compose_refs__WEBPACK_IMPORTED_MODULE_6__.useComposedRefs)(forwardedRef, ref, context.onTriggerChange);
+    const isPointerDownRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
+    const hasPointerMoveOpenedRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
+    const handlePointerUp = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>isPointerDownRef.current = false
+    , []);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        return ()=>document.removeEventListener('pointerup', handlePointerUp)
+        ;
+    }, [
+        handlePointerUp
+    ]);
+    return /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_popper__WEBPACK_IMPORTED_MODULE_3__.Anchor, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        asChild: true
+    }, popperScope), /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_primitive__WEBPACK_IMPORTED_MODULE_7__.Primitive.button, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        // We purposefully avoid adding `type=button` here because tooltip triggers are also
+        // commonly anchors and the anchor `type` attribute signifies MIME type.
+        "aria-describedby": context.open ? context.contentId : undefined,
+        "data-state": context.stateAttribute
+    }, triggerProps, {
+        ref: composedRefs,
+        onPointerMove: (0,_radix_ui_primitive__WEBPACK_IMPORTED_MODULE_8__.composeEventHandlers)(props.onPointerMove, (event)=>{
+            if (event.pointerType === 'touch') return;
+            if (!hasPointerMoveOpenedRef.current && !providerContext.isPointerInTransitRef.current) {
+                context.onTriggerEnter();
+                hasPointerMoveOpenedRef.current = true;
+            }
+        }),
+        onPointerLeave: (0,_radix_ui_primitive__WEBPACK_IMPORTED_MODULE_8__.composeEventHandlers)(props.onPointerLeave, ()=>{
+            context.onTriggerLeave();
+            hasPointerMoveOpenedRef.current = false;
+        }),
+        onPointerDown: (0,_radix_ui_primitive__WEBPACK_IMPORTED_MODULE_8__.composeEventHandlers)(props.onPointerDown, ()=>{
+            isPointerDownRef.current = true;
+            document.addEventListener('pointerup', handlePointerUp, {
+                once: true
+            });
+        }),
+        onFocus: (0,_radix_ui_primitive__WEBPACK_IMPORTED_MODULE_8__.composeEventHandlers)(props.onFocus, ()=>{
+            if (!isPointerDownRef.current) context.onOpen();
+        }),
+        onBlur: (0,_radix_ui_primitive__WEBPACK_IMPORTED_MODULE_8__.composeEventHandlers)(props.onBlur, context.onClose),
+        onClick: (0,_radix_ui_primitive__WEBPACK_IMPORTED_MODULE_8__.composeEventHandlers)(props.onClick, context.onClose)
+    })));
+});
+/*#__PURE__*/ Object.assign($a093c7e1ec25a057$export$8c610744efcf8a1d, {
+    displayName: $a093c7e1ec25a057$var$TRIGGER_NAME
+});
+/* -------------------------------------------------------------------------------------------------
+ * TooltipPortal
+ * -----------------------------------------------------------------------------------------------*/ const $a093c7e1ec25a057$var$PORTAL_NAME = 'TooltipPortal';
+const [$a093c7e1ec25a057$var$PortalProvider, $a093c7e1ec25a057$var$usePortalContext] = $a093c7e1ec25a057$var$createTooltipContext($a093c7e1ec25a057$var$PORTAL_NAME, {
+    forceMount: undefined
+});
+const $a093c7e1ec25a057$export$7b36b8f925ab7497 = (props)=>{
+    const { __scopeTooltip: __scopeTooltip , forceMount: forceMount , children: children , container: container  } = props;
+    const context = $a093c7e1ec25a057$var$useTooltipContext($a093c7e1ec25a057$var$PORTAL_NAME, __scopeTooltip);
+    return /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)($a093c7e1ec25a057$var$PortalProvider, {
+        scope: __scopeTooltip,
+        forceMount: forceMount
+    }, /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_presence__WEBPACK_IMPORTED_MODULE_9__.Presence, {
+        present: forceMount || context.open
+    }, /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_portal__WEBPACK_IMPORTED_MODULE_10__.Portal, {
+        asChild: true,
+        container: container
+    }, children)));
+};
+/*#__PURE__*/ Object.assign($a093c7e1ec25a057$export$7b36b8f925ab7497, {
+    displayName: $a093c7e1ec25a057$var$PORTAL_NAME
+});
+/* -------------------------------------------------------------------------------------------------
+ * TooltipContent
+ * -----------------------------------------------------------------------------------------------*/ const $a093c7e1ec25a057$var$CONTENT_NAME = 'TooltipContent';
+const $a093c7e1ec25a057$export$e9003e2be37ec060 = /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, forwardedRef)=>{
+    const portalContext = $a093c7e1ec25a057$var$usePortalContext($a093c7e1ec25a057$var$CONTENT_NAME, props.__scopeTooltip);
+    const { forceMount: forceMount = portalContext.forceMount , side: side = 'top' , ...contentProps } = props;
+    const context = $a093c7e1ec25a057$var$useTooltipContext($a093c7e1ec25a057$var$CONTENT_NAME, props.__scopeTooltip);
+    return /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_presence__WEBPACK_IMPORTED_MODULE_9__.Presence, {
+        present: forceMount || context.open
+    }, context.disableHoverableContent ? /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)($a093c7e1ec25a057$var$TooltipContentImpl, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        side: side
+    }, contentProps, {
+        ref: forwardedRef
+    })) : /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)($a093c7e1ec25a057$var$TooltipContentHoverable, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        side: side
+    }, contentProps, {
+        ref: forwardedRef
+    })));
+});
+const $a093c7e1ec25a057$var$TooltipContentHoverable = /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, forwardedRef)=>{
+    const context = $a093c7e1ec25a057$var$useTooltipContext($a093c7e1ec25a057$var$CONTENT_NAME, props.__scopeTooltip);
+    const providerContext = $a093c7e1ec25a057$var$useTooltipProviderContext($a093c7e1ec25a057$var$CONTENT_NAME, props.__scopeTooltip);
+    const ref = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const composedRefs = (0,_radix_ui_react_compose_refs__WEBPACK_IMPORTED_MODULE_6__.useComposedRefs)(forwardedRef, ref);
+    const [pointerGraceArea, setPointerGraceArea] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const { trigger: trigger , onClose: onClose  } = context;
+    const content = ref.current;
+    const { onPointerInTransitChange: onPointerInTransitChange  } = providerContext;
+    const handleRemoveGraceArea = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{
+        setPointerGraceArea(null);
+        onPointerInTransitChange(false);
+    }, [
+        onPointerInTransitChange
+    ]);
+    const handleCreateGraceArea = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event, hoverTarget)=>{
+        const currentTarget = event.currentTarget;
+        const exitPoint = {
+            x: event.clientX,
+            y: event.clientY
+        };
+        const exitSide = $a093c7e1ec25a057$var$getExitSideFromRect(exitPoint, currentTarget.getBoundingClientRect());
+        const paddedExitPoints = $a093c7e1ec25a057$var$getPaddedExitPoints(exitPoint, exitSide);
+        const hoverTargetPoints = $a093c7e1ec25a057$var$getPointsFromRect(hoverTarget.getBoundingClientRect());
+        const graceArea = $a093c7e1ec25a057$var$getHull([
+            ...paddedExitPoints,
+            ...hoverTargetPoints
+        ]);
+        setPointerGraceArea(graceArea);
+        onPointerInTransitChange(true);
+    }, [
+        onPointerInTransitChange
+    ]);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        return ()=>handleRemoveGraceArea()
+        ;
+    }, [
+        handleRemoveGraceArea
+    ]);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        if (trigger && content) {
+            const handleTriggerLeave = (event)=>handleCreateGraceArea(event, content)
+            ;
+            const handleContentLeave = (event)=>handleCreateGraceArea(event, trigger)
+            ;
+            trigger.addEventListener('pointerleave', handleTriggerLeave);
+            content.addEventListener('pointerleave', handleContentLeave);
+            return ()=>{
+                trigger.removeEventListener('pointerleave', handleTriggerLeave);
+                content.removeEventListener('pointerleave', handleContentLeave);
+            };
+        }
+    }, [
+        trigger,
+        content,
+        handleCreateGraceArea,
+        handleRemoveGraceArea
+    ]);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        if (pointerGraceArea) {
+            const handleTrackPointerGrace = (event)=>{
+                const target = event.target;
+                const pointerPosition = {
+                    x: event.clientX,
+                    y: event.clientY
+                };
+                const hasEnteredTarget = (trigger === null || trigger === void 0 ? void 0 : trigger.contains(target)) || (content === null || content === void 0 ? void 0 : content.contains(target));
+                const isPointerOutsideGraceArea = !$a093c7e1ec25a057$var$isPointInPolygon(pointerPosition, pointerGraceArea);
+                if (hasEnteredTarget) handleRemoveGraceArea();
+                else if (isPointerOutsideGraceArea) {
+                    handleRemoveGraceArea();
+                    onClose();
+                }
+            };
+            document.addEventListener('pointermove', handleTrackPointerGrace);
+            return ()=>document.removeEventListener('pointermove', handleTrackPointerGrace)
+            ;
+        }
+    }, [
+        trigger,
+        content,
+        pointerGraceArea,
+        onClose,
+        handleRemoveGraceArea
+    ]);
+    return /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)($a093c7e1ec25a057$var$TooltipContentImpl, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+        ref: composedRefs
+    }));
+});
+const [$a093c7e1ec25a057$var$VisuallyHiddenContentContextProvider, $a093c7e1ec25a057$var$useVisuallyHiddenContentContext] = $a093c7e1ec25a057$var$createTooltipContext($a093c7e1ec25a057$var$TOOLTIP_NAME, {
+    isInside: false
+});
+const $a093c7e1ec25a057$var$TooltipContentImpl = /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, forwardedRef)=>{
+    const { __scopeTooltip: __scopeTooltip , children: children , 'aria-label': ariaLabel , onEscapeKeyDown: onEscapeKeyDown , onPointerDownOutside: onPointerDownOutside , ...contentProps } = props;
+    const context = $a093c7e1ec25a057$var$useTooltipContext($a093c7e1ec25a057$var$CONTENT_NAME, __scopeTooltip);
+    const popperScope = $a093c7e1ec25a057$var$usePopperScope(__scopeTooltip);
+    const { onClose: onClose  } = context; // Close this tooltip if another one opens
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        document.addEventListener($a093c7e1ec25a057$var$TOOLTIP_OPEN, onClose);
+        return ()=>document.removeEventListener($a093c7e1ec25a057$var$TOOLTIP_OPEN, onClose)
+        ;
+    }, [
+        onClose
+    ]); // Close the tooltip if the trigger is scrolled
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
+        if (context.trigger) {
+            const handleScroll = (event)=>{
+                const target = event.target;
+                if (target !== null && target !== void 0 && target.contains(context.trigger)) onClose();
+            };
+            window.addEventListener('scroll', handleScroll, {
+                capture: true
+            });
+            return ()=>window.removeEventListener('scroll', handleScroll, {
+                    capture: true
+                })
+            ;
+        }
+    }, [
+        context.trigger,
+        onClose
+    ]);
+    return /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_dismissable_layer__WEBPACK_IMPORTED_MODULE_11__.DismissableLayer, {
+        asChild: true,
+        disableOutsidePointerEvents: false,
+        onEscapeKeyDown: onEscapeKeyDown,
+        onPointerDownOutside: onPointerDownOutside,
+        onFocusOutside: (event)=>event.preventDefault()
+        ,
+        onDismiss: onClose
+    }, /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_popper__WEBPACK_IMPORTED_MODULE_3__.Content, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        "data-state": context.stateAttribute
+    }, popperScope, contentProps, {
+        ref: forwardedRef,
+        style: {
+            ...contentProps.style,
+            '--radix-tooltip-content-transform-origin': 'var(--radix-popper-transform-origin)',
+            '--radix-tooltip-content-available-width': 'var(--radix-popper-available-width)',
+            '--radix-tooltip-content-available-height': 'var(--radix-popper-available-height)',
+            '--radix-tooltip-trigger-width': 'var(--radix-popper-anchor-width)',
+            '--radix-tooltip-trigger-height': 'var(--radix-popper-anchor-height)'
+        }
+    }), /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_slot__WEBPACK_IMPORTED_MODULE_12__.Slottable, null, children), /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)($a093c7e1ec25a057$var$VisuallyHiddenContentContextProvider, {
+        scope: __scopeTooltip,
+        isInside: true
+    }, /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_visually_hidden__WEBPACK_IMPORTED_MODULE_13__.Root, {
+        id: context.contentId,
+        role: "tooltip"
+    }, ariaLabel || children))));
+});
+/*#__PURE__*/ Object.assign($a093c7e1ec25a057$export$e9003e2be37ec060, {
+    displayName: $a093c7e1ec25a057$var$CONTENT_NAME
+});
+/* -------------------------------------------------------------------------------------------------
+ * TooltipArrow
+ * -----------------------------------------------------------------------------------------------*/ const $a093c7e1ec25a057$var$ARROW_NAME = 'TooltipArrow';
+const $a093c7e1ec25a057$export$c27ee0ad710f7559 = /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, forwardedRef)=>{
+    const { __scopeTooltip: __scopeTooltip , ...arrowProps } = props;
+    const popperScope = $a093c7e1ec25a057$var$usePopperScope(__scopeTooltip);
+    const visuallyHiddenContentContext = $a093c7e1ec25a057$var$useVisuallyHiddenContentContext($a093c7e1ec25a057$var$ARROW_NAME, __scopeTooltip); // if the arrow is inside the `VisuallyHidden`, we don't want to render it all to
+    // prevent issues in positioning the arrow due to the duplicate
+    return visuallyHiddenContentContext.isInside ? null : /*#__PURE__*/ (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_radix_ui_react_popper__WEBPACK_IMPORTED_MODULE_3__.Arrow, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, popperScope, arrowProps, {
+        ref: forwardedRef
+    }));
+});
+/*#__PURE__*/ Object.assign($a093c7e1ec25a057$export$c27ee0ad710f7559, {
+    displayName: $a093c7e1ec25a057$var$ARROW_NAME
+});
+/* -----------------------------------------------------------------------------------------------*/ function $a093c7e1ec25a057$var$getExitSideFromRect(point, rect) {
+    const top = Math.abs(rect.top - point.y);
+    const bottom = Math.abs(rect.bottom - point.y);
+    const right = Math.abs(rect.right - point.x);
+    const left = Math.abs(rect.left - point.x);
+    switch(Math.min(top, bottom, right, left)){
+        case left:
+            return 'left';
+        case right:
+            return 'right';
+        case top:
+            return 'top';
+        case bottom:
+            return 'bottom';
+        default:
+            throw new Error('unreachable');
+    }
+}
+function $a093c7e1ec25a057$var$getPaddedExitPoints(exitPoint, exitSide, padding = 5) {
+    const paddedExitPoints = [];
+    switch(exitSide){
+        case 'top':
+            paddedExitPoints.push({
+                x: exitPoint.x - padding,
+                y: exitPoint.y + padding
+            }, {
+                x: exitPoint.x + padding,
+                y: exitPoint.y + padding
+            });
+            break;
+        case 'bottom':
+            paddedExitPoints.push({
+                x: exitPoint.x - padding,
+                y: exitPoint.y - padding
+            }, {
+                x: exitPoint.x + padding,
+                y: exitPoint.y - padding
+            });
+            break;
+        case 'left':
+            paddedExitPoints.push({
+                x: exitPoint.x + padding,
+                y: exitPoint.y - padding
+            }, {
+                x: exitPoint.x + padding,
+                y: exitPoint.y + padding
+            });
+            break;
+        case 'right':
+            paddedExitPoints.push({
+                x: exitPoint.x - padding,
+                y: exitPoint.y - padding
+            }, {
+                x: exitPoint.x - padding,
+                y: exitPoint.y + padding
+            });
+            break;
+    }
+    return paddedExitPoints;
+}
+function $a093c7e1ec25a057$var$getPointsFromRect(rect) {
+    const { top: top , right: right , bottom: bottom , left: left  } = rect;
+    return [
+        {
+            x: left,
+            y: top
+        },
+        {
+            x: right,
+            y: top
+        },
+        {
+            x: right,
+            y: bottom
+        },
+        {
+            x: left,
+            y: bottom
+        }
+    ];
+} // Determine if a point is inside of a polygon.
+// Based on https://github.com/substack/point-in-polygon
+function $a093c7e1ec25a057$var$isPointInPolygon(point, polygon) {
+    const { x: x , y: y  } = point;
+    let inside = false;
+    for(let i = 0, j = polygon.length - 1; i < polygon.length; j = i++){
+        const xi = polygon[i].x;
+        const yi = polygon[i].y;
+        const xj = polygon[j].x;
+        const yj = polygon[j].y; // prettier-ignore
+        const intersect = yi > y !== yj > y && x < (xj - xi) * (y - yi) / (yj - yi) + xi;
+        if (intersect) inside = !inside;
+    }
+    return inside;
+} // Returns a new array of points representing the convex hull of the given set of points.
+// https://www.nayuki.io/page/convex-hull-algorithm
+function $a093c7e1ec25a057$var$getHull(points) {
+    const newPoints = points.slice();
+    newPoints.sort((a, b)=>{
+        if (a.x < b.x) return -1;
+        else if (a.x > b.x) return 1;
+        else if (a.y < b.y) return -1;
+        else if (a.y > b.y) return 1;
+        else return 0;
+    });
+    return $a093c7e1ec25a057$var$getHullPresorted(newPoints);
+} // Returns the convex hull, assuming that each points[i] <= points[i + 1]. Runs in O(n) time.
+function $a093c7e1ec25a057$var$getHullPresorted(points) {
+    if (points.length <= 1) return points.slice();
+    const upperHull = [];
+    for(let i = 0; i < points.length; i++){
+        const p = points[i];
+        while(upperHull.length >= 2){
+            const q = upperHull[upperHull.length - 1];
+            const r = upperHull[upperHull.length - 2];
+            if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x)) upperHull.pop();
+            else break;
+        }
+        upperHull.push(p);
+    }
+    upperHull.pop();
+    const lowerHull = [];
+    for(let i1 = points.length - 1; i1 >= 0; i1--){
+        const p = points[i1];
+        while(lowerHull.length >= 2){
+            const q = lowerHull[lowerHull.length - 1];
+            const r = lowerHull[lowerHull.length - 2];
+            if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x)) lowerHull.pop();
+            else break;
+        }
+        lowerHull.push(p);
+    }
+    lowerHull.pop();
+    if (upperHull.length === 1 && lowerHull.length === 1 && upperHull[0].x === lowerHull[0].x && upperHull[0].y === lowerHull[0].y) return upperHull;
+    else return upperHull.concat(lowerHull);
+}
+const $a093c7e1ec25a057$export$2881499e37b75b9a = $a093c7e1ec25a057$export$f78649fb9ca566b8;
+const $a093c7e1ec25a057$export$be92b6f5f03c0fe9 = $a093c7e1ec25a057$export$28c660c63b792dea;
+const $a093c7e1ec25a057$export$41fb9f06171c75f4 = $a093c7e1ec25a057$export$8c610744efcf8a1d;
+const $a093c7e1ec25a057$export$602eac185826482c = $a093c7e1ec25a057$export$7b36b8f925ab7497;
+const $a093c7e1ec25a057$export$7c6e2c02157bb7d2 = $a093c7e1ec25a057$export$e9003e2be37ec060;
+const $a093c7e1ec25a057$export$21b07c8f274aebd5 = $a093c7e1ec25a057$export$c27ee0ad710f7559;
 
 
 

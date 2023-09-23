@@ -5,6 +5,7 @@ import { FC, ReactNode } from 'react'
 import { Link, useForm } from '@inertiajs/inertia-react';
 import { LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Separator } from '@/Components/ui/separator';
 interface Props{
     children:ReactNode;
     className?:string;
@@ -26,8 +27,10 @@ const Layout:FC<Props> = ({children,className,label}) => {
                     <div className="px-1.5 md:px-3 py-2 flex flex-col justify-between h-full">
                         <div>
                             <h2 className="hidden md:block mb-2 px-4 text-lg font-semibold tracking-tight">
-                                Welcome to CMS
+                                <p className='text-center'> Welcome to</p>
+                                <p className='text-center'>CMS</p>                                
                             </h2>
+                            <Separator />
                             <div className="flex flex-col items-center justify-center space-y-1.5">
                                 {SideBarItems.map(({icon:Icon,label,routeName})=>(
                                     <Link className='w-full flex items-center justify-center' href={route(routeName)} key={routeName} >
