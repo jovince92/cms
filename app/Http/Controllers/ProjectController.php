@@ -20,7 +20,7 @@ class ProjectController extends Controller
         $order=$request->order ?? 'desc' ;
         $sort=$request->sort ?? 'created_at';
         $filter=$request->filter ?? '';
-        $projects=Project::where('name','like','%'.$filter.'%')->orderBy($sort,$order)->paginate($per_page);
+        $projects=Project::where('name','like','%'.$filter.'%')->orderBy($sort,$order)->paginate($per_page)->withQueryString();
         return Inertia::render('Projects',[
             'projects'=>$projects,
             'per_page'=>strval($per_page),

@@ -24,6 +24,16 @@ export interface Project{
     remarks?:string;
     created_at:string;
     updated_at:string;
+    pictures:Picture[];
+}
+
+export interface Picture{
+    id:number;
+    project_id:string;
+    name:string;
+    location:string;
+    created_at:string;
+    updated_at:string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

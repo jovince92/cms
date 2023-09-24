@@ -1,24 +1,25 @@
+import { useImageModal } from '@/Hooks/useImageModal'
 import {FC, useCallback, useMemo} from 'react'
-import { Project } from '../types'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '../ui/alert-dialog';
 import { useForm } from '@inertiajs/inertia-react';
 import { toast } from 'react-toastify';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '../ui/alert-dialog';
-import { useProjectModal } from '@/Hooks/useProjectModal';
 
+const DeletePictureModal:FC = () => {
 
-const DeleteProjectModal:FC= () => {
-    const {isOpen,data:project,onClose,type} = useProjectModal();
+    const {type,data,isOpen,onClose} = useImageModal();
+
+    const OPEN=useMemo(()=>isOpen&&type==='DeleteImage',[isOpen,type]);
     const { post,processing } = useForm();
 
     const onDelete = useCallback(()=>{
-        if(!project?.id) return;
+        if(!data?.picture?.id) return;
 
-        post(route('projects.destroy',{
-            id:project.id
+        post(route('pictures.destroy',{
+            id:data.picture.id,
+            project_id:data.picture.project_id
         }),{
-            
             onSuccess:()=>{
-                toast.success('Project Deleted!')
+                toast.success('Image Deleted!');
                 onClose();
             },
             onError:()=>toast.error('Internal Error. Please Try again!'),
@@ -26,11 +27,9 @@ const DeleteProjectModal:FC= () => {
             preserveState:true,
         })
 
-    },[post,project?.id]);
+    },[post,data?.picture?.id]);
 
-    const OPEN = useMemo(()=>isOpen&&type==='DeleteProject',[isOpen,type]);
-
-    if(!project){
+    if(!data?.picture){
         return null;
     }
 
@@ -40,7 +39,7 @@ const DeleteProjectModal:FC= () => {
                 <AlertDialogHeader>
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                    This can not be undone. Project will be deleted...
+                    This can not be undone. Image will be deleted...
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -52,4 +51,4 @@ const DeleteProjectModal:FC= () => {
     )
 }
 
-export default DeleteProjectModal
+export default DeletePictureModal

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class PictureController extends Controller
 {
@@ -20,7 +21,7 @@ class PictureController extends Controller
     {
         return Inertia::render('Pictures',[
             //'projects'=>Project::all(),
-            'selected_project'=>$project_id?Project::findOrFail($project_id):null
+            'selected_project'=>$project_id?Project::with(['pictures'])->where('id',$project_id)->firstOrFail():null
         ]);
     }
 
@@ -47,8 +48,12 @@ class PictureController extends Controller
         ]);
         $project=Project::findOrFail($project_id);
         $image = $request->file('image') ;
-        
-        $image_name=$project->name.'_'.$image->getClientOriginalName();
+        $picture=Picture::create([
+            'project_id'=>$project_id,
+            'name'=>"",
+            'location'=>""
+        ]);
+        $image_name=strval($picture->id).'_'.$image->getClientOriginalName();
         $location='uploads/projects/project_'.strval($project_id).'/';
         $path=public_path($location);
         if (!file_exists($path)) {
@@ -56,8 +61,7 @@ class PictureController extends Controller
         }
         $new_image = $location.$image_name;
         $request->file('image')->move($path, $new_image);
-        Picture::create([
-            'project_id'=>$project_id,
+        $picture->update([
             'name'=>$image_name,
             'location'=>$new_image
         ]);
@@ -105,8 +109,12 @@ class PictureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$project_id)
     {
-        //
+        $img=Picture::findOrFail($request->id);
+        
+        @unlink(public_path($img->getAttributes()['location']));
+        $img->delete();
+        return Redirect::back();
     }
 }

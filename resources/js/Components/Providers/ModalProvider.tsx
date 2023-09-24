@@ -2,6 +2,7 @@ import {FC} from 'react'
 import ProjectModal from '../Modals/ProjectModal'
 import DeleteProjectModal from '../Modals/DeleteProjectModal'
 import UploadPictureModal from '../Modals/UploadPictureModal'
+import DeletePictureModal from '../Modals/DeletePictureModal'
 
 const ModalProvider:FC = () => {
     return (
@@ -9,6 +10,7 @@ const ModalProvider:FC = () => {
             <DeleteProjectModal />
             <ProjectModal />
             <UploadPictureModal />
+            <DeletePictureModal />
         </>
     )
 }

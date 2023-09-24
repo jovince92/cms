@@ -1,16 +1,24 @@
-import { Project } from '@/Components/types';
+import { Project,Picture } from '@/Components/types';
 import {create} from 'zustand';
 
+type ModalType="UploadImage"|"DeleteImage";
+type ModalData = {
+    project?:Project;
+    picture?:Picture
+}
 
 interface ImageModal{
+    
     isOpen?:boolean;
-    project?:Project;
-    onOpen:(project:Project)=>void;
+    data?:ModalData;
+    onOpen:(type:ModalType,data:ModalData)=>void;
     onClose:()=>void;
+    type?:ModalType;
 }
 
 
 export const useImageModal = create<ImageModal>(set=>({
-    onOpen:(project)=>set({isOpen:true,project}),
-    onClose:()=>set({isOpen:false,project:undefined})
+    type:undefined,
+    onOpen:(type,data)=>set({isOpen:true,data,type}),
+    onClose:()=>set({isOpen:false,data:undefined,type:undefined})
 }));
