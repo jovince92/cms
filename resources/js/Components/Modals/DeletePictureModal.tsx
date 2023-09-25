@@ -3,6 +3,7 @@ import {FC, useCallback, useMemo} from 'react'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '../ui/alert-dialog';
 import { useForm } from '@inertiajs/inertia-react';
 import { toast } from 'react-toastify';
+import { Button } from '../ui/button';
 
 const DeletePictureModal:FC = () => {
 
@@ -43,8 +44,8 @@ const DeletePictureModal:FC = () => {
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel disabled={processing}>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={onDelete} disabled={processing}>Continue</AlertDialogAction>
+                    <Button className='text-base font-semibold' variant='outline' onClick={onClose} disabled={processing}>Cancel</Button>
+                    <Button className='text-base font-semibold' onClick={onDelete} disabled={processing}>Continue</Button>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

@@ -22,7 +22,7 @@ const ProjectSelector:FC<ProjectSelectorProps> = ({selectedProjectId,onSelect,cl
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger className={className} asChild>
-                <Button variant="outline" role="combobox" aria-expanded={open} className="w-56 justify-between" >
+                <Button variant="outline" role="combobox" aria-expanded={open} className="w-full md:w-56 justify-between" >
                     {selectedProjectId ? projects.find((project) => project.id.toString() === selectedProjectId)?.name:"Select project..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -33,7 +33,7 @@ const ProjectSelector:FC<ProjectSelectorProps> = ({selectedProjectId,onSelect,cl
                     <CommandEmpty>No project found.</CommandEmpty>
                     <CommandGroup>
                         {projects.map((project) => (
-                            <CommandItem key={project.id} value={project.id.toString()} onSelect={(val) =>onSelect(val) } >
+                            <CommandItem key={project.id} value={project.name} onSelect={() =>onSelect(project.id.toString()) } >
                                 <Check className={cn("mr-2 h-4 w-4",selectedProjectId === project.id.toString() ? "opacity-100" : "opacity-0")}/>
                                 {project.name}
                             </CommandItem>

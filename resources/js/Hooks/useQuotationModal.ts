@@ -7,7 +7,7 @@ type ModalData = {
     picture?:Picture
 }
 
-interface ImageModal{
+interface QuotationModal{
     isOpen?:boolean;
     data?:ModalData;
     onOpen:(type:ModalType,data:ModalData)=>void;
@@ -17,7 +17,7 @@ interface ImageModal{
     
 
 
-export const useImageModal = create<ImageModal>(set=>({
+export const useQuotationModal = create<QuotationModal>(set=>({
     type:undefined,
     onOpen:(type,data)=>set({isOpen:true,data,type}),
     onClose:()=>set({isOpen:false,data:undefined,type:undefined})

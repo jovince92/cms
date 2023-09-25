@@ -61,9 +61,9 @@ const UploadPictureModal:FC = () => {
                 
                 <Dropzone multiple={false} onDrop={onDrop}>
                     {({getRootProps, getInputProps}) => (
-                        <div className='border-2 border-dashed aspect-square flex items-center justify-center w-48 h-48 mx-auto p-12' {...getRootProps()}>
+                        <div className='border-2 border-dashed aspect-square flex items-center justify-center w-48 h-48 mx-auto p-4' {...getRootProps()}>
                             <input  {...getInputProps()} />
-                            {!preview?<p>Drag 'n' drop some files here, or click to select files</p>:<img src={preview} className='h-full w-full aspect-square' />}
+                            {!preview?<p>Drag n` drop and Image here, or click to select and Image...</p>:<img src={preview} className='h-full w-full aspect-square' />}
                             
                         </div>
                     )}

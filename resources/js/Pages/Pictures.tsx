@@ -22,8 +22,6 @@ const Pictures:FC<PictureProps> = ({selected_project}) => {
         }));
     }
 
-    useEffect(()=>console.log(selected_project),[]);
-
     return (
         <Layout label='Pictures'>
             <div className='h-full flex flex-col space-y-2.5 overflow-y-hidden'>
@@ -39,10 +37,11 @@ const Pictures:FC<PictureProps> = ({selected_project}) => {
                     <ProjectSelector className='ml-auto' onSelect={onSelect} selectedProjectId={selected_project?.id.toString()} />
                 </div>
                 <div className='flex-1 overflow-auto flex flex-col relative'>
-                    <p className='text-3xl font-bold text-center w-full'>
+                    <p className='text-3xl font-bold text-center w-full my-3.5'>
                         {!selected_project?<span>Select a Project</span>:<span>{selected_project.name}</span>}    
                     </p>
                     <Separator />
+                    {(selected_project?.pictures&&selected_project?.pictures?.length<1)&&<p className='text-2xl font-extrabold text-center w-full'>No Pictures Uploaded to this Project...</p>}
                     {selected_project&&<Gallery pictures={selected_project?.pictures} />}
                 </div>
             </div>

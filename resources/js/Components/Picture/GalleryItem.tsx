@@ -19,10 +19,10 @@ const GalleryItem:FC<GalleryItemProps> = ({picture,toggleSlide,slide}) => {
     }
 
     return (
-        <div onClick={()=>toggleSlide(slide)} className='cursor-pointer hover:opacity-70 transition relative flex items-center justify-center aspect-square  group border-2 rounded-md '>
-            <img src={picture.location} className='object-cover w-40 h-40' />
+        <div onClick={()=>toggleSlide(slide)} className='bg-background cursor-pointer hover:scale-105 transition relative flex items-center justify-center aspect-square  group border-2 border-muted-foreground rounded-md p-3.5 '>
+            <img src={picture.location} className='object-cover h-48 w-48 aspect-square rounded-md' />
             <ActionTooltip label='Delete'>
-                <Button onClick={handleDelete} className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition duration-300' size='icon' variant='destructive'>
+                <Button onClick={handleDelete} className='absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition duration-300' size='icon' variant='destructive'>
                     <Trash2 className='h-6 w-6' />
                 </Button>
             </ActionTooltip>

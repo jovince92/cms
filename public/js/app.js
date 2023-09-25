@@ -2361,6 +2361,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_alert_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/alert-dialog */ "./resources/js/Components/ui/alert-dialog.tsx");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var _ui_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ui/button */ "./resources/js/Components/ui/button.tsx");
+
 
 
 
@@ -2412,10 +2414,14 @@ var DeletePictureModal = function DeletePictureModal() {
           children: "This can not be undone. Image will be deleted..."
         })]
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_alert_dialog__WEBPACK_IMPORTED_MODULE_3__.AlertDialogFooter, {
-        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_alert_dialog__WEBPACK_IMPORTED_MODULE_3__.AlertDialogCancel, {
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_button__WEBPACK_IMPORTED_MODULE_6__.Button, {
+          className: 'text-base font-semibold',
+          variant: 'outline',
+          onClick: onClose,
           disabled: processing,
           children: "Cancel"
-        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_alert_dialog__WEBPACK_IMPORTED_MODULE_3__.AlertDialogAction, {
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_button__WEBPACK_IMPORTED_MODULE_6__.Button, {
+          className: 'text-base font-semibold',
           onClick: onDelete,
           disabled: processing,
           children: "Continue"
@@ -2917,10 +2923,10 @@ var UploadPictureModal = function UploadPictureModal() {
           var getRootProps = _ref.getRootProps,
             getInputProps = _ref.getInputProps;
           return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", Object.assign({
-            className: 'border-2 border-dashed aspect-square flex items-center justify-center w-48 h-48 mx-auto p-12'
+            className: 'border-2 border-dashed aspect-square flex items-center justify-center w-48 h-48 mx-auto p-4'
           }, getRootProps(), {
             children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", Object.assign({}, getInputProps())), !preview ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
-              children: "Drag 'n' drop some files here, or click to select files"
+              children: "Drag n` drop and Image here, or click to select and Image..."
             }) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
               src: preview,
               className: 'h-full w-full aspect-square'
@@ -3128,15 +3134,15 @@ var GalleryItem = function GalleryItem(_ref) {
     onClick: function onClick() {
       return toggleSlide(slide);
     },
-    className: 'cursor-pointer hover:opacity-70 transition relative flex items-center justify-center aspect-square  group border-2 rounded-md ',
+    className: 'bg-background cursor-pointer hover:scale-105 transition relative flex items-center justify-center aspect-square  group border-2 border-muted-foreground rounded-md p-3.5 ',
     children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
       src: picture.location,
-      className: 'object-cover w-40 h-40'
+      className: 'object-cover h-48 w-48 aspect-square rounded-md'
     }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ActionTooltip__WEBPACK_IMPORTED_MODULE_2__["default"], {
       label: 'Delete',
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_button__WEBPACK_IMPORTED_MODULE_1__.Button, {
         onClick: handleDelete,
-        className: 'absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition duration-300',
+        className: 'absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition duration-300',
         size: 'icon',
         variant: 'destructive',
         children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -3205,7 +3211,7 @@ var ProjectSelector = function ProjectSelector(_ref) {
         variant: "outline",
         role: "combobox",
         "aria-expanded": open,
-        className: "w-56 justify-between",
+        className: "w-full md:w-56 justify-between",
         children: [selectedProjectId ? (_a = projects.find(function (project) {
           return project.id.toString() === selectedProjectId;
         })) === null || _a === void 0 ? void 0 : _a.name : "Select project...", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -3222,9 +3228,9 @@ var ProjectSelector = function ProjectSelector(_ref) {
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_command__WEBPACK_IMPORTED_MODULE_3__.CommandGroup, {
           children: projects.map(function (project) {
             return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_command__WEBPACK_IMPORTED_MODULE_3__.CommandItem, {
-              value: project.id.toString(),
-              onSelect: function onSelect(val) {
-                return _onSelect(val);
+              value: project.name,
+              onSelect: function onSelect() {
+                return _onSelect(project.id.toString());
               },
               children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 className: (0,_lib_utils__WEBPACK_IMPORTED_MODULE_6__.cn)("mr-2 h-4 w-4", selectedProjectId === project.id.toString() ? "opacity-100" : "opacity-0")
@@ -5207,7 +5213,7 @@ var Layout = function Layout(_ref) {
         })
       })
     }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("nav", {
-      className: 'pl-16 md:pl-48 z-40 fixed top-0 inset-x-0 flex items-center justify-between text-3xl h-[3.7rem] bg-neutral-200 dark:bg-neutral-700 border-b border-secondary px-3.5 ',
+      className: 'pl-16 md:pl-48 z-40 fixed top-0 inset-x-0 flex items-center justify-between text-3xl h-[3.7rem] bg-zinc-200 dark:bg-zinc-800 border-b border-secondary px-3.5 ',
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
         children: label
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ModeToggle__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -5461,10 +5467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Hooks_useImageModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Hooks/useImageModal */ "./resources/js/Hooks/useImageModal.ts");
 /* harmony import */ var _Layout_Layout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Layout/Layout */ "./resources/js/Layout/Layout.tsx");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus-circle.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
-
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus-circle.js");
 
 
 
@@ -5476,6 +5479,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var Pictures = function Pictures(_ref) {
   var selected_project = _ref.selected_project;
+  var _a;
   var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.useForm)(),
     get = _useForm.get;
   var _useImageModal = (0,_Hooks_useImageModal__WEBPACK_IMPORTED_MODULE_5__.useImageModal)(),
@@ -5485,9 +5489,6 @@ var Pictures = function Pictures(_ref) {
       project_id: projectId
     }));
   };
-  (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(function () {
-    return console.log(selected_project);
-  }, []);
   return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Layout_Layout__WEBPACK_IMPORTED_MODULE_6__["default"], {
     label: 'Pictures',
     children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -5503,7 +5504,7 @@ var Pictures = function Pictures(_ref) {
           size: 'sm',
           variant: 'outline',
           className: 'flex text-base justify-center md:justify-start items-center',
-          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
             className: 'mr-2 h-5 w-5'
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
             children: "Upload New Image"
@@ -5516,13 +5517,16 @@ var Pictures = function Pictures(_ref) {
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: 'flex-1 overflow-auto flex flex-col relative',
         children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
-          className: 'text-3xl font-bold text-center w-full',
+          className: 'text-3xl font-bold text-center w-full my-3.5',
           children: !selected_project ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
             children: "Select a Project"
           }) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
             children: selected_project.name
           })
-        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_separator__WEBPACK_IMPORTED_MODULE_4__.Separator, {}), selected_project && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Picture_Gallery__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_separator__WEBPACK_IMPORTED_MODULE_4__.Separator, {}), (selected_project === null || selected_project === void 0 ? void 0 : selected_project.pictures) && ((_a = selected_project === null || selected_project === void 0 ? void 0 : selected_project.pictures) === null || _a === void 0 ? void 0 : _a.length) < 1 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+          className: 'text-2xl font-extrabold text-center w-full',
+          children: "No Pictures Uploaded to this Project..."
+        }), selected_project && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Picture_Gallery__WEBPACK_IMPORTED_MODULE_1__["default"], {
           pictures: selected_project === null || selected_project === void 0 ? void 0 : selected_project.pictures
         })]
       })]
@@ -5914,13 +5918,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _Layout_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layout/Layout */ "./resources/js/Layout/Layout.tsx");
+/* harmony import */ var _Components_ProjectSelector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/ProjectSelector */ "./resources/js/Components/ProjectSelector.tsx");
+/* harmony import */ var _Components_ui_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/ui/button */ "./resources/js/Components/ui/button.tsx");
+/* harmony import */ var _Components_ui_separator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/ui/separator */ "./resources/js/Components/ui/separator.tsx");
+/* harmony import */ var _Layout_Layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Layout/Layout */ "./resources/js/Layout/Layout.tsx");
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus-circle.js");
 
 
-var Quotation = function Quotation() {
-  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+
+
+
+
+
+var Quotation = function Quotation(_ref) {
+  var selected_project = _ref.selected_project;
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_5__.useForm)(),
+    get = _useForm.get;
+  var onSelect = function onSelect(projectId) {
+    get(route('pictures.index', {
+      project_id: projectId
+    }));
+  };
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Layout_Layout__WEBPACK_IMPORTED_MODULE_4__["default"], {
     label: 'Quotation',
-    children: "Quotation"
+    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: 'h-full flex flex-col space-y-2.5 overflow-y-hidden',
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: 'overflow-hidden flex flex-col md:flex-row space-y-1 md:space-y-0 md:justify-between md:items-center',
+        children: [selected_project && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          onClick: function onClick() {},
+          size: 'sm',
+          variant: 'outline',
+          className: 'flex text-base justify-center md:justify-start items-center',
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            className: 'mr-2 h-5 w-5'
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            children: "New Quotation"
+          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ProjectSelector__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          className: 'ml-auto',
+          onSelect: onSelect,
+          selectedProjectId: selected_project === null || selected_project === void 0 ? void 0 : selected_project.id.toString()
+        })]
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: 'flex-1 overflow-auto flex flex-col relative',
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+          className: 'text-3xl font-bold text-center w-full my-3.5',
+          children: !selected_project ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            children: "Select a Project"
+          }) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            children: selected_project.name
+          })
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_separator__WEBPACK_IMPORTED_MODULE_3__.Separator, {})]
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: 'h-auto'
+      })]
+    })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Quotation);
