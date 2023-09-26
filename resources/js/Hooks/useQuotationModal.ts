@@ -1,10 +1,10 @@
-import { Project,Picture } from '@/Components/types';
+import { Project,Picture, Quotation } from '@/Components/types';
 import {create} from 'zustand';
 
-type ModalType="UploadImage"|"DeleteImage";
+type ModalType="StoreQuotation"|"DeleteQuotation";
 type ModalData = {
     project?:Project;
-    picture?:Picture
+    quotation?:Quotation;
 }
 
 interface QuotationModal{

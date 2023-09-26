@@ -2,6 +2,7 @@ import ProjectSelector from '@/Components/ProjectSelector'
 import { Project } from '@/Components/types'
 import { Button } from '@/Components/ui/button'
 import { Separator } from '@/Components/ui/separator'
+import { useQuotationModal } from '@/Hooks/useQuotationModal'
 import Layout from '@/Layout/Layout'
 import { useForm } from '@inertiajs/inertia-react'
 import { PlusCircle } from 'lucide-react'
@@ -13,9 +14,10 @@ interface QuotationProps{
 
 const Quotation:FC<QuotationProps> = ({selected_project}) => {
     const { get } = useForm();
-    
+    const {onOpen} = useQuotationModal();
+
     const onSelect = (projectId:string) =>{
-        get(route('pictures.index',{
+        get(route('quotations.index',{
             project_id:projectId
         }));
     }
@@ -25,7 +27,7 @@ const Quotation:FC<QuotationProps> = ({selected_project}) => {
                 <div className='overflow-hidden flex flex-col md:flex-row space-y-1 md:space-y-0 md:justify-between md:items-center'>
                     {
                         selected_project&&(
-                            <Button onClick={()=>{}} size='sm' variant='outline' className='flex text-base justify-center md:justify-start items-center'>
+                            <Button onClick={()=>onOpen('StoreQuotation',{project:selected_project})} size='sm' variant='outline' className='flex text-base justify-center md:justify-start items-center'>
                                 <PlusCircle className='mr-2 h-5 w-5' />
                                 <span>New Quotation</span>
                             </Button>

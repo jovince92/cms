@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,8 +13,9 @@ class GanttChartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($project_id=null)
     {
+        
         return Inertia::render('GanttChart');
     }
 
@@ -33,9 +35,9 @@ class GanttChartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$project_id)
     {
-        //
+        
     }
 
     /**

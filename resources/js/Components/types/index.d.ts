@@ -25,6 +25,7 @@ export interface Project{
     created_at:string;
     updated_at:string;
     pictures:Picture[];
+    quotations:Quotation[];
 }
 
 export interface Picture{
@@ -74,13 +75,30 @@ export interface PaginatedProject extends Pagination{
     data:Project[];
 }
 
-export type  ProjectStatusType = 
-    "Done"|
-    "Ongoing"|
-    "On-hold"|
-    "Cancelled"|
-    "Not Started"|
-    "Planning";
+export type  ProjectStatusType = "Done"|"Ongoing"|"On-hold"|"Cancelled"|"Not Started"|"Planning";
+export type  ModeofPayment = "Cash"|"Check"|"Credit Card"|"Bank Transaction";
+export interface Item{
+    id:number;
+    quotation_id:number;
+    name:string;
+    description:string;
+    supplier:string;
+    estimated_delivery_date:string;
+    price:number;
+    qty:number;
+    mode_of_payment:ModeofPayment;
+    created_at:string;
+    updated_at:string;
+    quotation:Quotation;
+}
 
+export interface Quotation{
+    id:number;
+    project_id:number;
+    project:Project;
+    requisition_number:string;
+    items:Item[];
+    created_at:string;
+    updated_at:string;
+}
 
-    

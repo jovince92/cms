@@ -33,7 +33,7 @@ const ProjectSelector:FC<ProjectSelectorProps> = ({selectedProjectId,onSelect,cl
                     <CommandEmpty>No project found.</CommandEmpty>
                     <CommandGroup>
                         {projects.map((project) => (
-                            <CommandItem key={project.id} value={project.name} onSelect={() =>onSelect(project.id.toString()) } >
+                            <CommandItem className='cursor-pointer' key={project.id} value={project.name} onSelect={() =>onSelect(project.id.toString()) } >
                                 <Check className={cn("mr-2 h-4 w-4",selectedProjectId === project.id.toString() ? "opacity-100" : "opacity-0")}/>
                                 {project.name}
                             </CommandItem>

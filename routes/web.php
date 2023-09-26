@@ -48,12 +48,13 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/destroy', [PictureController::class,'destroy'])->name('destroy');
     });
 
-    Route::prefix('/gantt_chart')->name('gantt_chart.')->group(function(){
+    Route::prefix('/gantt_chart/project/{project_id?}')->name('gantt_chart.')->group(function(){
         Route::get('/', [GanttChartController::class,'index'])->name('index');
     });
 
-    Route::prefix('/quotations')->name('quotations.')->group(function(){
+    Route::prefix('/quotations/project/{project_id?}')->name('quotations.')->group(function(){
         Route::get('/', [QuotationController::class,'index'])->name('index');
+        Route::get('/store', [QuotationController::class,'store'])->name('store');
     });
 
     Route::prefix('/accounts')->name('accounts.')->group(function(){

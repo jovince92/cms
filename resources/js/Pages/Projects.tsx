@@ -121,7 +121,7 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
                                         <SelectValue placeholder='Select...' />
                                     </SelectTrigger>
                                     <SelectContent side="top">
-                                        {[10, 20, 30, 40, 50, 100].map((pageSize) => (
+                                        {[5,10, 20, 30, 40, 50, 100].map((pageSize) => (
                                             <SelectItem key={pageSize} value={`${pageSize}`}>
                                             {pageSize}
                                             </SelectItem>

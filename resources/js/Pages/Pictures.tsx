@@ -5,8 +5,9 @@ import { Button } from '@/Components/ui/button';
 import { Separator } from '@/Components/ui/separator';
 import { useImageModal } from '@/Hooks/useImageModal';
 import Layout from '@/Layout/Layout';
+import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/inertia-react'
-import { PlusCircle } from 'lucide-react';
+import { Loader2, PlusCircle } from 'lucide-react';
 import React, { FC, useEffect, useState } from 'react'
 
 interface PictureProps{
@@ -14,7 +15,7 @@ interface PictureProps{
 }
 
 const Pictures:FC<PictureProps> = ({selected_project}) => {
-    const { get } = useForm();
+    const { get,processing } = useForm();
     const {onOpen} = useImageModal();
     const onSelect = (projectId:string) =>{
         get(route('pictures.index',{
@@ -40,9 +41,16 @@ const Pictures:FC<PictureProps> = ({selected_project}) => {
                     <p className='text-3xl font-bold text-center w-full my-3.5'>
                         {!selected_project?<span>Select a Project</span>:<span>{selected_project.name}</span>}    
                     </p>
-                    <Separator />
-                    {(selected_project?.pictures&&selected_project?.pictures?.length<1)&&<p className='text-2xl font-extrabold text-center w-full'>No Pictures Uploaded to this Project...</p>}
-                    {selected_project&&<Gallery pictures={selected_project?.pictures} />}
+                    {
+                        processing?<PageLoader />:(
+                            <>
+                                <Separator />
+                                {(selected_project?.pictures&&selected_project?.pictures?.length<1)&&<p className='text-2xl font-extrabold text-center w-full'>No Pictures Uploaded to this Project...</p>}
+                                {selected_project&&<Gallery pictures={selected_project?.pictures} />}
+                            </>
+                        )
+                    }
+                    
                 </div>
             </div>
         </Layout>
@@ -50,3 +58,11 @@ const Pictures:FC<PictureProps> = ({selected_project}) => {
 }
 
 export default Pictures
+
+const PageLoader:FC<{className?:string}>= ({className}) =>{
+    return (
+        <div className='w-full h-full flex items-center justify-center'>
+            <Loader2 className={cn('w-56 h-56 animate-spin',className)} />
+        </div>
+    );
+}

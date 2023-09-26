@@ -14,4 +14,8 @@ class Project extends Model
         return $this->hasMany(Picture::class);
     }
 
+    public function quotations(){
+        return $this->hasMany(Quotation::class);
+    }
+
 }

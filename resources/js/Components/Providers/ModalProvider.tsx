@@ -3,6 +3,7 @@ import ProjectModal from '../Modals/ProjectModal'
 import DeleteProjectModal from '../Modals/DeleteProjectModal'
 import UploadPictureModal from '../Modals/UploadPictureModal'
 import DeletePictureModal from '../Modals/DeletePictureModal'
+import QuotationModal from '../Modals/QuotationModal'
 
 const ModalProvider:FC = () => {
     return (
@@ -11,6 +12,7 @@ const ModalProvider:FC = () => {
             <ProjectModal />
             <UploadPictureModal />
             <DeletePictureModal />
+            <QuotationModal />
         </>
     )
 }
