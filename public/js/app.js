@@ -2850,14 +2850,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -2881,36 +2877,51 @@ var QuotationModal = function QuotationModal() {
     type = _useQuotationModal.type,
     onClose = _useQuotationModal.onClose,
     data = _useQuotationModal.data;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState2 = _slicedToArray(_useState, 2),
-    items = _useState2[0],
-    setItems = _useState2[1];
-  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_13__.useForm)(),
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_13__.useForm)({
+      project_id: 0,
+      requisition_number: "",
+      quotation_id: 0,
+      items: []
+    }),
+    FormData = _useForm.data,
+    setData = _useForm.setData,
     post = _useForm.post,
-    processing = _useForm.processing;
+    processing = _useForm.processing,
+    reset = _useForm.reset;
   var OPEN = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
     return isOpen && type === 'StoreQuotation';
   }, [isOpen, type]);
   var itemCount = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
-    return items ? items.length : 0;
-  }, [items]);
+    return FormData.items ? FormData.items.length : 0;
+  }, [FormData.items]);
   var onAdd = function onAdd(item) {
+    var items = FormData.items;
     if (items.findIndex(function (_ref) {
       var name = _ref.name;
       return name === item.name;
     }) > -1) {
       return react_toastify__WEBPACK_IMPORTED_MODULE_10__.toast.error('Item Already Exist!');
     }
-    setItems(function (val) {
-      return [item].concat(_toConsumableArray(val));
+    setData(function (val) {
+      return Object.assign(Object.assign({}, val), {
+        items: [item].concat(_toConsumableArray(val.items))
+      });
     });
   };
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (!OPEN) return;
+    setData(function (val) {
+      var _a, _b;
+      return Object.assign(Object.assign({}, val), {
+        requisition_number: "".concat((0,date_fns__WEBPACK_IMPORTED_MODULE_14__["default"])(new Date(), 'yyyyMMdd').toString(), "-").concat(!((_a = data === null || data === void 0 ? void 0 : data.project) === null || _a === void 0 ? void 0 : _a.quotations) || (data === null || data === void 0 ? void 0 : data.project.quotations.length) < 1 ? '1' : (data.project.quotations.length + 1).toString()),
+        quotation_id: ((_b = data === null || data === void 0 ? void 0 : data.quotation) === null || _b === void 0 ? void 0 : _b.id) || 0
+      });
+    });
+  }, [OPEN]);
   if (!(data === null || data === void 0 ? void 0 : data.project)) {
     return null;
   }
-  var requisitionNumber = "".concat((0,date_fns__WEBPACK_IMPORTED_MODULE_14__["default"])(new Date(), 'yyyyMMdd').toString(), "-").concat(!((_a = data.project) === null || _a === void 0 ? void 0 : _a.quotations) || data.project.quotations.length < 1 ? '1' : (data.project.quotations.length + 1).toString());
   var onSubmit = function onSubmit() {
-    var _a;
     if (!(data === null || data === void 0 ? void 0 : data.project)) return null;
     var apiUrl = (data === null || data === void 0 ? void 0 : data.quotation) ? route('quotations.update', {
       project_id: data.project.id
@@ -2918,11 +2929,6 @@ var QuotationModal = function QuotationModal() {
       project_id: data.project.id
     });
     post(apiUrl, {
-      data: {
-        requisition_number: requisitionNumber,
-        items: items,
-        quotation_id: ((_a = data.quotation) === null || _a === void 0 ? void 0 : _a.id) || 0
-      },
       onSuccess: function onSuccess() {
         react_toastify__WEBPACK_IMPORTED_MODULE_10__.toast.success('Quotation Added. Waiting For Approval');
         onClose();
@@ -2959,7 +2965,7 @@ var QuotationModal = function QuotationModal() {
             children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_label__WEBPACK_IMPORTED_MODULE_6__.Label, {
               children: "Requisition Number:"
             }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_input__WEBPACK_IMPORTED_MODULE_4__.Input, {
-              value: requisitionNumber,
+              value: FormData.requisition_number,
               className: 'text-sm bg-muted cursor-default',
               readOnly: true
             })]
@@ -2989,11 +2995,13 @@ var QuotationModal = function QuotationModal() {
             }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_tabs__WEBPACK_IMPORTED_MODULE_5__.TabsContent, {
               value: "list",
               children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_QuotationModalComponents_QuotationList__WEBPACK_IMPORTED_MODULE_12__["default"], {
-                items: items,
+                items: FormData.items || [],
                 onDelete: function onDelete(name) {
-                  return setItems(function (val) {
-                    return val.filter(function (item) {
-                      return item.name !== name;
+                  return setData(function (val) {
+                    return Object.assign(Object.assign({}, val), {
+                      items: val.items.filter(function (item) {
+                        return item.name !== name;
+                      })
                     });
                   });
                 }
@@ -3005,13 +3013,14 @@ var QuotationModal = function QuotationModal() {
         children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: 'flex flex-col gap-1.5 w-full',
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_separator__WEBPACK_IMPORTED_MODULE_3__.Separator, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_button__WEBPACK_IMPORTED_MODULE_7__.Button, {
-            disabled: processing,
+            onClick: onSubmit,
+            disabled: processing || ((_a = FormData.items) === null || _a === void 0 ? void 0 : _a.length) < 1,
             size: 'sm',
-            className: 'ml-auto text-base flex items-center justify-end',
+            className: 'ml-auto text-base flex items-center justify-end space-x-2.5',
             children: [!processing ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              className: 'h-5 w-5'
+              className: 'h-4 w-4'
             }) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_16__["default"], {
-              className: 'animate-spin h-5 w-5'
+              className: 'animate-spin h-4 w-4'
             }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
               children: "Submit"
             })]

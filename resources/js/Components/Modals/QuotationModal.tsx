@@ -1,4 +1,4 @@
-import  { ChangeEventHandler, FC, FormEventHandler, useMemo, useState } from 'react'
+import  { ChangeEventHandler, FC, FormEventHandler, useEffect, useMemo, useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,  } from '../ui/dialog'
 import { Separator } from '../ui/separator';
 import { Input } from '../ui/input'
@@ -16,7 +16,7 @@ import { HardDriveUpload, Loader2, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import AddQuotationItem from './QuotationModalComponents/AddQuotationItem';
 import QuotationList from './QuotationModalComponents/QuotationList';
-import { useForm } from '@inertiajs/inertia-react';
+import { useForm, } from '@inertiajs/inertia-react';
 
 export type ItemType={    
     name:string;
@@ -31,39 +31,55 @@ export type ItemType={
 export type QuotationType={
     project_id:number;
     requisition_number:string;
-    items:ItemType[]
+    quotation_id:number;
 }
 
 const QuotationModal:FC = () => {
     const {isOpen,type,onClose,data} = useQuotationModal();
-    const [items,setItems] = useState<ItemType[]>([]);
-    const {post,processing} = useForm();
+    const { data:FormData,setData, post,processing,reset} = useForm<QuotationType & {items:ItemType[]}>({
+        project_id:0,
+        requisition_number:"",
+        quotation_id:0,
+        items:[]
+    });
     const OPEN=useMemo(()=>isOpen&&type==='StoreQuotation',[isOpen,type]);
-    const itemCount = useMemo(()=>items?items.length:0,[items]);
+    const itemCount = useMemo(()=>FormData.items?FormData.items.length:0,[FormData.items]);
     
     
     const onAdd = (item:ItemType) =>{
+        const {items} = FormData;
         if (items.findIndex(({name})=>name===item.name)>-1){
             return toast.error('Item Already Exist!');
         }
-        setItems(val=>[item,...val]);
+        setData(val=>({
+            ...val,
+            items:[item,...val.items]
+        }))
     }
+    
+    
+    useEffect(()=>{
+        if(!OPEN) return;
+        setData(val=>({
+            ...val,requisition_number:`${format(new Date,'yyyyMMdd').toString()}-${(!data?.project?.quotations||data?.project.quotations.length<1)?'1':(data.project.quotations.length+1).toString()}`,
+            quotation_id: data?.quotation?.id||0
+        }));
+    },[OPEN]);
+    
+    
     
     if(!data?.project){
         return null;
     }
-    
-    const requisitionNumber= `${format(new Date,'yyyyMMdd').toString()}-${(!data.project?.quotations||data.project.quotations.length<1)?'1':(data.project.quotations.length+1).toString()}`;
     const onSubmit = () =>{
         if(!data?.project) return null;
-        const apiUrl = data?.quotation?route('quotations.update',{project_id:data.project.id}):route('quotations.store',{project_id:data.project.id});
+        const apiUrl = data?.quotation?
+            route('quotations.update',{project_id:data.project.id}):
+            route('quotations.store',{project_id:data.project.id});
+        
+            
         
         post(apiUrl,{
-            data:{
-                requisition_number:requisitionNumber,
-                items:items as any,
-                quotation_id: data.quotation?.id||0
-            },
             onSuccess:()=>{
                 toast.success('Quotation Added. Waiting For Approval');
                 onClose();
@@ -90,7 +106,7 @@ const QuotationModal:FC = () => {
                         </div>
                         <div>
                             <Label>Requisition Number:</Label>
-                            <Input value={requisitionNumber} className='text-sm bg-muted cursor-default' readOnly />
+                            <Input value={FormData.requisition_number} className='text-sm bg-muted cursor-default' readOnly />
                         </div>
                         <Separator/>
                     </div>
@@ -104,7 +120,7 @@ const QuotationModal:FC = () => {
                                 <AddQuotationItem onAdd={onAdd} />
                             </TabsContent>
                             <TabsContent value="list">
-                                <QuotationList items={items} onDelete={(name)=>setItems(val=>val.filter(item=>item.name!==name))} />
+                                <QuotationList items={FormData.items||[]} onDelete={(name)=>setData(val=>({...val,items:val.items.filter(item=>item.name!==name)}))} />
                             </TabsContent>
                                 
                         </Tabs>
@@ -114,9 +130,9 @@ const QuotationModal:FC = () => {
                 <div className='flex flex-col gap-1.5 w-full'>
                         
                     <Separator />
-                    <Button disabled={processing} size='sm' className='ml-auto text-base flex items-center justify-end'>
+                    <Button onClick={onSubmit} disabled={processing||FormData.items?.length<1} size='sm' className='ml-auto text-base flex items-center justify-end space-x-2.5'>
                         {
-                            !processing?<HardDriveUpload className='h-5 w-5' />:<Loader2 className='animate-spin h-5 w-5' />
+                            !processing?<HardDriveUpload className='h-4 w-4' />:<Loader2 className='animate-spin h-4 w-4' />
                         }
                         <span>Submit</span>
                     </Button>

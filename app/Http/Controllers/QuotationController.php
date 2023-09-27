@@ -40,8 +40,7 @@ class QuotationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$project_id)
-    {
+    public function store(Request $request,$project_id){
         $quotation = Quotation::create([
             'project_id'=>$project_id,
             'requisition_number'=>$request->requisition_number
@@ -50,13 +49,13 @@ class QuotationController extends Controller
         foreach($request->items as $item){
             Item::create([
                 'quotation_id'=>$quotation->id,
-                'name'=>$request->name,
-                'description'=>$request->description,
-                'supplier'=>$request->supplier,
-                'estimated_delivery_date'=>$request->estimated_delivery_date,
-                'price'=>$request->price,
-                'qty'=>$request->qty,
-                'mode_of_payment'=>$request->mode_of_payment
+                'name'=>$item['name'],
+                'description'=>$item['description'],
+                'supplier'=>$item['supplier'],
+                'estimated_delivery_date'=>$item['estimated_delivery_date'],
+                'price'=>$item['price'],
+                'qty'=>$item['qty'],
+                'mode_of_payment'=>$item['mode_of_payment']
             ]);
         }
 
@@ -84,19 +83,26 @@ class QuotationController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    
+    
+    public function update(Request $request,$project_id){
+        Item::where('quotation_id',$request->quotation_id)->delete();
+
+        foreach($request->items as $item){
+            Item::create([
+                'quotation_id'=>$request->quotation_id,
+                'name'=>$item['name'],
+                'description'=>$item['description'],
+                'supplier'=>$item['supplier'],
+                'estimated_delivery_date'=>$item['estimated_delivery_date'],
+                'price'=>$item['price'],
+                'qty'=>$item['qty'],
+                'mode_of_payment'=>$item['mode_of_payment']
+            ]);
+        }
     }
 
     /**

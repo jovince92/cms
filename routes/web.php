@@ -54,7 +54,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('/quotations/project/{project_id?}')->name('quotations.')->group(function(){
         Route::get('/', [QuotationController::class,'index'])->name('index');
-        Route::get('/store', [QuotationController::class,'store'])->name('store');
+        Route::post('/store', [QuotationController::class,'store'])->name('store');
+        Route::post('/update', [QuotationController::class,'update'])->name('update');
     });
 
     Route::prefix('/accounts')->name('accounts.')->group(function(){
