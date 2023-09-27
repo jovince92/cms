@@ -26,7 +26,7 @@ const QuotationList:FC<QuotationListProps> = ({items,onDelete}) =>{
                         <TableHead>Remove</TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody className="z-40">
                     {
                         (items||[]).map(item=>(
                             <TableRow key={item.name}>

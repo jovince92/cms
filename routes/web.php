@@ -75,6 +75,8 @@ Route::middleware(['auth'])->group(function(){
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
+Route::get('test', [QuotationController::class, 'test'])->name('test');
+
 
 
 

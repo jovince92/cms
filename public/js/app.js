@@ -2631,7 +2631,7 @@ var ProjectModal = function ProjectModal() {
     onOpenChange: onClose,
     children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_sheet__WEBPACK_IMPORTED_MODULE_7__.SheetContent, {
       side: 'left',
-      className: 'max-h-screen overflow-y-auto',
+      className: 'max-h-screen overflow-y-auto max-w-lg',
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_sheet__WEBPACK_IMPORTED_MODULE_7__.SheetHeader, {
         children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_sheet__WEBPACK_IMPORTED_MODULE_7__.SheetTitle, {
           children: "Project Manager"
@@ -2894,10 +2894,19 @@ var QuotationModal = function QuotationModal() {
   var itemCount = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
     return FormData.items ? FormData.items.length : 0;
   }, [FormData.items]);
+  var newGrandTotal = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
+    var items = FormData.items;
+    if (!items) return 0;
+    return items.reduce(function (total, _ref) {
+      var price = _ref.price,
+        qty = _ref.qty;
+      return price * qty + total;
+    }, 0);
+  }, [FormData === null || FormData === void 0 ? void 0 : FormData.items]);
   var onAdd = function onAdd(item) {
     var items = FormData.items;
-    if (items.findIndex(function (_ref) {
-      var name = _ref.name;
+    if (items.findIndex(function (_ref2) {
+      var name = _ref2.name;
       return name === item.name;
     }) > -1) {
       return react_toastify__WEBPACK_IMPORTED_MODULE_10__.toast.error('Item Already Exist!');
@@ -2909,12 +2918,18 @@ var QuotationModal = function QuotationModal() {
     });
   };
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    if (!OPEN) return;
+    if (!OPEN) {
+      return reset();
+    }
+    ;
+    if (!(data === null || data === void 0 ? void 0 : data.project)) return;
+    var project = data.project;
     setData(function (val) {
-      var _a, _b;
+      var _a, _b, _c, _d;
       return Object.assign(Object.assign({}, val), {
-        requisition_number: "".concat((0,date_fns__WEBPACK_IMPORTED_MODULE_14__["default"])(new Date(), 'yyyyMMdd').toString(), "-").concat(!((_a = data === null || data === void 0 ? void 0 : data.project) === null || _a === void 0 ? void 0 : _a.quotations) || (data === null || data === void 0 ? void 0 : data.project.quotations.length) < 1 ? '1' : (data.project.quotations.length + 1).toString()),
-        quotation_id: ((_b = data === null || data === void 0 ? void 0 : data.quotation) === null || _b === void 0 ? void 0 : _b.id) || 0
+        requisition_number: ((_a = data === null || data === void 0 ? void 0 : data.quotation) === null || _a === void 0 ? void 0 : _a.requisition_number) || "".concat(project.id.toString(), "-").concat((0,date_fns__WEBPACK_IMPORTED_MODULE_14__["default"])(new Date(), 'yyyyMMdd').toString(), "-").concat(data.itemsCount ? (_b = data.itemsCount) === null || _b === void 0 ? void 0 : _b.toString() : '1'),
+        quotation_id: ((_c = data === null || data === void 0 ? void 0 : data.quotation) === null || _c === void 0 ? void 0 : _c.id) || 0,
+        items: ((_d = data === null || data === void 0 ? void 0 : data.quotation) === null || _d === void 0 ? void 0 : _d.items) || []
       });
     });
   }, [OPEN]);
@@ -2930,7 +2945,8 @@ var QuotationModal = function QuotationModal() {
     });
     post(apiUrl, {
       onSuccess: function onSuccess() {
-        react_toastify__WEBPACK_IMPORTED_MODULE_10__.toast.success('Quotation Added. Waiting For Approval');
+        var successMsg = (data === null || data === void 0 ? void 0 : data.quotation) ? 'Quotation Updated' : 'Quotation Added. Waiting For Approval';
+        react_toastify__WEBPACK_IMPORTED_MODULE_10__.toast.success(successMsg);
         onClose();
       },
       onError: function onError() {
@@ -2974,9 +2990,9 @@ var QuotationModal = function QuotationModal() {
           className: 'flex-1 overflow-auto',
           children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_tabs__WEBPACK_IMPORTED_MODULE_5__.Tabs, {
             defaultValue: "add",
-            className: "w-full relative",
+            className: "w-full relative ",
             children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_tabs__WEBPACK_IMPORTED_MODULE_5__.TabsList, {
-              className: 'sticky top-0 w-full rounded-none',
+              className: 'sticky top-0 z-50 w-full rounded-none',
               children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_tabs__WEBPACK_IMPORTED_MODULE_5__.TabsTrigger, {
                 value: "add",
                 children: "Add Items"
@@ -3012,17 +3028,28 @@ var QuotationModal = function QuotationModal() {
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_dialog__WEBPACK_IMPORTED_MODULE_2__.DialogFooter, {
         children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: 'flex flex-col gap-1.5 w-full',
-          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_separator__WEBPACK_IMPORTED_MODULE_3__.Separator, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_button__WEBPACK_IMPORTED_MODULE_7__.Button, {
-            onClick: onSubmit,
-            disabled: processing || ((_a = FormData.items) === null || _a === void 0 ? void 0 : _a.length) < 1,
-            size: 'sm',
-            className: 'ml-auto text-base flex items-center justify-end space-x-2.5',
-            children: [!processing ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              className: 'h-4 w-4'
-            }) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_16__["default"], {
-              className: 'animate-spin h-4 w-4'
-            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              children: "Submit"
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_separator__WEBPACK_IMPORTED_MODULE_3__.Separator, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: 'flex items-center',
+            children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: 'flex-1 flex items-center justify-center',
+              children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
+                children: ["New Grand Total: ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: 'font-semibold',
+                  children: new Intl.NumberFormat().format(newGrandTotal)
+                }), " "]
+              })
+            }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_button__WEBPACK_IMPORTED_MODULE_7__.Button, {
+              onClick: onSubmit,
+              disabled: processing || ((_a = FormData.items) === null || _a === void 0 ? void 0 : _a.length) < 1,
+              size: 'sm',
+              className: 'ml-auto text-base flex items-center justify-end space-x-2.5',
+              children: [!processing ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                className: 'h-4 w-4'
+              }) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_16__["default"], {
+                className: 'animate-spin h-4 w-4'
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                children: "Submit"
+              })]
             })]
           })]
         })
@@ -3299,6 +3326,7 @@ var QuotationList = function QuotationList(_ref) {
           })]
         })
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableBody, {
+        className: "z-40",
         children: (items || []).map(function (item) {
           return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableRow, {
             children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
@@ -4094,6 +4122,124 @@ var useTheme = function useTheme() {
   if (context === undefined) throw new Error("useTheme must be used within a ThemeProvider");
   return context;
 };
+
+/***/ }),
+
+/***/ "./resources/js/Components/Quotation/QuotationItem.tsx":
+/*!*************************************************************!*\
+  !*** ./resources/js/Components/Quotation/QuotationItem.tsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/esm/format/index.js");
+/* harmony import */ var _ui_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/table */ "./resources/js/Components/ui/table.tsx");
+/* harmony import */ var _ui_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ui/button */ "./resources/js/Components/ui/button.tsx");
+/* harmony import */ var _ActionTooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ActionTooltip */ "./resources/js/Components/ActionTooltip.tsx");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/file-signature.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-off.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/thumbs-up.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/mail-plus.js");
+/* harmony import */ var _Hooks_useQuotationModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Hooks/useQuotationModal */ "./resources/js/Hooks/useQuotationModal.ts");
+
+
+
+
+
+
+
+var QuotationItem = function QuotationItem(_ref) {
+  var quotation = _ref.quotation;
+  var _useQuotationModal = (0,_Hooks_useQuotationModal__WEBPACK_IMPORTED_MODULE_4__.useQuotationModal)(),
+    onOpen = _useQuotationModal.onOpen;
+  var requisition_number = quotation.requisition_number,
+    grand_total = quotation.grand_total,
+    status = quotation.status,
+    created_at = quotation.created_at,
+    updated_at = quotation.updated_at,
+    project = quotation.project;
+  var formatDt = function formatDt(date) {
+    return (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(new Date(date), 'P');
+  };
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableRow, {
+    className: 'text-sm',
+    children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
+      className: "font-medium",
+      children: project.name
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
+      className: '',
+      children: requisition_number
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
+      className: 'text-right',
+      children: new Intl.NumberFormat().format(grand_total)
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
+      className: '',
+      children: status
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
+      className: "text-right",
+      children: formatDt(created_at)
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
+      className: "text-right",
+      children: formatDt(updated_at)
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_table__WEBPACK_IMPORTED_MODULE_1__.TableCell, {
+      className: "flex items-center justify-end space-x-1.5",
+      children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ActionTooltip__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        label: 'Edit',
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          onClick: function onClick() {
+            return onOpen('StoreQuotation', {
+              project: quotation.project,
+              quotation: quotation
+            });
+          },
+          className: 'text-sm',
+          size: 'icon',
+          variant: 'default',
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            className: 'w-5 h-5 '
+          })
+        })
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ActionTooltip__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        label: 'Cancel',
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          className: 'text-sm',
+          size: 'icon',
+          variant: 'destructive',
+          disabled: status === 'Cancelled',
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            className: 'h-5 w-5 '
+          })
+        })
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ActionTooltip__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        label: 'Approve',
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          className: 'text-sm',
+          size: 'icon',
+          variant: 'outline',
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            className: 'h-5 w-5 '
+          })
+        })
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ActionTooltip__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        label: 'E-Mail Request',
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          className: 'text-sm',
+          size: 'icon',
+          variant: 'outline',
+          children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            className: 'h-5 w-5 '
+          })
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuotationItem);
 
 /***/ }),
 
@@ -6608,13 +6754,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _Components_ProjectSelector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/ProjectSelector */ "./resources/js/Components/ProjectSelector.tsx");
-/* harmony import */ var _Components_ui_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/ui/button */ "./resources/js/Components/ui/button.tsx");
-/* harmony import */ var _Components_ui_separator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/ui/separator */ "./resources/js/Components/ui/separator.tsx");
-/* harmony import */ var _Hooks_useQuotationModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Hooks/useQuotationModal */ "./resources/js/Hooks/useQuotationModal.ts");
-/* harmony import */ var _Layout_Layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Layout/Layout */ "./resources/js/Layout/Layout.tsx");
-/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus-circle.js");
+/* harmony import */ var _Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Project/ProjectHeader */ "./resources/js/Components/Project/ProjectHeader.tsx");
+/* harmony import */ var _Components_ProjectSelector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/ProjectSelector */ "./resources/js/Components/ProjectSelector.tsx");
+/* harmony import */ var _Components_Quotation_QuotationItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Quotation/QuotationItem */ "./resources/js/Components/Quotation/QuotationItem.tsx");
+/* harmony import */ var _Components_ui_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/ui/button */ "./resources/js/Components/ui/button.tsx");
+/* harmony import */ var _Components_ui_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Components/ui/table */ "./resources/js/Components/ui/table.tsx");
+/* harmony import */ var _Hooks_useQuotationModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Hooks/useQuotationModal */ "./resources/js/Hooks/useQuotationModal.ts");
+/* harmony import */ var _Layout_Layout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Layout/Layout */ "./resources/js/Layout/Layout.tsx");
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus-circle.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
 
 
 
@@ -6624,51 +6787,151 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Quotation = function Quotation(_ref) {
-  var selected_project = _ref.selected_project;
-  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_6__.useForm)(),
+  var selected_project = _ref.selected_project,
+    quotations = _ref.quotations,
+    per_page = _ref.per_page,
+    sort = _ref.sort,
+    order = _ref.order,
+    requisition_number = _ref.requisition_number;
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_8__.useForm)(),
     get = _useForm.get;
-  var _useQuotationModal = (0,_Hooks_useQuotationModal__WEBPACK_IMPORTED_MODULE_4__.useQuotationModal)(),
+  var _useQuotationModal = (0,_Hooks_useQuotationModal__WEBPACK_IMPORTED_MODULE_6__.useQuotationModal)(),
     onOpen = _useQuotationModal.onOpen;
+  var input = (0,react__WEBPACK_IMPORTED_MODULE_9__.useRef)(null);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(requisition_number || ""),
+    _useState2 = _slicedToArray(_useState, 2),
+    filter = _useState2[0],
+    setFilter = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)(per_page || "10"),
+    _useState4 = _slicedToArray(_useState3, 2),
+    perPage = _useState4[0],
+    setPerPage = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_9__.useState)({
+      field: sort,
+      order: order
+    }),
+    _useState6 = _slicedToArray(_useState5, 2),
+    sortBy = _useState6[0],
+    setSortBy = _useState6[1];
   var onSelect = function onSelect(projectId) {
     get(route('quotations.index', {
       project_id: projectId
     }));
   };
-  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Layout_Layout__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  var handleFilter = function handleFilter(newPerPage, sort) {
+    var newOrder = sortBy.order;
+    if (newPerPage) {
+      setPerPage(perPage);
+    }
+    if (sort) {
+      newOrder = sortBy.order !== 'asc' ? 'asc' : 'desc';
+      setSortBy({
+        field: sort,
+        order: newOrder
+      });
+    }
+    get(route('quotations.index', {
+      project_id: selected_project ? selected_project.id : null,
+      filter: filter,
+      perPage: newPerPage ? newPerPage : perPage,
+      sort: sort ? sort : sortBy.field,
+      order: sort ? newOrder : sortBy.order
+    }), {
+      preserveScroll: true,
+      preserveState: sort ? true : false
+    });
+  };
+  var openModal = function openModal() {
+    var quotationIds = quotations.data.map(function (_ref2) {
+      var id = _ref2.id;
+      return id;
+    });
+    var nextId = quotationIds.length < 1 ? 0 : Math.max.apply(Math, _toConsumableArray(quotationIds)) + 1;
+    onOpen('StoreQuotation', {
+      project: selected_project,
+      itemsCount: nextId
+    });
+  };
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Layout_Layout__WEBPACK_IMPORTED_MODULE_7__["default"], {
     label: 'Quotation',
     children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
       className: 'h-full flex flex-col space-y-2.5 overflow-y-hidden',
       children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: 'overflow-hidden flex flex-col md:flex-row space-y-1 md:space-y-0 md:justify-between md:items-center',
-        children: [selected_project && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          onClick: function onClick() {
-            return onOpen('StoreQuotation', {
-              project: selected_project
-            });
-          },
+        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_button__WEBPACK_IMPORTED_MODULE_4__.Button, {
+          disabled: !selected_project,
+          onClick: openModal,
           size: 'sm',
           variant: 'outline',
           className: 'flex text-base justify-center md:justify-start items-center',
-          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
             className: 'mr-2 h-5 w-5'
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
             children: "New Quotation"
           })]
-        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ProjectSelector__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ProjectSelector__WEBPACK_IMPORTED_MODULE_2__["default"], {
           className: 'ml-auto',
           onSelect: onSelect,
           selectedProjectId: selected_project === null || selected_project === void 0 ? void 0 : selected_project.id.toString()
         })]
-      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: 'flex-1 overflow-auto flex flex-col relative',
-        children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
-          className: 'text-3xl font-bold text-center w-full my-3.5',
-          children: !selected_project ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-            children: "Select a Project"
-          }) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-            children: selected_project.name
-          })
-        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_separator__WEBPACK_IMPORTED_MODULE_3__.Separator, {})]
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.Table, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHeader, {
+            className: 'sticky top-0 z-50 bg-background',
+            children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableRow, {
+              className: '-mt-0.5 z-50 text-sm',
+              children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHead, {
+                className: 'min-w-[10rem]',
+                children: " Project "
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'requisition_number');
+                  },
+                  children: "Requisition Number"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'grand_total');
+                  },
+                  children: "Grand Total"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'status');
+                  },
+                  children: "Status"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'created_at');
+                  },
+                  children: "Create Date"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHead, {
+                children: [" ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Project_ProjectHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                  onClick: function onClick() {
+                    return handleFilter(perPage, 'updated_at');
+                  },
+                  children: "Update Date"
+                }), " "]
+              }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableHead, {
+                children: " Actions "
+              })]
+            })
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ui_table__WEBPACK_IMPORTED_MODULE_5__.TableBody, {
+            className: 'z-40',
+            children: quotations.data.map(function (quotation) {
+              return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Quotation_QuotationItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                quotation: quotation
+              }, quotation.id);
+            })
+          })]
+        })
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: 'h-auto'
       })]
@@ -32954,6 +33217,36 @@ const ChevronsUpDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["def
 
 /***/ }),
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-off.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-off.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CircleOff)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const CircleOff = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("CircleOff", [
+  ["path", { d: "m2 2 20 20", key: "1ooewy" }],
+  ["path", { d: "M8.35 2.69A10 10 0 0 1 21.3 15.65", key: "1pfsoa" }],
+  ["path", { d: "M19.08 19.08A10 10 0 1 1 4.92 4.92", key: "1ablyi" }]
+]);
+
+
+//# sourceMappingURL=circle-off.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/circle.js":
 /*!************************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/circle.js ***!
@@ -33008,6 +33301,48 @@ const Download = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"]
 
 
 //# sourceMappingURL=download.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/file-signature.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/file-signature.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ FileSignature)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const FileSignature = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("FileSignature", [
+  [
+    "path",
+    {
+      d: "M20 19.5v.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8.5L18 5.5",
+      key: "kd5d3"
+    }
+  ],
+  ["path", { d: "M8 18h1", key: "13wk12" }],
+  [
+    "path",
+    {
+      d: "M18.42 9.61a2.1 2.1 0 1 1 2.97 2.97L16.95 17 13 18l.99-3.95 4.43-4.44Z",
+      key: "johvi5"
+    }
+  ]
+]);
+
+
+//# sourceMappingURL=file-signature.js.map
 
 
 /***/ }),
@@ -33130,6 +33465,43 @@ const LogOut = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
 
 
 //# sourceMappingURL=log-out.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/mail-plus.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/mail-plus.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MailPlus)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const MailPlus = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("MailPlus", [
+  [
+    "path",
+    {
+      d: "M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8",
+      key: "12jkf8"
+    }
+  ],
+  ["path", { d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7", key: "1ocrg3" }],
+  ["path", { d: "M19 16v6", key: "tddt3s" }],
+  ["path", { d: "M16 19h6", key: "xwg31i" }]
+]);
+
+
+//# sourceMappingURL=mail-plus.js.map
 
 
 /***/ }),
@@ -33356,6 +33728,41 @@ const Sun = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("Su
 
 
 //# sourceMappingURL=sun.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/thumbs-up.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/thumbs-up.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ThumbsUp)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * lucide-react v0.279.0 - ISC
+ */
+
+
+
+const ThumbsUp = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("ThumbsUp", [
+  ["path", { d: "M7 10v12", key: "1qc93n" }],
+  [
+    "path",
+    {
+      d: "M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z",
+      key: "y3tblf"
+    }
+  ]
+]);
+
+
+//# sourceMappingURL=thumbs-up.js.map
 
 
 /***/ }),

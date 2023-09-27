@@ -44,7 +44,11 @@ const QuotationModal:FC = () => {
     });
     const OPEN=useMemo(()=>isOpen&&type==='StoreQuotation',[isOpen,type]);
     const itemCount = useMemo(()=>FormData.items?FormData.items.length:0,[FormData.items]);
-    
+    const newGrandTotal:number = useMemo(()=>{
+        const {items}=FormData;
+        if(!items) return 0;
+        return items.reduce((total,{price,qty})=>(price*qty)+total,0);
+    },[FormData?.items])
     
     const onAdd = (item:ItemType) =>{
         const {items} = FormData;
@@ -59,11 +63,20 @@ const QuotationModal:FC = () => {
     
     
     useEffect(()=>{
-        if(!OPEN) return;
+        if(!OPEN) {
+            return reset();
+        };
+        if(!data?.project) return;
+        const {project} = data;
         setData(val=>({
-            ...val,requisition_number:`${format(new Date,'yyyyMMdd').toString()}-${(!data?.project?.quotations||data?.project.quotations.length<1)?'1':(data.project.quotations.length+1).toString()}`,
-            quotation_id: data?.quotation?.id||0
+            ...val,
+            requisition_number:data?.quotation?.requisition_number||`${project.id.toString()}-${format(new Date,'yyyyMMdd').toString()}-${data.itemsCount?data.itemsCount?.toString():'1'}`,
+            quotation_id: data?.quotation?.id||0,
+            items:data?.quotation?.items||[]
         }));
+
+        
+
     },[OPEN]);
     
     
@@ -81,7 +94,8 @@ const QuotationModal:FC = () => {
         
         post(apiUrl,{
             onSuccess:()=>{
-                toast.success('Quotation Added. Waiting For Approval');
+                const successMsg=data?.quotation?'Quotation Updated':'Quotation Added. Waiting For Approval';
+                toast.success(successMsg);
                 onClose();
             },
             onError:()=>toast.error('Server Error. Please try again.')
@@ -111,8 +125,8 @@ const QuotationModal:FC = () => {
                         <Separator/>
                     </div>
                     <div className='flex-1 overflow-auto'>
-                        <Tabs defaultValue="add" className="w-full relative">
-                            <TabsList className='sticky top-0 w-full rounded-none'>
+                        <Tabs defaultValue="add" className="w-full relative ">
+                            <TabsList className='sticky top-0 z-50 w-full rounded-none'>
                                 <TabsTrigger value="add">Add Items</TabsTrigger>
                                 <TabsTrigger value="list">Item List&nbsp;<Badge variant='default'>{itemCount}</Badge></TabsTrigger>
                             </TabsList>
@@ -130,12 +144,18 @@ const QuotationModal:FC = () => {
                 <div className='flex flex-col gap-1.5 w-full'>
                         
                     <Separator />
-                    <Button onClick={onSubmit} disabled={processing||FormData.items?.length<1} size='sm' className='ml-auto text-base flex items-center justify-end space-x-2.5'>
-                        {
-                            !processing?<HardDriveUpload className='h-4 w-4' />:<Loader2 className='animate-spin h-4 w-4' />
-                        }
-                        <span>Submit</span>
-                    </Button>
+                    <div className='flex items-center'>
+                        <div className='flex-1 flex items-center justify-center'>
+                            <p>New Grand Total: <span className='font-semibold'>{new Intl.NumberFormat().format(newGrandTotal)}</span> </p>
+                        </div>
+                        <Button onClick={onSubmit} disabled={processing||FormData.items?.length<1} size='sm' className='ml-auto text-base flex items-center justify-end space-x-2.5'>
+                            {
+                                !processing?<HardDriveUpload className='h-4 w-4' />:<Loader2 className='animate-spin h-4 w-4' />
+                            }
+                            <span>Submit</span>
+                        </Button>
+                    </div>
+                    
                 </div>
             </DialogFooter>
             </DialogContent>

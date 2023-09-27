@@ -77,6 +77,8 @@ export interface PaginatedProject extends Pagination{
 
 export type  ProjectStatusType = "Done"|"Ongoing"|"On-hold"|"Cancelled"|"Not Started"|"Planning";
 export type  ModeofPayment = "Cash"|"Check"|"Credit Card"|"Bank Transaction";
+export type  QuotationStatus = "Pending"|"Approved"|"Cancelled";
+
 export interface Item{
     id:number;
     quotation_id:number;
@@ -97,6 +99,8 @@ export interface Quotation{
     project_id:number;
     project:Project;
     requisition_number:string;
+    grand_total:number;
+    status:QuotationStatus;
     items:Item[];
     created_at:string;
     updated_at:string;

@@ -91,7 +91,7 @@ const ProjectModal:FC = () => {
 
     return (
         <Sheet open={OPEN} onOpenChange={onClose}>
-            <SheetContent side='left' className='max-h-screen overflow-y-auto'>
+            <SheetContent side='left' className='max-h-screen overflow-y-auto max-w-lg'>
                 <SheetHeader>
                     <SheetTitle>Project Manager</SheetTitle>
                     <SheetDescription>

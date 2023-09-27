@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Project;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -16,11 +17,35 @@ class QuotationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($project_id=null)
+    public function index(Request $request,$project_id=null)
     {
+        $per_page=$request->perPage?intval($request->perPage):5;
+        $order=$request->order ?? 'desc' ;
+        $sort=$request->sort ?? 'created_at';
+        $requisition_number=$request->requisition_number ?? '';
+
+        
+
+        $quotations=Quotation::
+            where('requisition_number','like','%'.$requisition_number.'%')
+            ->when($project_id,function ($q) use($project_id){
+                $q->where('project_id',$project_id);
+            })
+            ->when($sort!='project_name',function ($q) use($sort,$order){
+                $q->orderBy($sort,$order);
+            })
+            ->with(['items','project'=>function($q) use ($order){
+                $q->orderBy('name',$order);                
+            }])
+            ->paginate($per_page)->withQueryString();
+            
         return Inertia::render('Quotation',[
-            //'projects'=>Project::all(),
-            'selected_project'=>$project_id?Project::with(['quotations'])->where('id',$project_id)->firstOrFail():null
+            'selected_project'=>$project_id?Project::where('id',$project_id)->firstOrFail():null,
+            'quotations'=>$quotations,
+            'per_page'=>strval($per_page),
+            'sort'=>$sort,
+            'order'=>$order,
+            'requisition_number'=>$requisition_number
         ]);
     }
 
@@ -41,24 +66,33 @@ class QuotationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,$project_id){
-        $quotation = Quotation::create([
-            'project_id'=>$project_id,
-            'requisition_number'=>$request->requisition_number
-        ]);
-
-        foreach($request->items as $item){
-            Item::create([
-                'quotation_id'=>$quotation->id,
-                'name'=>$item['name'],
-                'description'=>$item['description'],
-                'supplier'=>$item['supplier'],
-                'estimated_delivery_date'=>$item['estimated_delivery_date'],
-                'price'=>$item['price'],
-                'qty'=>$item['qty'],
-                'mode_of_payment'=>$item['mode_of_payment']
+        DB::transaction(function () use($request,$project_id){
+            $quotation = Quotation::create([
+                'project_id'=>$project_id,
+                'requisition_number'=>$request->requisition_number,
+                'grand_total'=>0
             ]);
-        }
-
+            $grand_total=0;
+            foreach($request->items as $item){
+                $price=floatval($item['price']);
+                $qty=intval($item['qty']);
+                $total=$price*$qty;
+                Item::create([
+                    'quotation_id'=>$quotation->id,
+                    'name'=>$item['name'],
+                    'description'=>$item['description'],
+                    'supplier'=>$item['supplier'],
+                    'estimated_delivery_date'=>$item['estimated_delivery_date'],
+                    'price'=>$price,
+                    'qty'=>$qty,
+                    'total'=>$total,
+                    'mode_of_payment'=>$item['mode_of_payment']
+                ]);
+                $grand_total=$grand_total+$total;
+            }
+            $quotation->update(['grand_total'=>$grand_total]);
+        });
+        
         
 
         return Redirect::back();
@@ -89,20 +123,33 @@ class QuotationController extends Controller
     
     
     public function update(Request $request,$project_id){
-        Item::where('quotation_id',$request->quotation_id)->delete();
-
-        foreach($request->items as $item){
-            Item::create([
-                'quotation_id'=>$request->quotation_id,
-                'name'=>$item['name'],
-                'description'=>$item['description'],
-                'supplier'=>$item['supplier'],
-                'estimated_delivery_date'=>$item['estimated_delivery_date'],
-                'price'=>$item['price'],
-                'qty'=>$item['qty'],
-                'mode_of_payment'=>$item['mode_of_payment']
-            ]);
-        }
+        DB::transaction(function () use($request,$project_id){
+            $quotation=Quotation::where('id',$request->quotation_id)->where('project_id',$project_id)->firstOrFail();
+            Item::where('quotation_id',$request->quotation_id)->delete();
+            
+            $grand_total=0;
+            foreach($request->items as $item){
+                $price=floatval($item['price']);
+                $qty=intval($item['qty']);
+                $total=$price*$qty;
+                Item::create([
+                    'quotation_id'=>$request->quotation_id,
+                    'name'=>$item['name'],
+                    'description'=>$item['description'],
+                    'supplier'=>$item['supplier'],
+                    'estimated_delivery_date'=>$item['estimated_delivery_date'],
+                    'price'=>$price,
+                    'qty'=>$qty,
+                    'total'=>$total,
+                    'mode_of_payment'=>$item['mode_of_payment']
+                ]);
+                $grand_total=$grand_total+$total;
+                
+            }
+            $quotation->update(['grand_total'=>$grand_total]);
+        });
+        
+        return Redirect::back();
     }
 
     /**
@@ -115,4 +162,5 @@ class QuotationController extends Controller
     {
         //
     }
+
 }

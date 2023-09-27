@@ -5,6 +5,7 @@ type ModalType="StoreQuotation"|"DeleteQuotation";
 type ModalData = {
     project?:Project;
     quotation?:Quotation;
+    itemsCount?:number;
 }
 
 interface QuotationModal{
