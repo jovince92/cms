@@ -11,7 +11,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
-
+        <link rel="icon" href="{{ asset('public/favicon.ico') }}">
         <!-- Scripts -->
         @routes
         <script src="{{ asset('public/js/app.js') }}" defer></script>

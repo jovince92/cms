@@ -49,13 +49,13 @@ const Layout:FC<Props> = ({children,className,label}) => {
                     </div>
                 </div>
             </aside>
-            <nav className='pl-16 md:pl-48 z-40 fixed top-0 inset-x-0 flex items-center justify-between text-3xl h-[3.7rem] bg-zinc-200 dark:bg-zinc-800 border-b border-secondary px-3.5 '>
+            <nav className='drop-shadow-md shadow-primary pl-16 md:pl-48 z-40 fixed top-0 inset-x-0 flex items-center justify-between text-3xl h-[3.7rem] bg-muted border-b border-secondary px-3.5 '>
                 <p>{label}</p>
                 <ModeToggle className='my-2' />
             </nav>
             <main className='pl-14 md:pl-44 relative bg-muted flex-1 flex flex-col h-full'>
                 
-                <div className='w-full h-full px-3.5 pt-16 bg-neutral-100 dark:bg-neutral-900'>
+                <div className='w-full h-full px-3.5 pt-16 bg-primary-foreground'>
                     {children}
                 </div>
             </main>

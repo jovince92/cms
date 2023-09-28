@@ -88,6 +88,7 @@ export interface Item{
     estimated_delivery_date:string;
     price:number;
     qty:number;
+    total:number;
     mode_of_payment:ModeofPayment;
     created_at:string;
     updated_at:string;

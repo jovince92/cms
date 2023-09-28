@@ -37,12 +37,12 @@ const QuotationItem:FC<Props> = ({quotation}) => {
                     </Button>
                 </ActionTooltip>
                 <ActionTooltip label='Approve'>
-                    <Button className='text-sm' size='icon' variant='outline'>
-                        <ThumbsUp className='h-5 w-5 ' />
+                    <Button className='text-sm border-green-500 dark:text-green-400' size='icon' variant='outline'>
+                        <ThumbsUp className='h-5 w-5 text-green-500 dark:text-green-400' />
                     </Button>
                 </ActionTooltip>
                 <ActionTooltip label='E-Mail Request'>
-                    <Button className='text-sm' size='icon' variant='outline'>
+                    <Button onClick={()=>onOpen('RequestQuotation',{quotation})} className='text-sm' size='icon' variant='outline'>
                         <MailPlus className='h-5 w-5 ' />
                     </Button>
                 </ActionTooltip>

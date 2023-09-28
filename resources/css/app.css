@@ -80,4 +80,30 @@
   input{
     @apply focus:!ring-offset-0 focus:!ring-0 focus:!outline-0 focus:!outline-offset-0 focus-visible:!outline-0 focus-visible:!outline-offset-0
   }
+
+  h1{
+    @apply !text-primary
+  }
+
+  h2{
+    @apply !text-primary
+  }
+
+  h3{
+    @apply !text-primary
+  }
+
+  h4{
+    @apply !text-primary
+  }
+
+  strong{
+    @apply !text-primary
+  }
+
+}
+
+
+.tiptap {
+  @apply prose w-full min-w-full !text-primary border border-muted rounded-md p-1.5 focus:!ring-0 focus:!ring-offset-0 focus:!outline-none focus:!outline-offset-0
 }
