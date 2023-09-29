@@ -101,7 +101,6 @@ const generateEmail = (quotation?:Quotation):string=>{
     <br><br>
     Thanks.
     <br><b></b><br>
-    --this is an Autoemail--
     
     
     `;

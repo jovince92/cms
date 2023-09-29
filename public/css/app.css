@@ -1587,6 +1587,8 @@ video {
   border-width: 1px;
   border-color: hsl(var(--muted));
   padding: 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   color: hsl(var(--primary)) !important;
 }.tiptap:focus {
   outline: 2px solid transparent !important;

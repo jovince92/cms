@@ -105,5 +105,5 @@
 
 
 .tiptap {
-  @apply prose w-full min-w-full !text-primary border border-muted rounded-md p-1.5 focus:!ring-0 focus:!ring-offset-0 focus:!outline-none focus:!outline-offset-0
+  @apply prose w-full min-w-full !text-primary border border-muted rounded-md p-1.5 focus:!ring-0 focus:!ring-offset-0 focus:!outline-none focus:!outline-offset-0 text-sm
 }

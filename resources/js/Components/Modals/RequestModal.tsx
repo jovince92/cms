@@ -17,13 +17,6 @@ const RequestModal:FC = () => {
 
     
 
-
-    useEffect(()=>{
-        if(isOpen&&emailMsg){
-            
-        }
-    },[emailMsg,isOpen]);
-
     if(!emailMsg){
         return null;
     }
