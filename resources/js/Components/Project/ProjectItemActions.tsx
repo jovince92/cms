@@ -25,9 +25,9 @@ const ProjectItemActions:FC<ProjectItemActionsProps> = ({project}) => {
                     Edit
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className='cursor-pointer'>
+                {/* <DropdownMenuItem className='cursor-pointer'>
                     View Stages
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem className='cursor-pointer' onClick={()=>onOpen('DeleteProject',project)}>
                     Delete
                 </DropdownMenuItem>

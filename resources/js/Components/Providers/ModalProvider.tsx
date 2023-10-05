@@ -5,6 +5,7 @@ import UploadPictureModal from '../Modals/UploadPictureModal'
 import DeletePictureModal from '../Modals/DeletePictureModal'
 import QuotationModal from '../Modals/QuotationModal'
 import RequestModal from '../Modals/RequestModal'
+import NewPhaseModal from '../Modals/NewPhaseModal'
 
 const ModalProvider:FC = () => {
     return (
@@ -15,6 +16,7 @@ const ModalProvider:FC = () => {
             <DeletePictureModal />
             <QuotationModal />
             <RequestModal />
+            <NewPhaseModal />
         </>
     )
 }

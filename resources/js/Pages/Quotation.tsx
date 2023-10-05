@@ -3,13 +3,15 @@ import ProjectSelector from '@/Components/ProjectSelector'
 import QuotationItem from '@/Components/Quotation/QuotationItem'
 import { Pagination, Project, Quotation } from '@/Components/types'
 import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select'
 import { Separator } from '@/Components/ui/separator'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/Components/ui/table'
 import { useQuotationModal } from '@/Hooks/useQuotationModal'
 import Layout from '@/Layout/Layout'
 import { useForm } from '@inertiajs/inertia-react'
-import { PlusCircle } from 'lucide-react'
-import {FC, useRef, useState} from 'react'
+import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeft, ChevronsRight, PlusCircle } from 'lucide-react'
+import {FC, FormEventHandler, useRef, useState} from 'react'
 
 
 type FIELD ="project_name"|"requisition_number"|"grand_total"|"status"|"created_at"|"updated_at";
@@ -39,6 +41,11 @@ const Quotation:FC<QuotationProps> = ({selected_project,quotations,per_page,sort
         get(route('quotations.index',{
             project_id:projectId
         }));
+    }
+
+    const onSubmit:FormEventHandler<HTMLFormElement> = (e) =>{
+        e.preventDefault();
+        handleFilter();
     }
 
     const handleFilter = (newPerPage?:string,sort?:typeof sortBy.field) =>{
@@ -102,7 +109,49 @@ const Quotation:FC<QuotationProps> = ({selected_project,quotations,per_page,sort
                     </Table>
                 </div>
                 <div className='h-auto'>
-                    
+                    <div className="flex flex-col space-y-1 md:space-y-0 md:flex-row items-center md:justify-between p-2">
+                        <form className='w-full md:w-auto' onSubmit={onSubmit}>
+                            <Input className='w-full md:w-auto' value={filter} onChange={({target})=>setFilter(target.value)} ref={input} placeholder='Search Requisition#....' />
+                        </form>
+                        <div className="flex items-center space-x-6 lg:space-x-8">
+                            <div className="flex items-center space-x-2">
+                                <p className="text-sm font-medium">Rows per page</p>
+                                <Select value={perPage.toString()} onValueChange={(val)=>{handleFilter(val)}} >
+                                    <SelectTrigger className="h-8 w-[4.375rem]">
+                                        <SelectValue placeholder='Select...' />
+                                    </SelectTrigger>
+                                    <SelectContent side="top">
+                                        {[5,10, 20, 30, 40, 50, 100].map((pageSize) => (
+                                            <SelectItem key={pageSize} value={`${pageSize}`}>
+                                            {pageSize}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+                                Page&nbsp;{quotations.current_page.toString()}&nbsp;of&nbsp;{quotations.last_page}
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Button variant="outline" className="hidden h-8 w-8 p-0 lg:flex" onClick={() => get(quotations.first_page_url)} disabled={quotations.current_page===1} >
+                                    <span className="sr-only">Go to first page</span>
+                                    <ChevronsLeft className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" className="h-8 w-8 p-0" onClick={()=>quotations.prev_page_url&&get(quotations.prev_page_url)} disabled={!quotations?.prev_page_url}>
+                                    <span className="sr-only">Go to previous page</span>
+                                    <ChevronLeftIcon className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" className="h-8 w-8 p-0" onClick={()=>quotations.next_page_url&&get(quotations.next_page_url)} disabled={!quotations?.next_page_url}>
+                                    <span className="sr-only">Go to next page</span>
+                                    <ChevronRightIcon className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" className="hidden h-8 w-8 p-0 lg:flex" onClick={() => get(quotations.last_page_url)} disabled={quotations.current_page===quotations.last_page} >
+                                    <span className="sr-only">Go to last page</span>
+                                    <ChevronsRight className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </Layout>

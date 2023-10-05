@@ -107,3 +107,24 @@ export interface Quotation{
     updated_at:string;
 }
 
+export interface Phase{
+    id:number;
+    project_id:number;
+    name:string;
+    description:string;
+    project:Project;
+    stages:Stage[];
+    created_at:string;
+    updated_at:string;
+}
+
+
+export interface Stage{    
+    id:number;
+    phase_id:number;
+    name:string;
+    start:string;
+    end:string;
+    created_at:string;
+    updated_at:string;
+}

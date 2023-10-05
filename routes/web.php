@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\GanttChartController;
+use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
@@ -64,10 +65,9 @@ Route::middleware(['auth'])->group(function(){
 
     
 
-    Route::prefix('/settings')->name('settings.')->group(function(){
-        Route::get('/', function () {
-            return Inertia::render('Settings');
-        })->name('index');
+    Route::prefix('/phases/project/{project_id?}')->name('phases.')->group(function(){
+        Route::get('/', [PhaseController::class,'index'])->name('index');
+        Route::post('/store', [PhaseController::class,'store'])->name('store');
     });
     
     

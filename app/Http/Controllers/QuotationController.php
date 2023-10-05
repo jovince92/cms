@@ -19,10 +19,10 @@ class QuotationController extends Controller
      */
     public function index(Request $request,$project_id=null)
     {
-        $per_page=$request->perPage?intval($request->perPage):5;
+        $per_page=$request->perPage?intval($request->perPage):10;
         $order=$request->order ?? 'desc' ;
         $sort=$request->sort ?? 'created_at';
-        $requisition_number=$request->requisition_number ?? '';
+        $requisition_number=$request->filter ?? '';
 
         
 

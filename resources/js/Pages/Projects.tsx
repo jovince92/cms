@@ -81,7 +81,7 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
                         <TableHeader className='sticky top-0 z-50 bg-background'>
                             <TableRow className='z-50 ring-1 ring-secondary'>
                                 <TableHead colSpan={4} />
-                                <TableHead colSpan={2} className='text-center text-base'>Quotation</TableHead>
+                                <TableHead colSpan={2} className='text-center text-base'>Quotation<span className='italic text-xs ml-1'>(estimate)</span></TableHead>
                                 <TableHead colSpan={8} />
                             </TableRow>
                             <TableRow className='-mt-0.5 z-50 text-sm'>

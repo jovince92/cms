@@ -72,8 +72,6 @@ const generateEmail = (quotation?:Quotation):string=>{
     <br>
     May I ask approval to purchase the items in this request.
     <br>
-    Please advise and see the quote below:
-    <br>
     <br>
     Project:&nbsp;<strong>${quotation.project.name}</strong>
     

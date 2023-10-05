@@ -21,7 +21,7 @@ const Login:FC = () => {
     return (
         <div className='relative flex flex-col w-full items-center justify-center h-screen'>
             <ModeToggle className='absolute top-3 right-3' />                
-            <Card className="max-w-md drop-shadow-sm shadow-secondary">
+            <Card className="max-w-md drop-shadow-md shadow-muted">
                 <CardHeader>
                     <CardTitle>Welcome To Construction Management System</CardTitle>
                     <CardDescription>Sign In to Continue...</CardDescription>

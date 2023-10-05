@@ -54,7 +54,6 @@ const Layout:FC<Props> = ({children,className,label}) => {
                 <ModeToggle className='my-2' />
             </nav>
             <main className='pl-14 md:pl-44 relative bg-muted flex-1 flex flex-col h-full'>
-                
                 <div className='w-full h-full px-3.5 pt-16 bg-primary-foreground'>
                     {children}
                 </div>
@@ -64,3 +63,4 @@ const Layout:FC<Props> = ({children,className,label}) => {
 }
 
 export default Layout
+                

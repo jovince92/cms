@@ -1,4 +1,4 @@
-import {LucideIcon,Gauge,Building,PictureInPicture2,BarChart3,Boxes,Users2,Settings} from 'lucide-react'
+import {LucideIcon,Gauge,Building,PictureInPicture2,BarChart3,Percent,Users2,SendToBack} from 'lucide-react'
 
 type SideBarItem={
     icon:LucideIcon;
@@ -24,23 +24,24 @@ export const SideBarItems:SideBarItem[] =[
     routeName:'pictures.index'
 },
 {
+    icon:Percent,
+    label:'Quotation',
+    routeName:'quotations.index'
+},
+{
+    icon:SendToBack,
+    label:'Phases',
+    routeName:'phases.index'
+},
+{
+
     icon:BarChart3,
     label:'Gantt chart',
     routeName:'gantt_chart.index'
 },
 {
-    icon:Boxes,
-    label:'Quotation',
-    routeName:'quotations.index'
-},
-{
     icon:Users2,
     label:'Accounts',
     routeName:'accounts.index'
-},
-{
-    icon:Settings,
-    label:'Settings',
-    routeName:'settings.index'
 },
 ]

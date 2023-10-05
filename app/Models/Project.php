@@ -18,4 +18,8 @@ class Project extends Model
         return $this->hasMany(Quotation::class);
     }
 
+    public function phases(){
+        return $this->hasMany(Phase::class);
+    }
+
 }
