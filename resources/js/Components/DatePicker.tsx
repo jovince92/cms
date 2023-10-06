@@ -9,15 +9,18 @@ import { Calendar } from './ui/calendar';
 interface DatePickerProps{
     date:string;
     setDate:(e?:string)=>void;
+    disabled?:boolean;
+    
 }
 
-const DatePicker:FC<DatePickerProps> = ({date,setDate}) => {
+const DatePicker:FC<DatePickerProps> = ({date,setDate,disabled}) => {
     return (
         <>
             <Popover>
                 <PopoverTrigger asChild>
                     <Button
                         //onClick={()=>setOpen(open)}
+                        disabled={disabled}
                         type='button'
                         variant={"outline"}
                         className={cn(
@@ -32,6 +35,7 @@ const DatePicker:FC<DatePickerProps> = ({date,setDate}) => {
             
                 <PopoverContent role='alertdialog' style={{ zIndex:100000 }}>
                     <Calendar  style={{ zIndex:100000 }}
+                    
                         mode="single"
                         selected={new Date(date)}
                         onSelect={(e)=>setDate(e?.toString())}
