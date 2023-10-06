@@ -1,18 +1,18 @@
-import {FC, FormEventHandler, useState} from 'react'
+import {FC,  useState} from 'react'
 import { Phase } from '../types';
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '../ui/table';
+import { Table, TableBody, TableCaption,  TableHead, TableHeader, TableRow } from '../ui/table';
 import { Button } from '../ui/button';
-import { Ban, PlusCircle, PlusSquare } from 'lucide-react';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import DatePicker from '../DatePicker';
-import { useForm } from '@inertiajs/inertia-react';
-
+import {  PlusCircle, } from 'lucide-react';
+import { format } from 'date-fns';
+import PhaseStageItem from './PhaseStageItem';
+import PhaseStageAdd from './PhaseStageAdd';
+import { toast } from 'react-toastify';
+import { Inertia } from '@inertiajs/inertia';
 interface PhaseAccordionContentProps{
     phase:Phase;
 }
 
-type FormStage = {
+export type FormStage = {
     name:string;
     start:string;
     end:string;
@@ -21,19 +21,40 @@ type FormStage = {
 const PhaseAccordionContent:FC<PhaseAccordionContentProps> = ({phase}) => {
     const {stages} = phase;
     const [adding,setAdding] = useState(false);
-    const onSubmit:FormEventHandler<HTMLFormElement> = (e) =>{
-        e.preventDefault();
-    }
+    const [loading,setLoading] = useState(false);
 
-    const {post,data,setData,processing,reset} = useForm<FormStage>({
-        name:"",
-        start: "",
-        end: ""
-    });
+    
 
-    const handleClose = () =>{
-        setAdding(false);
-        reset();
+    
+
+    const onSubmit = (stage:FormStage) =>{
+        const {name,start,end} = stage;
+        const startDt=new Date(start);
+        const endDt=new Date(end);
+        if(name.length<1) return toast.error('Name is required');
+        if(start==="") return toast.error('Start Date is required');
+        if(end==="") return toast.error('End Date is required');
+        if(endDt<startDt) return toast.error('End Date should not be before Start Date');
+        
+        
+
+        const url = route('stages.store');
+        setLoading(true);
+        Inertia.post(url, {
+            phase_id:phase.id,
+            name,
+            start:format(startDt,'Y-MM-dd'),
+            end:format(endDt,'Y-MM-dd'),
+            
+        },{
+            onError:()=>toast.error('Server Error. Please try again.'),
+            onSuccess:()=>{
+                toast.success('Stage Created');
+                setAdding(false);
+            },
+            onFinish:()=>setLoading(false)
+        });
+        
     }
 
     return (
@@ -50,13 +71,11 @@ const PhaseAccordionContent:FC<PhaseAccordionContentProps> = ({phase}) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                        <TableCell className="font-medium" >INV001</TableCell>
-                        <TableCell>Paid</TableCell>
-                        <TableCell>Credit Card</TableCell>
-                        <TableCell>$250.00</TableCell>
-                        <TableCell className='text-right'>$250.00</TableCell>
-                    </TableRow>
+                    {
+                        stages.map((stage)=>(
+                            <PhaseStageItem stage={stage} key={stage.id}/>
+                        ))
+                    }
                     
                 </TableBody>
                 <TableCaption className='pb-3.5'>
@@ -71,26 +90,7 @@ const PhaseAccordionContent:FC<PhaseAccordionContentProps> = ({phase}) => {
                 </TableCaption>
             </Table>
             {
-                adding&&(
-                    <form onSubmit={onSubmit} className='flex flex-col space-y-1.5 space-x-0 md:flex-row md:space-y-0 md:space-x-1.5 md:justify-center'>
-                        <div className='flex flex-col space-y-1 md:flex-1'>
-                            <Label htmlFor='stage'>Stage</Label>
-                            <Input id='stage' placeholder='Stage 1' />
-                        </div>
-                        <div className='flex flex-col space-y-1'>
-                            <Label>Start Date</Label>
-                            <DatePicker date={data.start} setDate={(val)=>setData('start',val||"")} />
-                        </div>
-                        <div className='flex flex-col space-y-1'>
-                            <Label>End Date</Label>
-                            <DatePicker disabled={data.start===""} date={data.end} setDate={(val)=>setData('end',val||"")} />
-                        </div>
-                        <div className='flex items-center justify-end md:items-end  space-x-1.5  md:flex-1'>
-                            <Button onClick={handleClose} type='button' variant='secondary' size='sm' className='text-base'>Cancel</Button>
-                            <Button type='submit' variant='outline' size='sm' className='text-base'>Submit</Button>
-                        </div>
-                    </form>
-                )
+                adding&&<PhaseStageAdd loading={loading} onClose={()=>setAdding(false)} onSubmit={onSubmit} />
             }
         </div>
     )

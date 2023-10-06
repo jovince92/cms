@@ -78,9 +78,15 @@ class PhaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$project_id)
     {
-        //
+        $phase =Phase::where('id',$request->phase_id)->where('project_id',$project_id)->firstOrFail();
+        $phase->update([
+            'project_id'=>$project_id,
+            'name'=>$request->name,
+            'description'=>$request->description
+        ]);
+        return Redirect::back();
     }
 
     /**
@@ -89,8 +95,10 @@ class PhaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$project_id)
     {
-        //
+        $phase =Phase::where('id',$request->phase_id)->where('project_id',$project_id)->firstOrFail();
+        $phase->delete();
+        return Redirect::back();
     }
 }

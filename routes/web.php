@@ -7,6 +7,7 @@ use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\StageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -68,6 +69,14 @@ Route::middleware(['auth'])->group(function(){
     Route::prefix('/phases/project/{project_id?}')->name('phases.')->group(function(){
         Route::get('/', [PhaseController::class,'index'])->name('index');
         Route::post('/store', [PhaseController::class,'store'])->name('store');
+        Route::post('/update', [PhaseController::class,'update'])->name('update');
+        Route::post('/destroy', [PhaseController::class,'destroy'])->name('destroy');
+    });
+
+
+    Route::prefix('/stages')->name('stages.')->group(function(){
+        Route::post('/store', [StageController::class,'store'])->name('store');
+        Route::post('/update', [StageController::class,'update'])->name('update');
     });
     
     

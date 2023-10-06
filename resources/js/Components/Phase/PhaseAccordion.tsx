@@ -1,7 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Phase } from '../types';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/Components/ui/accordion';
 import PhaseAccordionContent from './PhaseAccordionContent';
+import { FileEdit,Trash2 } from 'lucide-react';
+import ActionTooltip from '../ActionTooltip';
+import PhaseAccordionTrigger from './PhaseAccordionTrigger';
 
 interface PhaseAccordionProps{
     phases:Phase[]
@@ -10,7 +13,6 @@ interface PhaseAccordionProps{
 
 
 const PhaseAccordion:FC<PhaseAccordionProps> = ({phases}) => {
-
     if(phases.length<1){
         return (
             <p className='text-3xl font-bold text-center w-full my-2.5'>No Phases in this Project</p>
@@ -21,8 +23,9 @@ const PhaseAccordion:FC<PhaseAccordionProps> = ({phases}) => {
             {
                 phases.map(phase=>(
                     <AccordionItem key={phase.id} value={phase.id.toString()}>
-                        <AccordionTrigger  className='!py-2.5 !my-1.5 bg-muted border border-secondary rounded-md px-2 data-[state=open]:bg-background transition'>
-                            {phase.name}
+                        <AccordionTrigger  className='!py-2.5 !my-1.5 bg-muted border border-secondary rounded-md px-2 data-[state=open]:bg-background transition flex items-center'>
+                            <PhaseAccordionTrigger phase={phase} />
+                            
                         </AccordionTrigger>
                         <AccordionContent className='pl-6'>
                             <PhaseAccordionContent phase={phase} />

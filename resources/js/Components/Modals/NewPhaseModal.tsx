@@ -64,7 +64,7 @@ const NewPhaseModal = () => {
                             disabled={processing} 
                             />
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
+                    {/* <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="description" className="text-right">
                             Description <span className='text-muted-foreground italic'>(optional)</span>
                         </Label>
@@ -76,7 +76,7 @@ const NewPhaseModal = () => {
                             onChange={(({target})=>setData('description',target.value))}
                             disabled={processing} 
                             />
-                    </div>
+                    </div> */}
                 </form>
                 <DialogFooter>
                     <Button disabled={processing} variant='outline' type="submit" form='form' size='sm' className='text-sm font-semibold flex items-center space-x-1.5'>
