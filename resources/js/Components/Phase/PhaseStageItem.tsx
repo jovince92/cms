@@ -9,6 +9,7 @@ import { Input } from '../ui/input';
 import DatePicker from '../DatePicker';
 import ActionTooltip from '../ActionTooltip';
 import { toast } from 'react-toastify';
+import { useDeleteStageModal } from '@/Hooks/useDeleteStageModal';
 
 interface PhaseStageItemProps{
     stage:Stage;
@@ -16,6 +17,7 @@ interface PhaseStageItemProps{
 
 const PhaseStageItem:FC<PhaseStageItemProps> = ({stage}) => {
     const {id,name,start,end}=stage;
+    const {onOpen} = useDeleteStageModal();
     const noOfDays = useMemo(()=>differenceInDays(new Date(end),new Date(start)),[start,end]).toString();
     const [isEditing,setIsEditing] = useState(false);
     const {data,setData,processing,post} = useForm({id,name,start,end});
@@ -40,7 +42,7 @@ const PhaseStageItem:FC<PhaseStageItemProps> = ({stage}) => {
                         <TableCell>{format(new Date(start),'PPP')}</TableCell>
                         <TableCell>{format(new Date(end),'PPP')}</TableCell>
                         <TableCell className='flex items-center justify-end space-x-2'>
-                            <Button size='sm'  variant='destructive'>
+                            <Button onClick={()=>onOpen(stage)} size='sm'  variant='destructive'>
                                 <Trash2 className='h-4 w-4' />
                             </Button>
                             <Button onClick={()=>setIsEditing(true)} size='sm'  variant='outline'>

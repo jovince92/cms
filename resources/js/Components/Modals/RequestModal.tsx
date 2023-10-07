@@ -1,4 +1,4 @@
-import  { FC, useEffect, useMemo, useState } from 'react';
+import  { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Dialog, DialogContent } from '../ui/dialog';
 
 import { useQuotationModal } from '@/Hooks/useQuotationModal';
@@ -6,13 +6,27 @@ import { Separator } from '../ui/separator';
 import { Button } from '../ui/button';
 
 import TipTap from '../TipTap/TipTap';
+import axios from 'axios';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { useCurrentEditor } from '@tiptap/react';
+import useEditorConfig from '@/Hooks/useEditorConfig';
+import { toast } from 'react-toastify';
 
 const RequestModal:FC = () => {
-    
-    const {isOpen,type,onClose,emailMsg} = useQuotationModal();
+    const [sending,setSending] = useState(false);
+    const subj = useRef<HTMLInputElement>(null);
+    const {isOpen,type,onClose,emailMsg,emailSubject} = useQuotationModal();
+    const {editor} = useEditorConfig();
     const OPEN = useMemo(()=>isOpen&&type==='RequestQuotation',[isOpen,type]);
 
     const onSubmit = () =>{
+        if (!emailMsg) return;
+        if (!editor) return;
+        if (emailMsg.length<25) return toast.info('Email Request Message is too short');
+        console.log(editor.getHTML());
+        console.log(subj.current?.value);
+        
     }
 
     
@@ -21,19 +35,29 @@ const RequestModal:FC = () => {
         return null;
     }
 
+    if(!editor){
+        return null;
+    }
+
     return (
         <Dialog open={OPEN} onOpenChange={onClose}>
             <DialogContent className='max-w-[90vw] max-h-[95vh] h-full flex flex-col space-x-1.5'>
-                <div className='w-full'>
+                <div className='w-full flex flex-col space-y-1.5'>
                     <p className='font-semibold text-lg'>Send Request Email</p>
+                    <Separator />
+                    <div className='flex space-x-1.5 items-center justify-end'>
+                        <Label className=''>Subject:</Label>
+                        <Input value={emailSubject||""} ref={subj} className='flex-1' />
+                    </div>
                     <Separator />
                 </div>
                 <div className='w-full flex-1 flex flex-col max-h-fit overflow-y-auto'>
-                    <TipTap content={emailMsg} />
+                    
+                    <TipTap editor={editor} content={emailMsg} />
                 </div>
                 <div className='flex items-center justify-end space-x-1.5'>
-                    <Button variant='secondary' size='sm' className='text-base'>Close</Button>
-                    <Button onClick={onSubmit} variant='outline' size='sm' className='text-base'>Submit</Button>
+                    <Button variant='secondary' size='sm' className='text-base'>Cancel</Button>
+                    <Button onClick={onSubmit} variant='outline' size='sm' className='text-base'>Send Email</Button>
                 </div>
             </DialogContent>
         </Dialog>

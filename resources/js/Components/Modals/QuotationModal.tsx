@@ -5,13 +5,11 @@ import { Input } from '../ui/input'
 import { format } from 'date-fns'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import { Label } from '../ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { ModeOfPayments } from '@/lib/utils';
 import { Button } from '../ui/button';
 import { useQuotationModal } from '@/Hooks/useQuotationModal';
 import { ModeofPayment } from '../types';
 import { Badge } from '../ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { HardDriveUpload, Loader2, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import AddQuotationItem from './QuotationModalComponents/AddQuotationItem';

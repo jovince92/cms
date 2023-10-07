@@ -1,15 +1,13 @@
-import {  useCurrentEditor } from '@tiptap/react';
+import {  Editor, useCurrentEditor } from '@tiptap/react';
 import { Bold, Code2, Heading, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Italic, List, ListOrdered, Quote, Strikethrough } from 'lucide-react';
 import {FC} from 'react';
 import { Button } from '../ui/button';
 
 interface Props{
-    
+    editor:Editor
 }
 
-const MenuBar:FC<Props> = () => {
-    
-    const {editor}=useCurrentEditor();
+const MenuBar:FC<Props> = ({editor}) => {
     
 
     return (

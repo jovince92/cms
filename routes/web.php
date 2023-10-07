@@ -7,6 +7,7 @@ use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\QuotationRequestController;
 use App\Http\Controllers\StageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/', [QuotationController::class,'index'])->name('index');
         Route::post('/store', [QuotationController::class,'store'])->name('store');
         Route::post('/update', [QuotationController::class,'update'])->name('update');
+        Route::post('/mail_request', QuotationRequestController::class)->name('mail_request');
     });
 
     Route::prefix('/accounts')->name('accounts.')->group(function(){
@@ -77,6 +79,7 @@ Route::middleware(['auth'])->group(function(){
     Route::prefix('/stages')->name('stages.')->group(function(){
         Route::post('/store', [StageController::class,'store'])->name('store');
         Route::post('/update', [StageController::class,'update'])->name('update');
+        Route::post('/destroy', [StageController::class,'destroy'])->name('destroy');
     });
     
     

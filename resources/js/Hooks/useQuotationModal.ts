@@ -15,6 +15,7 @@ interface QuotationModal{
     onClose:()=>void;
     type?:ModalType;
     emailMsg?:string;
+    emailSubject?:string;
 }
     
 
@@ -27,13 +28,17 @@ export const useQuotationModal = create<QuotationModal>(set=>({
         data,type,
         emailMsg:type==='RequestQuotation'?
             generateEmail(data?.quotation):
-            undefined
+            undefined,
+        emailSubject:type==='RequestQuotation'?
+            generateSubject(data?.quotation):
+            undefined,
     }),
     onClose:()=>set({
         isOpen:false,
         data:undefined,
         type:undefined,
-        emailMsg:undefined
+        emailMsg:undefined,
+        emailSubject:undefined
     })
 }));
 
@@ -102,4 +107,9 @@ const generateEmail = (quotation?:Quotation):string=>{
     
     
     `;
+}
+
+const generateSubject = (quotation?:Quotation):string =>{
+    if(!quotation) return "";
+    return `Quotation For Approval - ${quotation.project.name}`
 }

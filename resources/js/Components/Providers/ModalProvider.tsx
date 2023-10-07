@@ -7,6 +7,7 @@ import QuotationModal from '../Modals/QuotationModal'
 import RequestModal from '../Modals/RequestModal'
 import NewPhaseModal from '../Modals/NewPhaseModal'
 import DeletePhaseModal from '../Modals/DeletePhaseModal'
+import DeleteStageModal from '../Modals/DeleteStageModal'
 
 const ModalProvider:FC = () => {
     return (
@@ -19,6 +20,7 @@ const ModalProvider:FC = () => {
             <RequestModal />
             <NewPhaseModal />
             <DeletePhaseModal />
+            <DeleteStageModal />
         </>
     )
 }
