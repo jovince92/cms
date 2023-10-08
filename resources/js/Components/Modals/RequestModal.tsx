@@ -23,13 +23,17 @@ const RequestModal:FC = () => {
     const onSubmit = () =>{
         if (!emailMsg) return;
         if (!editor) return;
-        if (emailMsg.length<25) return toast.info('Email Request Message is too short');
+        if (editor.getHTML().length<25) return toast.info('Email Request Message is too short');
         console.log(editor.getHTML());
         console.log(subj.current?.value);
         
     }
 
-    
+    useEffect(()=>{
+        if(subj.current){
+            subj.current.value=emailSubject||"";
+        }
+    },[emailSubject,subj]);
 
     if(!emailMsg){
         return null;
@@ -47,7 +51,7 @@ const RequestModal:FC = () => {
                     <Separator />
                     <div className='flex space-x-1.5 items-center justify-end'>
                         <Label className=''>Subject:</Label>
-                        <Input value={emailSubject||""} ref={subj} className='flex-1' />
+                        <Input  ref={subj} className='flex-1' />
                     </div>
                     <Separator />
                 </div>
