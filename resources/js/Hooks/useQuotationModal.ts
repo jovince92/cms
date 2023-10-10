@@ -21,6 +21,7 @@ interface QuotationModal{
 
 
 export const useQuotationModal = create<QuotationModal>(set=>({
+    data:undefined,
     emailMsg:undefined,
     type:undefined,
     onOpen:(type,data)=>set({
@@ -78,7 +79,8 @@ const generateEmail = (quotation?:Quotation):string=>{
     May I ask approval to purchase the items in this request.
     <br>
     <br>
-    Project:&nbsp;<strong>${quotation.project.name}</strong>
+    Project:&nbsp;<strong>${quotation.project.name}</strong><br>
+    Requisition#:&nbsp;<strong>${quotation.requisition_number}</strong>
     
     <table>
         <thead>
@@ -111,5 +113,6 @@ const generateEmail = (quotation?:Quotation):string=>{
 
 const generateSubject = (quotation?:Quotation):string =>{
     if(!quotation) return "";
-    return `Quotation For Approval - ${quotation.project.name}`
+    const title = `${quotation.project.name.replace(' ','_')}_${quotation.requisition_number}`
+    return `Quotation For Approval - ${title}`
 }

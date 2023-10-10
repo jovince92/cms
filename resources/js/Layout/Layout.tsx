@@ -25,13 +25,12 @@ const Layout:FC<Props> = ({children,className,label}) => {
             <aside className='w-14 md:w-44 h-full fixed left-0 inset-y-0 z-50 bg-background'>
                 <div className="space-y-4 py-4 h-full">
                     <div className="px-1.5 md:px-3 py-2 flex flex-col justify-between h-full">
-                        <div>
+                        <div className='flex flex-col gap-y-3.5 h-full '>
                             <h2 className="hidden md:block mb-2 px-4 text-lg font-semibold tracking-tight">
                                 <p className='text-center'> Welcome to</p>
                                 <p className='text-center'>CMS</p>                                
                             </h2>
-                            <Separator />
-                            <div className="flex flex-col items-center justify-center space-y-1.5">
+                            <div className="flex-1 flex flex-col items-center  space-y-1.5 overflow-y-auto">
                                 {SideBarItems.map(({icon:Icon,label,routeName})=>(
                                     <Link className='w-full flex items-center justify-center' href={route(routeName)} key={routeName} >
                                         <Button  variant={route().current()===routeName?'secondary':'ghost'} className="p-0 md:p-2 w-full flex justify-center md:justify-start  items-center">
@@ -41,11 +40,12 @@ const Layout:FC<Props> = ({children,className,label}) => {
                                     </Link>
                                 ))}
                             </div>
+                            <Button onClick={onLogout} variant='ghost' className="mt-auto p-0 md:p-2 w-full flex justify-center md:justify-start  items-center">
+                                <LogOut className='h-7 md:h-4 w-7 md:w-4 mr-0 md:mr-2' />
+                                <span className='hidden md:inline'>Sign Out</span>
+                            </Button>
                         </div>
-                        <Button onClick={onLogout} variant='ghost' className="p-0 md:p-2 w-full flex justify-center md:justify-start  items-center">
-                            <LogOut className='h-7 md:h-4 w-7 md:w-4 mr-0 md:mr-2' />
-                            <span className='hidden md:inline'>Sign Out</span>
-                        </Button>
+                        
                     </div>
                 </div>
             </aside>

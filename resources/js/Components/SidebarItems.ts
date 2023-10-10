@@ -1,4 +1,4 @@
-import {LucideIcon,Gauge,Building,PictureInPicture2,BarChart3,Percent,Users2,SendToBack} from 'lucide-react'
+import {LucideIcon,Gauge,Building,PictureInPicture2,BarChart3,Percent,Users2,SendToBack, MailPlus} from 'lucide-react'
 
 type SideBarItem={
     icon:LucideIcon;
@@ -38,6 +38,11 @@ export const SideBarItems:SideBarItem[] =[
     icon:BarChart3,
     label:'Gantt chart',
     routeName:'gantt_chart.index'
+},
+{
+    icon:MailPlus,
+    label:'Address Book',
+    routeName:'addresses.index'
 },
 {
     icon:Users2,

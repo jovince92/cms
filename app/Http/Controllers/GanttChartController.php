@@ -16,7 +16,11 @@ class GanttChartController extends Controller
     public function index($project_id=null)
     {
         
-        return Inertia::render('GanttChart');
+        return Inertia::render('GanttChart',[
+            'selected_project'=>$project_id?Project::with(
+                ['phases','phases.stages']
+            )->where('id',$project_id)->firstOrFail():null
+        ]);
     }
 
     /**

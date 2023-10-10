@@ -2,7 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Phase;
+use App\Models\Project;
+use App\Models\Stage;
 use App\Models\User;
+use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

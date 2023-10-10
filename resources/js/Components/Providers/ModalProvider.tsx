@@ -8,6 +8,8 @@ import RequestModal from '../Modals/RequestModal'
 import NewPhaseModal from '../Modals/NewPhaseModal'
 import DeletePhaseModal from '../Modals/DeletePhaseModal'
 import DeleteStageModal from '../Modals/DeleteStageModal'
+import NewAddressModal from '../Modals/NewAddressModal'
+import DeleteAddressModal from '../Modals/DeleteAddressModal'
 
 const ModalProvider:FC = () => {
     return (
@@ -21,6 +23,8 @@ const ModalProvider:FC = () => {
             <NewPhaseModal />
             <DeletePhaseModal />
             <DeleteStageModal />
+            <NewAddressModal />
+            <DeleteAddressModal />
         </>
     )
 }

@@ -66,7 +66,7 @@ const ProjectModal:FC = () => {
             onError:()=>toast.error('Internal Error. Please Try again!'),
             preserveScroll:true,
             preserveState:true,
-        })
+        });
     }
 
     useEffect(()=>{

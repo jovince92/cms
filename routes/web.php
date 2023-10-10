@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\GanttChartController;
 use App\Http\Controllers\PhaseController;
@@ -59,7 +60,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/', [QuotationController::class,'index'])->name('index');
         Route::post('/store', [QuotationController::class,'store'])->name('store');
         Route::post('/update', [QuotationController::class,'update'])->name('update');
-        Route::post('/mail_request', QuotationRequestController::class)->name('mail_request');
+        Route::post('/mail_request',[QuotationRequestController::class,'mail'])->name('mail_request');
     });
 
     Route::prefix('/accounts')->name('accounts.')->group(function(){
@@ -80,6 +81,14 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/store', [StageController::class,'store'])->name('store');
         Route::post('/update', [StageController::class,'update'])->name('update');
         Route::post('/destroy', [StageController::class,'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/addresses')->name('addresses.')->group(function(){
+        Route::get('/', [AddressController::class,'index'])->name('index');
+        Route::post('/store', [AddressController::class,'store'])->name('store');
+        Route::get('/show', [AddressController::class,'show'])->name('show');
+        Route::post('/update', [AddressController::class,'update'])->name('update');
+        Route::post('/destroy/{id}', [AddressController::class,'destroy'])->name('destroy');
     });
     
     

@@ -1,3 +1,4 @@
+import { Address } from './index.d';
 
 import ziggy from 'ziggy-js'
 
@@ -125,6 +126,17 @@ export interface Stage{
     name:string;
     start:string;
     end:string;
+    created_at:string;
+    updated_at:string;
+}
+
+
+export interface EmailAddress{
+    id:number;
+    first_name:string;
+    last_name?:string;
+    email:string;
+    default:1|0;
     created_at:string;
     updated_at:string;
 }
