@@ -23,8 +23,6 @@ const Phases:FC<Props> = ({selected_project}) => {
             project_id:projectId
         }));
     }
-
-    useEffect(()=>console.log(selected_project),[]);
     return (
         <Layout label='Phases'>
             <div className='h-full flex flex-col space-y-2.5 overflow-y-hidden'>

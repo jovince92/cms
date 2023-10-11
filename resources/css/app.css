@@ -108,7 +108,18 @@
   @apply prose w-full min-w-full !text-primary border border-muted rounded-md p-1.5 focus:!ring-0 focus:!ring-offset-0 focus:!outline-none focus:!outline-offset-0 text-sm
 }
 
-._34SS0{
+.timeLine-side-title{
   @apply !bg-background !text-primary
 }
 
+.header-top{
+  @apply !bg-background !text-primary
+}
+.timeLine-side-task-row{
+  @apply !bg-secondary !text-primary
+}
+
+
+input{
+  @apply bg-background text-primary
+}
