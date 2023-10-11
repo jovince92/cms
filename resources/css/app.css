@@ -107,7 +107,7 @@
 .tiptap {
   @apply prose w-full min-w-full !text-primary border border-muted rounded-md p-1.5 focus:!ring-0 focus:!ring-offset-0 focus:!outline-none focus:!outline-offset-0 text-sm
 }
-
+/* 
 .timeLine-side-title{
   @apply !bg-background !text-primary
 }
@@ -117,9 +117,36 @@
 }
 .timeLine-side-task-row{
   @apply !bg-secondary !text-primary
+} */
+
+
+/* input{
+  @apply bg-background text-primary
+} */
+
+.Grid-module_grid__2VUMH{
+  @apply !bg-background !text-primary
 }
 
+.Header-module_table__3u_KP{
+  @apply !bg-background !text-primary
+}
 
-input{
-  @apply bg-background text-primary
+.TimeScale-module_cell__2VPIM{
+  @apply !bg-background !text-primary
+}
+.Bars-module_bars__PCKpA{
+  @apply !bg-background !text-primary
+}
+
+.TimeScale-module_cell__2VPIM{
+  @apply !bg-background !text-primary
+}
+
+.TimeScale-module_row__1Lyi6{
+  @apply !bg-background !text-primary
+  
+}
+.Bars-module_task__Q4sZx{
+  @apply !border-secondary
 }

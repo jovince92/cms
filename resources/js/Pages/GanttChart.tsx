@@ -29,7 +29,7 @@ const GanttChart:FC<Props> = ({selected_project}) => {
                     {!selected_project?
                         <p className='text-3xl font-bold text-center w-full my-3.5'>Select a Project</p>:(
                             <div className='flex-1 h-full overflow-auto'>
-                                <GanttChartPanel phases={selected_project.phases} />
+                                <GanttChartPanel  view='week' phases={selected_project.phases} />
                             </div>
                         )}
                 </div>
