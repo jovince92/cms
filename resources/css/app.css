@@ -107,22 +107,7 @@
 .tiptap {
   @apply prose w-full min-w-full !text-primary border border-muted rounded-md p-1.5 focus:!ring-0 focus:!ring-offset-0 focus:!outline-none focus:!outline-offset-0 text-sm
 }
-/* 
-.timeLine-side-title{
-  @apply !bg-background !text-primary
-}
 
-.header-top{
-  @apply !bg-background !text-primary
-}
-.timeLine-side-task-row{
-  @apply !bg-secondary !text-primary
-} */
-
-
-/* input{
-  @apply bg-background text-primary
-} */
 
 .gantt_grid_scale{
   @apply !bg-background !text-primary
@@ -133,26 +118,39 @@
 }
 
 .gantt_task_row{
-  @apply !bg-background !text-primary !w-full  !border-muted-foreground/50 
+  @apply !bg-background  !w-full  !border-muted-foreground/50 
 }
 
+
+
 .odd.gantt_task_row{
-  @apply !bg-secondary !text-primary !w-full 
+  @apply !bg-secondary  !w-full 
 }
 
 .gantt_task_cell{
   @apply !border-muted-foreground/50
 }
 
-.gantt_row.gantt_row_project{
-  @apply !bg-background !text-primary !w-full
+.gantt_row_project, .gantt_row {
+  @apply !text-primary !w-full !bg-background !font-bold 
 }
 
 .gantt_row.gantt_row_task{
-  @apply !bg-background !text-primary
+  @apply !bg-background 
   
 }
-.Bars-module_task__Q4sZx{
-  @apply !border-secondary
+
+.gantt_data_area{
+  @apply !bg-background !text-primary
 }
 
+
+
+.gantt_grid_data{
+  @apply !bg-background !text-primary
+}
+
+
+.gantt_grid_data, .gantt_cell{
+  @apply !text-primary
+}

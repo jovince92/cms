@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Phase;
 use App\Models\Project;
+use App\Models\Stage;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -17,19 +19,23 @@ class GanttChartController extends Controller
      */
     public function index($project_id=null)
     {
-        $project=$project_id?Project::with(
-            ['phases','phases.stages']
-        )->where('id',$project_id)->firstOrFail():null;
-        
+        //return Phase::with(['stages'])->get();
+        $project=$project_id?Project::where('id',$project_id)->firstOrFail():null;
+        $phases = Phase::with(['stages'])->where('project_id',$project_id)->get();
+
         $data = [];
         
         if($project_id){
-            $phases=$project->phases;
+            
             
             // Define an empty array for the data
 
             // Loop through the phases array
             foreach ($phases as $phase) {
+                
+                if(!$phase->stages){
+                    break;
+                }
                 // Extract the stages array from the phase
                 $stages = $phase['stages'];
                 // Calculate the parent id as the negative of the phase id

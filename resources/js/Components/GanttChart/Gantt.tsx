@@ -1,14 +1,15 @@
 import React, { useRef,FC, useEffect, useMemo } from 'react';
-import { Task, gantt } from 'dhtmlx-gantt';
+import { Task, ZoomMethods, gantt } from 'dhtmlx-gantt';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
 
 interface GanttProps{
+    viewMode?:'month'|'year'|'day'|'week';
     phases: {
         tasks:Task[];
     }
 }
 
-const Gantt:FC<GanttProps> = ({phases}) => {
+const Gantt:FC<GanttProps> = ({phases,viewMode='week'}) => {
   // Use useRef to create a reference to the gantt container div
     const ganttContainer = useRef<HTMLDivElement>(null);
     // Use useEffect to initialize and parse the gantt chart
@@ -30,16 +31,17 @@ const Gantt:FC<GanttProps> = ({phases}) => {
             {label:'Phase',name:'text',width:150,tree:true},
             {label:'Start',name:'start_date',align:'center'},
             {label:'End',name:'end_date',align:'center'},
-            {label:'Days',name:'duration',align:'right'}
+            {label:'Days',name:'duration',align:'right'},
+            
         ];
         gantt.config.scales=[
             { unit: "month", step: 1, format: "%F, %Y" },
-            { unit: 'week', step: 1,format: "%d" },
+            { unit: viewMode, step: 1,format: "%d" },
         ];
         //@ts-ignore
         gantt.init(ganttContainer.current);
         gantt.parse(phases);
-    }, []);
+    }, [viewMode,phases]);
 
     // Return the gantt container div
     return (

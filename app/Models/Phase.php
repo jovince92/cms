@@ -9,6 +9,7 @@ class Phase extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $with=['stages'];
     
     public function stages(){
         return $this->hasMany(Stage::class);
