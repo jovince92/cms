@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('/gantt_chart/project/{project_id?}')->name('gantt_chart.')->group(function(){
         Route::get('/', [GanttChartController::class,'index'])->name('index');
+        Route::get('/show', [GanttChartController::class,'show'])->name('show');
     });
 
     Route::prefix('/quotations/project/{project_id?}')->name('quotations.')->group(function(){

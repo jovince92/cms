@@ -28,22 +28,21 @@ class PhaseAndStageSeeder extends Seeder
                     'name'=>'Phase '.strval($phase_no)
                 ]);
                 $stages = intval($faker->numberBetween(2,6));
-                $start_max= -17;
-                $start_min= -15;
-                $end_start= -13;                    
-                $end_min= -10;
+                $start_phase_max= -35;
+                $start_phase_min= -33;
+                $end_phase_start= -31;                    
+                $end_phase_min= -29;
                 for($j=0;$j<=$stages;$j++){
                     $stage_no=$j+1;
-                    
-                    $start_max= $start_max+1;
-                    $start_min= $start_min+1;
-                    $end_start= $end_start+1;
-                    $end_min= $end_min+1;
+                    $start_phase_max= $start_phase_max+3;
+                    $start_phase_min= $start_phase_min+4;
+                    $end_phase_start= $end_phase_start+3;
+                    $end_phase_min= $end_phase_min+4;
 
-                    $start_week_max = strval($start_max). ' week';
-                    $start_week_min = strval($start_min). ' week';
-                    $end_week_max = strval($end_start). ' week';
-                    $end_week_min = strval($end_min). ' week';
+                    $start_week_max = strval($start_phase_max). ' week';
+                    $start_week_min = strval($start_phase_min). ' week';
+                    $end_week_max = strval($end_phase_start). ' week';
+                    $end_week_min = strval($end_phase_min). ' week';
 
                     Stage::create([
                         'phase_id'=>$phase->id,

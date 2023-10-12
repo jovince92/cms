@@ -129,18 +129,18 @@
 }
 
 .Header-module_table__3u_KP{
-  @apply !bg-background !text-primary
+  @apply !bg-background !text-primary !w-full
 }
 
 .TimeScale-module_cell__2VPIM{
-  @apply !bg-background !text-primary
+  @apply !bg-background !text-primary !w-full
 }
 .Bars-module_bars__PCKpA{
   @apply !bg-background !text-primary
 }
 
 .TimeScale-module_cell__2VPIM{
-  @apply !bg-background !text-primary
+  @apply !bg-background !text-primary !w-full
 }
 
 .TimeScale-module_row__1Lyi6{
@@ -150,3 +150,4 @@
 .Bars-module_task__Q4sZx{
   @apply !border-secondary
 }
+

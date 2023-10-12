@@ -3,21 +3,49 @@ import ProjectSelector from '@/Components/ProjectSelector'
 import { Phase, Project } from '@/Components/types';
 import Layout from '@/Layout/Layout'
 import { useForm } from '@inertiajs/inertia-react';
-import {FC} from 'react'
+import axios from 'axios';
+import {FC, useEffect, useState,lazy} from 'react'
+
+
+export type ChartData = {
+    id:number;
+    open?:boolean;
+    parent:number;
+    start_date:string|Date;
+    text:string;
+    duration:number;
+    progress:100;
+    type?:"task"|"project"| "milestone";
+}
 
 type Props={
     selected_project?:Project & {
         phases:Phase[]
-    } ;
+    };
+    chart_data:ChartData[];
 }
 
-const GanttChart:FC<Props> = ({selected_project}) => {
+const GanttChart:FC<Props> = ({selected_project,chart_data}) => {
+    const [phases,setPhases] = useState<ChartData[]>(chart_data);
+    //const [loading,setLoading] = useState(false);
     const { get,processing } = useForm();
     const onSelect = (projectId:string) =>{
-        get(route('gantt_chart.index',{
+        //setLoading(true);
+        const url:any=route('gantt_chart.index',{
             project_id:projectId
-        }));
+        });
+        get(url,{
+            preserveScroll:false,
+            preserveState:false
+        });
+        // //return window.location.href=url;
+        // axios.get(url)
+        // .then(({data})=>setPhases(val=>[...data]))
+        // .catch((e)=>console.log(e))
+        // .finally(()=>setLoading(false));
     }
+
+
     return (
         <Layout  label='Gannt Chart'>
             <div className='h-full flex flex-col space-y-2.5 overflow-y-hidden'>
@@ -25,13 +53,9 @@ const GanttChart:FC<Props> = ({selected_project}) => {
                     { selected_project && <p className='text-lg font-semibold'>{selected_project.name}</p>}
                     <ProjectSelector className='ml-auto' onSelect={onSelect} selectedProjectId={selected_project?.id.toString()} />
                 </div>
-                <div className='flex-1 overflow-auto flex relative'>
-                    {!selected_project?
-                        <p className='text-3xl font-bold text-center w-full my-3.5'>Select a Project</p>:(
-                            <div className='flex-1 h-full overflow-auto'>
-                                <GanttChartPanel  view='week' phases={selected_project.phases} />
-                            </div>
-                        )}
+                <div className='flex-1 overflow-auto flex relative w-full'>
+                    {!selected_project&&<p className='text-3xl font-bold text-center w-full my-3.5'>Select a Project</p>}
+                    {(!processing&&selected_project)&&<GanttChartPanel data={phases} view='week'  />}
                 </div>
             </div>
         </Layout>
