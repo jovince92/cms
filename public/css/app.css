@@ -431,6 +431,15 @@ video {
   --tw-backdrop-opacity:  ;
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
+}.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}@media (min-width: 1400px) {.container {
+    max-width: 1400px;
+  }
 }.sr-only {
   position: absolute;
   width: 1px;
@@ -1700,25 +1709,29 @@ video {
   @apply !bg-secondary !text-primary
 } *//* input{
   @apply bg-background text-primary
-} */.Grid-module_grid__2VUMH {
+} */.gantt_grid_scale {
   background-color: hsl(var(--background)) !important;
   color: hsl(var(--primary)) !important;
-}.Header-module_table__3u_KP {
+}.gantt_scale_line {
   width: 100% !important;
   background-color: hsl(var(--background)) !important;
   color: hsl(var(--primary)) !important;
-}.TimeScale-module_cell__2VPIM {
+}.gantt_task_row {
+  width: 100% !important;
+  border-color: hsl(var(--muted-foreground) / 0.5) !important;
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--primary)) !important;
+}.odd.gantt_task_row {
+  width: 100% !important;
+  background-color: hsl(var(--secondary)) !important;
+  color: hsl(var(--primary)) !important;
+}.gantt_task_cell {
+  border-color: hsl(var(--muted-foreground) / 0.5) !important;
+}.gantt_row.gantt_row_project {
   width: 100% !important;
   background-color: hsl(var(--background)) !important;
   color: hsl(var(--primary)) !important;
-}.Bars-module_bars__PCKpA {
-  background-color: hsl(var(--background)) !important;
-  color: hsl(var(--primary)) !important;
-}.TimeScale-module_cell__2VPIM {
-  width: 100% !important;
-  background-color: hsl(var(--background)) !important;
-  color: hsl(var(--primary)) !important;
-}.TimeScale-module_row__1Lyi6 {
+}.gantt_row.gantt_row_task {
   background-color: hsl(var(--background)) !important;
   color: hsl(var(--primary)) !important;
 }.Bars-module_task__Q4sZx {

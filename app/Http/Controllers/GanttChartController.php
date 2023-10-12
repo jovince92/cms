@@ -39,11 +39,12 @@ class GanttChartController extends Controller
                     'id' => $parentId,
                     'open' => true,
                     'parent' => 0,
-                    'start_date' => Carbon::parse($stages[0]['start']),
-                    //'start_date' => Carbon::parse($stages[0]['start'])->format('Y-m-d'),
+                    'start_date' => Carbon::parse($stages[0]['start'])->format('Y-m-d'),
+                    //'end_date' => Carbon::parse($stages[count($stages)-1]['end'])->format('Y-m-d'),
                     'duration' => date_diff(new DateTime($stages[count($stages) - 1]['end']), new DateTime($stages[0]['start']))->days,
                     'text' => $phase['name'],
                     'progress' => 100,
+                    'calculate_duration'=>false,
                     'type' => 'project',
                 ]);
                 // Loop through the stages array
@@ -53,10 +54,12 @@ class GanttChartController extends Controller
                         'id' => $stage['id'],
                         'open' => false,
                         'parent' => $parentId,
-                        'start_date' => Carbon::parse($stage['start']),
+                        'start_date' => Carbon::parse($stage['start'])->format('Y-m-d'),
+                        //'end_date' => Carbon::parse($stage['end'])->format('Y-m-d'),
                         'duration' => date_diff(new DateTime($stage['end']), new DateTime($stage['start']))->days,
                         'text' => $stage['name'],
                         'progress' => 100,
+                        'calculate_duration'=>false,
                         // Uncomment the line below if you want to specify the type of the stage
                         // 'type' => 'project',
                     ]);

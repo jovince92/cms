@@ -2,12 +2,14 @@ import {FC, useEffect, useMemo, useState,lazy,Suspense} from 'react';
 import { Phase } from '../types';
 import { differenceInDays } from 'date-fns';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
-import { ChartData } from '@/Pages/GanttChart';
 //@ts-ignore
 import { Gantt, DefaultTheme,MaterialTheme } from "@dhtmlx/trial-react-gantt";
+
+
+
 interface GanttChartPanelProps{
     view?:"year"|"month"|"week"|"day",
-    data?:ChartData[];
+    data?:any[];
 }
 
 type Col={
@@ -34,9 +36,9 @@ const GanttChartPanel:FC<GanttChartPanelProps> = ({view='day',data}) => {
 
     return (
         <div className='w-full'>
-            <DefaultTheme>
+            {/* <DefaultTheme>
                 <Gantt cellWidth='50' readonly  columns={cols} scales={scales} tasks={data}/>
-            </DefaultTheme>
+            </DefaultTheme> */}
         </div>
     )
 }

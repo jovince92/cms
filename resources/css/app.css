@@ -124,26 +124,31 @@
   @apply bg-background text-primary
 } */
 
-.Grid-module_grid__2VUMH{
+.gantt_grid_scale{
   @apply !bg-background !text-primary
 }
 
-.Header-module_table__3u_KP{
+.gantt_scale_line{
   @apply !bg-background !text-primary !w-full
 }
 
-.TimeScale-module_cell__2VPIM{
-  @apply !bg-background !text-primary !w-full
-}
-.Bars-module_bars__PCKpA{
-  @apply !bg-background !text-primary
+.gantt_task_row{
+  @apply !bg-background !text-primary !w-full  !border-muted-foreground/50 
 }
 
-.TimeScale-module_cell__2VPIM{
+.odd.gantt_task_row{
+  @apply !bg-secondary !text-primary !w-full 
+}
+
+.gantt_task_cell{
+  @apply !border-muted-foreground/50
+}
+
+.gantt_row.gantt_row_project{
   @apply !bg-background !text-primary !w-full
 }
 
-.TimeScale-module_row__1Lyi6{
+.gantt_row.gantt_row_task{
   @apply !bg-background !text-primary
   
 }
