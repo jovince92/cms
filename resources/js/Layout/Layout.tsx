@@ -22,7 +22,7 @@ const Layout:FC<Props> = ({children,className,label}) => {
     return (
         <div className={cn('w-full h-screen max-h-screen relative ',className)}>
             
-            <aside className='w-14 md:w-44 h-full fixed left-0 inset-y-0 z-50 bg-background'>
+            <aside className='w-14 md:w-44 h-full fixed left-0 inset-y-0 z-50 bg-background border-r border-r-secondary'>
                 <div className="space-y-4 py-4 h-full">
                     <div className="px-1.5 md:px-3 py-2 flex flex-col justify-between h-full">
                         <div className='flex flex-col gap-y-3.5 h-full '>
@@ -49,8 +49,8 @@ const Layout:FC<Props> = ({children,className,label}) => {
                     </div>
                 </div>
             </aside>
-            <nav className='drop-shadow-md shadow-primary pl-16 md:pl-48 z-40 fixed top-0 inset-x-0 flex items-center justify-between text-3xl h-[3.7rem] bg-muted border-b border-secondary px-3.5 '>
-                <p>{label}</p>
+            <nav className='drop-shadow-md shadow-primary pl-16 md:pl-48 z-40 fixed top-0 inset-x-0 flex items-center justify-between  h-[3.7rem] bg-background border-b border-secondary px-3.5 '>
+                <p className='tracking-tight font-bold text-3xl'>{label}</p>
                 <ModeToggle className='my-2' />
             </nav>
             <main className='pl-14 md:pl-44 relative bg-muted flex-1 flex flex-col h-full'>
