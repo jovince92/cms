@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Project;
+use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -119,5 +121,23 @@ class ProjectController extends Controller
         $project = Project::findOrFail($request->id);
         $project->delete();
         return Redirect::back();
+    }
+
+    public function set_actual_cost(){
+        $projects=Project::all();
+
+        foreach($projects as $project){
+            $actual_cost=0;
+            $quotations = Quotation::with(['items'])->where('project_id',$project->id)->get();
+
+            foreach($quotations as $quotation){
+                $actual_cost=$actual_cost+Item::where('quotation_id',$quotation->id)->sum('total');
+            }
+            $project->update([
+                'actual_cost'=>$actual_cost
+            ]);
+        }
+        return 'DONE!';
+
     }
 }

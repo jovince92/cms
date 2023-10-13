@@ -67,6 +67,7 @@ class QuotationController extends Controller
      */
     public function store(Request $request,$project_id){
         DB::transaction(function () use($request,$project_id){
+            $project=Project::findOrfail($project_id);
             $quotation = Quotation::create([
                 'project_id'=>$project_id,
                 'requisition_number'=>$request->requisition_number,
@@ -91,6 +92,17 @@ class QuotationController extends Controller
                 $grand_total=$grand_total+$total;
             }
             $quotation->update(['grand_total'=>$grand_total]);
+
+            //UPDATE ACTUAL COST!!!!
+            $quotations = Quotation::with(['items'])->where('project_id',$project_id)->get();
+            $actual_cost=0;
+            foreach($quotations as $quotation_item){
+                $actual_cost=$actual_cost+Item::where('quotation_id',$quotation_item->id)->sum('total');
+            }
+            $project->update([
+                'actual_cost'=>$actual_cost
+            ]);
+
         });
         
         
@@ -124,6 +136,8 @@ class QuotationController extends Controller
     
     public function update(Request $request,$project_id){
         DB::transaction(function () use($request,$project_id){
+            
+            $project=Project::findOrfail($project_id);
             $quotation=Quotation::where('id',$request->quotation_id)->where('project_id',$project_id)->firstOrFail();
             Item::where('quotation_id',$request->quotation_id)->delete();
             
@@ -147,20 +161,29 @@ class QuotationController extends Controller
                 
             }
             $quotation->update(['grand_total'=>$grand_total]);
+
+            //UPDATE ACTUAL COST!!!!
+            $quotations = Quotation::with(['items'])->where('project_id',$project_id)->get();
+            $actual_cost=0;
+            foreach($quotations as $quotation_item){
+                $actual_cost=$actual_cost+Item::where('quotation_id',$quotation_item->id)->sum('total');
+            }
+            $project->update([
+                'actual_cost'=>$actual_cost
+            ]);
         });
         
         return Redirect::back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    
+    public function destroy($project_id,$id)
     {
-        //
+        $quotation = Quotation::where('project_id',$project_id)->where('id',$id)->firstOrFail();
+        $quotation->update([
+            'status'=>'Cancelled'
+        ]);
+        return Redirect::back();
     }
 
 }

@@ -1,7 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+
+
+#nprogress .bar {
+  @apply !shadow-lg !shadow-pink-600  !rounded-r-sm min-h-[0.3rem]
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -117,6 +124,10 @@
   @apply !bg-background !text-primary !w-full
 }
 
+.gantt_scale_cell{
+  @apply !text-primary !font-bold !tracking-tight
+}
+
 .gantt_task_row{
   @apply !bg-background  !w-full  !border-muted-foreground/50 
 }
@@ -135,10 +146,6 @@
   @apply !text-primary !w-full !bg-background !font-bold 
 }
 
-.gantt_row.gantt_row_task{
-  @apply !bg-background 
-  
-}
 
 .gantt_data_area{
   @apply !bg-background !text-primary
@@ -146,11 +153,8 @@
 
 
 
-.gantt_grid_data{
-  @apply !bg-background !text-primary
-}
-
-
 .gantt_grid_data, .gantt_cell{
-  @apply !text-primary
+  @apply !text-primary !font-light !tracking-tight
 }
+
+

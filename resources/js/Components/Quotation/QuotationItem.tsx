@@ -27,23 +27,23 @@ const QuotationItem:FC<Props> = ({quotation}) => {
             
             <TableCell className="flex items-center justify-end space-x-1.5">
                 <ActionTooltip label='Edit'>
-                    <Button onClick={()=>onOpen('StoreQuotation',{project:quotation.project,quotation:quotation})} className='text-sm' size='icon' variant='default'>
-                        <FileSignature className='w-5 h-5 ' />
+                    <Button disabled={quotation.status==='Approved' || quotation.status==='Cancelled'} onClick={()=>onOpen('StoreQuotation',{project:quotation.project,quotation:quotation})} className='text-sm' size='sm' variant='outline'>
+                        <FileSignature className='w-4 h-4 ' />
                     </Button>
                 </ActionTooltip>
                 <ActionTooltip label='Cancel'>
-                    <Button className='text-sm' size='icon' variant='destructive' disabled={status==='Cancelled'}>
-                        <CircleOff className='h-5 w-5 ' />
+                    <Button onClick={()=>onOpen('CancelQuotation',{quotation})} className='text-sm' size='sm' variant='destructive' disabled={status==='Cancelled'||status==='Approved'}>
+                        <CircleOff className='h-4 w-4 ' />
                     </Button>
                 </ActionTooltip>
                 <ActionTooltip label='Approve'>
-                    <Button className='text-sm border-green-500 dark:text-green-400' size='icon' variant='outline'>
-                        <ThumbsUp className='h-5 w-5 text-green-500 dark:text-green-400' />
+                    <Button onClick={()=>onOpen('ApproveQuotation',{quotation})} disabled={quotation.status==='Approved'||quotation.status==='Cancelled'} className='text-sm border-green-500 dark:text-green-400' size='sm' variant='outline'>
+                        <ThumbsUp className='h-4 w-4 text-green-500 dark:text-green-400' />
                     </Button>
                 </ActionTooltip>
-                <ActionTooltip label='E-Mail Request'>
-                    <Button onClick={()=>onOpen('RequestQuotation',{quotation})} className='text-sm' size='icon' variant='outline'>
-                        <MailPlus className='h-5 w-5 ' />
+                <ActionTooltip label='Send E-Mail Request'>
+                    <Button disabled={quotation.status!=='Pending'} onClick={()=>onOpen('RequestQuotation',{quotation})} className='text-sm' size='sm' variant='outline'>
+                        <MailPlus className='h-4 w-4 ' />
                     </Button>
                 </ActionTooltip>
             </TableCell>

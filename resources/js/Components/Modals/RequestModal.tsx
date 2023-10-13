@@ -9,7 +9,6 @@ import TipTap from '../TipTap/TipTap';
 import axios from 'axios';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
-import { useCurrentEditor } from '@tiptap/react';
 import useEditorConfig from '@/Hooks/useEditorConfig';
 import { toast } from 'react-toastify';
 import { Ban,  Loader2, MailPlus, Send, XCircle } from 'lucide-react';
@@ -17,8 +16,7 @@ import ActionTooltip from '../ActionTooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '../ui/command';
 import { cn } from '@/lib/utils';
-import { usePage } from '@inertiajs/inertia-react';
-import { Page } from '@inertiajs/inertia';
+import { Inertia } from '@inertiajs/inertia';
 import { EmailAddress, PageProps } from '../types';
 
 const RequestModal:FC = () => {
@@ -45,20 +43,26 @@ const RequestModal:FC = () => {
         if (!to||to.length<1) return toast.info('Please add Recipients');
         //console.log(editor.getHTML());
         setSending(true);
-        axios.post(route('quotations.mail_request',{
+        const notif = toast.loading("Sending Email. Please do not close this page...");
+        Inertia.post(route('quotations.mail_request',{
             project_id:QuotationModalData.quotation.project_id
-        }),{
-            emails:to,
+        }), {
             body:editor.getHTML(),
             subject:subjectLine,
-            quotation_id:QuotationModalData.quotation.id
-        })
-        .then(()=>{
-            onClose();
-            toast.success('Request Email Sent. Awaiting Approval...')
-        })
-        .catch(()=>toast.error('Something Went Wrong. Please Try Again...'))
-        .finally(()=>setSending(false));
+            quotation_id:QuotationModalData.quotation.id,
+            //@ts-ignore
+            emails:to,
+            
+        },{
+            onError:()=> toast.update(notif,{render:'Server Error. Please try again.', type:'error',isLoading:false,autoClose:2000}),
+            onSuccess:()=>{
+                toast.update(notif,{render:'Request Email Sent. Awaiting Approval...', type:'success',isLoading:false,autoClose:2000});
+                onClose();
+            },
+            onFinish:()=>setSending(false)
+        });
+
+        
         
     }
 
@@ -74,6 +78,8 @@ const RequestModal:FC = () => {
             setAddressBook([]);
             return;
         };
+
+        
         axios.get(route('addresses.show'))
         .then(({data})=>setAddressBook(data))
         .catch(()=>{
@@ -81,13 +87,7 @@ const RequestModal:FC = () => {
         });
     },[OPEN]);
 
-    if(!emailMsg){
-        return null;
-    }
-
-    if(!editor){
-        return null;
-    }
+    
 
     const handleAddressSelect = (address:EmailAddress) =>{
         if(to.findIndex(({id})=>id===address.id)>0) return null;
@@ -97,6 +97,10 @@ const RequestModal:FC = () => {
     const onRemove = (to:EmailAddress) =>{
         setTo(val=>val.filter(address=>address.id!==to.id));
     }
+
+    if(!emailMsg)return null; 
+
+    if(!editor) return null;
 
     return (
         <Dialog open={OPEN} onOpenChange={onClose}>

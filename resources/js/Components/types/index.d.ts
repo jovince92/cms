@@ -18,6 +18,7 @@ export interface Project{
     manpower:number;
     in_house:number;
     third_party:number;
+    actual_cost:number;
     date_started:string;
     target_date:string;
     status:ProjectStatusType;
@@ -78,7 +79,7 @@ export interface PaginatedProject extends Pagination{
 
 export type  ProjectStatusType = "Done"|"Ongoing"|"On-hold"|"Cancelled"|"Not Started"|"Planning";
 export type  ModeofPayment = "Cash"|"Check"|"Credit Card"|"Bank Transaction";
-export type  QuotationStatus = "Pending"|"Approved"|"Cancelled";
+export type  QuotationStatus = "Awaiting Approval"|"Pending"|"Approved"|"Cancelled";
 
 export interface Item{
     id:number;

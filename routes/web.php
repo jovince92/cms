@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/', [QuotationController::class,'index'])->name('index');
         Route::post('/store', [QuotationController::class,'store'])->name('store');
         Route::post('/update', [QuotationController::class,'update'])->name('update');
+        Route::post('/destroy/{id}', [QuotationController::class,'destroy'])->name('destroy');
         Route::post('/mail_request',[QuotationRequestController::class,'mail'])->name('mail_request');
     });
 
@@ -97,7 +98,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
-Route::get('test', [QuotationController::class, 'test'])->name('test');
+Route::get('test', [ProjectController::class, 'set_actual_cost'])->name('test');
 
 
 

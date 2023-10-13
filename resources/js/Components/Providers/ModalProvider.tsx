@@ -10,6 +10,8 @@ import DeletePhaseModal from '../Modals/DeletePhaseModal'
 import DeleteStageModal from '../Modals/DeleteStageModal'
 import NewAddressModal from '../Modals/NewAddressModal'
 import DeleteAddressModal from '../Modals/DeleteAddressModal'
+import CancelQuotationModal from '../Modals/CancelQuotationModal'
+import ApproveQuotationModal from '../Modals/ApproveQuotationModal'
 
 const ModalProvider:FC = () => {
     return (
@@ -25,6 +27,8 @@ const ModalProvider:FC = () => {
             <DeleteStageModal />
             <NewAddressModal />
             <DeleteAddressModal />
+            <CancelQuotationModal />
+            <ApproveQuotationModal />
         </>
     )
 }

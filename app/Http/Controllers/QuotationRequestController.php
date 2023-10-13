@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\QuotationRequestEmail;
+use App\Models\Quotation;
 use App\Models\RequestLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 class QuotationRequestController extends Controller
 {
     public function mail(Request $request,$project_id=null){
+        $quotation = Quotation::findOrFail($request->quotation_id);
         $emails_str="";
         //dd($request);
         $emails=$request->emails;
@@ -35,6 +37,11 @@ class QuotationRequestController extends Controller
             'subject_line'=>$request->subject,
             'body'=>$request->body
         ]);
-        //return Redirect::back();
+
+        $quotation->update([
+            'status'=> 'Awaiting Approval'
+        ]);
+
+        return Redirect::back();
     }
 }

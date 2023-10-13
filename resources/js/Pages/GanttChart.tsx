@@ -19,7 +19,7 @@ type Props={
 
 const GanttChart:FC<Props> = ({selected_project,chart_data}) => {
     const { get,processing } = useForm();
-    const [viewMode,setViewMode] = useState<'month'|'year'|'day'|'week'|undefined>();
+    const [viewMode,setViewMode] = useState<'month'|'year'|'day'|'week'>('week');
     const onSelect = (projectId:string) =>{
         const url:any=route('gantt_chart.index',{
             project_id:projectId
@@ -34,7 +34,7 @@ const GanttChart:FC<Props> = ({selected_project,chart_data}) => {
         <Layout  label='Gannt Chart'>
             <div className='h-full flex flex-col space-y-2.5 overflow-y-hidden'>
                 <div className='overflow-hidden flex flex-col md:flex-row space-y-1 md:space-y-0 md:justify-between md:items-center'>
-                    <div>
+                    <div className='md:w-56 w-full'>
                         <Select onValueChange={(e:'month'|'year'|'day'|'week')=>setViewMode(e)}>
                             <SelectTrigger >
                                 <SelectValue placeholder="Select view mode" />
@@ -42,22 +42,19 @@ const GanttChart:FC<Props> = ({selected_project,chart_data}) => {
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>View Mode</SelectLabel>
-                                    <SelectItem value="year">Year</SelectItem>
-                                    <SelectItem value="month">Month</SelectItem>
-                                    <SelectItem value="day">Day</SelectItem>
-                                    <SelectItem value="week">Week</SelectItem>
+                                    {(['year','month','week','day']).map((mode)=><SelectItem key={mode} value={mode}> <span className='capitalize'> {mode}</span></SelectItem>)}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
                     </div>
-                    <div>
+                    <div className='hidden md:block'>
                         { selected_project && <p className='text-lg font-semibold'>{selected_project.name}</p>}
                     </div>
                     <ProjectSelector  onSelect={onSelect} selectedProjectId={selected_project?.id.toString()} />
                 </div>
-                <div className={cn('flex-1 overflow-auto flex relative w-full gantt-container',processing&&'blur-3xl transition duration-700')}>
+                <div className={cn('flex-1 overflow-auto flex relative w-full gantt-container',processing&&'blur-3xl opacity-80 transition duration-700')}>
                     {!selected_project&&<p className='text-3xl font-bold text-center w-full my-3.5'>Select a Project</p>}
-                    {(selected_project)&&<Gantt viewMode={viewMode} phases={ {tasks:chart_data}}   />}
+                    {(selected_project)&&<Gantt viewMode={viewMode} phases={ {tasks:chart_data}}  projectName={selected_project.name} />}
                 </div>
             </div>
         </Layout>

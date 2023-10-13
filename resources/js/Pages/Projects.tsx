@@ -13,7 +13,7 @@ import { Input } from '@/Components/ui/input';
 import ProjectHeader from '@/Components/Project/ProjectHeader';
 import ActionTooltip from '@/Components/ActionTooltip';
 
-type FIELD ="name"|"description"|"location"|"manpower"|"in_house"|"third_party"|"date_started"|"target_date"|"status"|"completion_date"|"remarks"|"created_at"|"updated_at";
+type FIELD ="name"|"description"|"location"|"manpower"|"in_house"|"third_party"|"date_started"|"target_date"|"actual_cost"|"status"|"completion_date"|"remarks"|"created_at"|"updated_at";
 
 interface ProjectProps{
     projects:PaginatedProject,
@@ -68,12 +68,12 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
                         <PlusCircle className='mr-2 h-5 w-5' />
                         <span>New Project</span>
                     </Button>
-                    <ActionTooltip side='right' label='Reporting Work in Progress...'>
+                    {/* <ActionTooltip side='right' label='Reporting Work in Progress...'>
                         <Button size='sm' variant='secondary' className='flex text-base justify-center md:justify-start items-center'>
                             <Download className='mr-2 h-5 w-5' />
                             <span>Download Report</span>
                         </Button>
-                    </ActionTooltip>
+                    </ActionTooltip> */}
                     {/* <DatePicker date={new Date().toString()} setDate={()=>{}} /> */}
                 </div>
                 <div className='max-w-[150vw] flex-1 overflow-auto flex relative'>
@@ -82,7 +82,7 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
                             <TableRow className='z-50 ring-1 ring-secondary'>
                                 <TableHead colSpan={4} />
                                 <TableHead colSpan={2} className='text-center text-base'>Quotation<span className='italic text-xs ml-1'>(estimate)</span></TableHead>
-                                <TableHead colSpan={8} />
+                                <TableHead colSpan={9} />
                             </TableRow>
                             <TableRow className='-mt-0.5 z-50 text-sm'>
                                 <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'name')}>Name</ProjectHeader> </TableHead>
@@ -91,6 +91,7 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
                                 <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'manpower')}>Manpower</ProjectHeader> </TableHead>
                                 <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'in_house')}>In-House</ProjectHeader> </TableHead>
                                 <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'third_party')}>3rd Party</ProjectHeader> </TableHead>
+                                <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'actual_cost')}>Actual Cost</ProjectHeader> </TableHead>
                                 <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'date_started')}>Date started</ProjectHeader> </TableHead>
                                 <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'target_date')}>Targe Date</ProjectHeader> </TableHead>
                                 <TableHead> <ProjectHeader onClick={()=>handleFilter(perPage,'status')}>Status</ProjectHeader> </TableHead>
