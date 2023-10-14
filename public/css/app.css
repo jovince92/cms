@@ -1768,6 +1768,7 @@ video {
   background-color: hsl(var(--background)) !important;
   color: hsl(var(--primary)) !important;
 }.gantt_grid_data, .gantt_cell {
+  background-color: hsl(var(--background)) !important;
   font-weight: 300 !important;
   letter-spacing: -0.025em !important;
   color: hsl(var(--primary)) !important;

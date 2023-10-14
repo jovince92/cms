@@ -154,7 +154,7 @@
 
 
 .gantt_grid_data, .gantt_cell{
-  @apply !text-primary !font-light !tracking-tight
+  @apply !text-primary !font-light !tracking-tight !bg-background
 }
 
 
