@@ -128,7 +128,7 @@ class ProjectController extends Controller
 
         foreach($projects as $project){
             $actual_cost=0;
-            $quotations = Quotation::with(['items'])->where('project_id',$project->id)->get();
+            $quotations = Quotation::with(['items'])->where('status','not like', "%cancel%")->where('project_id',$project->id)->get();
 
             foreach($quotations as $quotation){
                 $actual_cost=$actual_cost+Item::where('quotation_id',$quotation->id)->sum('total');

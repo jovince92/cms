@@ -94,7 +94,7 @@ class QuotationController extends Controller
             $quotation->update(['grand_total'=>$grand_total]);
 
             //UPDATE ACTUAL COST!!!!
-            $quotations = Quotation::with(['items'])->where('project_id',$project_id)->get();
+            $quotations = Quotation::with(['items'])->where('status','not like', "%cancel%")->where('project_id',$project_id)->get();
             $actual_cost=0;
             foreach($quotations as $quotation_item){
                 $actual_cost=$actual_cost+Item::where('quotation_id',$quotation_item->id)->sum('total');
@@ -163,7 +163,7 @@ class QuotationController extends Controller
             $quotation->update(['grand_total'=>$grand_total]);
 
             //UPDATE ACTUAL COST!!!!
-            $quotations = Quotation::with(['items'])->where('project_id',$project_id)->get();
+            $quotations = Quotation::with(['items'])->where('status','not like', "%cancel%")->where('project_id',$project_id)->get();
             $actual_cost=0;
             foreach($quotations as $quotation_item){
                 $actual_cost=$actual_cost+Item::where('quotation_id',$quotation_item->id)->sum('total');
@@ -179,10 +179,22 @@ class QuotationController extends Controller
     
     public function destroy($project_id,$id)
     {
+        $project = Project::find($project_id);
         $quotation = Quotation::where('project_id',$project_id)->where('id',$id)->firstOrFail();
         $quotation->update([
             'status'=>'Cancelled'
         ]);
+
+        //UPDATE ACTUAL COST!!!!
+        $quotations = Quotation::with(['items'])->where('status','not like', "%cancel%")->where('project_id',$project_id)->get();
+        $actual_cost=0;
+        foreach($quotations as $quotation_item){
+            $actual_cost=$actual_cost+Item::where('quotation_id',$quotation_item->id)->sum('total');
+        }
+        $project->update([
+            'actual_cost'=>$actual_cost
+        ]);
+
         return Redirect::back();
     }
 

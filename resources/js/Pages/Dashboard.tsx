@@ -8,7 +8,7 @@ const Dashboard:FC = () => {
         <Layout label='Dashboard'>
             <div className='h-full flex flex-col space-y-2.5 overflow-y-hidden'>
                 <div className='flex flex-col space-y-1.5 md:flex-row md:space-y-0 md:space-x-1.5 '>
-                    <DashboardPieChart />
+                    <DashboardPieChart className='w-[8/12]' />
                 </div>
             </div>
         </Layout>

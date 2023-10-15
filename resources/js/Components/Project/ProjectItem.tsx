@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import ProjectItemActions from './ProjectItemActions';
 import { BadgeHelp, HelpCircle } from 'lucide-react';
 import { useForm } from '@inertiajs/inertia-react';
+import ActionTooltip from '../ActionTooltip';
 
 interface ProjectItemProps{
     project:Project;
@@ -16,15 +17,17 @@ const ProjectItem:FC<ProjectItemProps> = ({project}) => {
 
     const {get} = useForm();
 
-    const navigate = () =>{
+    const showQuotation = () =>{
         get(route('quotations.index',{
             project_id:project.id,
-            filter:"",
+            filter:null,
             perPage:null,
             sort:null,
             order:null
         }))
     }
+
+    const costFormat = (cost:number) => new Intl.NumberFormat().format(cost);
 
     return (
         
@@ -33,10 +36,14 @@ const ProjectItem:FC<ProjectItemProps> = ({project}) => {
             <TableCell>{description}</TableCell>
             <TableCell>{location}</TableCell>
             <TableCell className="text-right">{manpower}</TableCell>
-            <TableCell className="text-right">{in_house}</TableCell>
-            <TableCell className="text-right">{third_party}</TableCell>
+            <TableCell className="text-right">{costFormat(in_house)}</TableCell>
+            <TableCell className="text-right">{costFormat(third_party)}</TableCell>
             <TableCell className="text-right">
-                {actual_cost}<span onClick={navigate} className=' font-serif text-muted-foreground font-extrabold text-base rounded-full px-3.5 py-1.5 cursor-pointer hover:text-primary transition'>i</span>
+                <ActionTooltip label='View Quotation'>
+                    <span>
+                        {costFormat(actual_cost)}<span onClick={showQuotation} className=' font-serif italic text-muted-foreground font-extrabold text-base rounded-full px-3.5 py-1.5 cursor-pointer hover:text-primary transition'>i</span>
+                    </span>
+                </ActionTooltip>
             </TableCell>
             <TableCell className="text-right">{formatDt(date_started)}</TableCell>
             <TableCell className="text-right">{formatDt(target_date)}</TableCell>
