@@ -3,6 +3,8 @@ import { FC } from 'react'
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import ActionTooltip from '../ActionTooltip';
 import { cn } from '@/lib/utils';
+import { PieChartData } from '@/Pages/Dashboard';
+import { useForm } from '@inertiajs/inertia-react';
 
 type ChartParams = {
     cx:number; 
@@ -16,16 +18,9 @@ type ChartParams = {
 
 //"Done"|"Ongoing"|"On-hold"|"Cancelled"|"Not Started"|"Planning"
 
-const data = [
-    { name: 'Done', value: 400 },
-    { name: 'Ongoing', value: 300 },
-    { name: 'On-hold', value: 300 },
-    { name: 'Cancelled', value: 200 },
-    { name: 'Not Started', value: 150 },
-    { name: 'Planning', value: 300 },
-];
 
-const COLORS = ['#2563eb', '#e11d48', '#6366f1', '#ec4899'];
+
+const COLORS = ['#2563eb', '#e11d48', '#6366f1', '#ec4899', '#d97706', '#9333ea'];
 
 const RADIAN = Math.PI / 180;
 
@@ -51,13 +46,17 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     );
 };
 
-const DashboardPieChart:FC<{className?:string}> = ({className}) => {
+const DashboardPieChart:FC<{className?:string,data:PieChartData[]}> = ({className,data}) => {
+    const {get} = useForm();
+    const colorValues = data.map(({status,value},_idx)=>({status,value,color:COLORS[_idx]}));
+
     return (
         
         <div className={cn('flex items-center justify-center space-x-3.5',className)}>
+            <ResponsiveContainer>
             <PieChart width={320} height={320}>
                 <Pie
-                    data={data}
+                    data={data.map(({status,value})=>({name:status,value}))}
                     // cx={200}
                     // cy={200}
                     labelLine={false}
@@ -72,10 +71,16 @@ const DashboardPieChart:FC<{className?:string}> = ({className}) => {
                 </Pie>
                 <Tooltip />
             </PieChart>
+            </ResponsiveContainer>
             <div className='flex flex-col space-y-2.5 h-full'>
                 <p className='font-bold tracking-tight'>Project Status Breakdown</p>
-                <div className='h-full flex flex-col space-x-5'>
-
+                <div className='h-full flex flex-col justify-evenly flex-1 '>
+                    {colorValues.map(val=> (
+                        <button onClick={()=>get(route('projects.index',{status:val.status}))} key={val.status} className='flex items-center justify-between space-x-3.5  opacity-70 hover:opacity-100 transition duration-300 '>
+                            <div className={cn(`min-h-[1.5rem] min-w-[2.5rem] text-white p-1.5 rounded text-center`)} style={{ backgroundColor: val.color }} >{val.value}</div>
+                            <p>{val.status}</p>
+                        </button>
+                    ))}
                 </div>
             </div>
             

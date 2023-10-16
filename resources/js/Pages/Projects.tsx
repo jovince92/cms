@@ -1,9 +1,9 @@
 import { Button } from '@/Components/ui/button';
 import Layout from '@/Layout/Layout';
-import {FC, useState,useRef, FormEventHandler, useCallback} from 'react';
+import {FC, useState,useRef, FormEventHandler, useCallback, useEffect} from 'react';
 import {PlusCircle,Download} from 'lucide-react'
 import { Table, TableBody,  TableHead, TableHeader, TableRow } from '@/Components/ui/table';
-import { PaginatedProject, Project } from '@/Components/types';
+import { PaginatedProject, Project, ProjectStatusType } from '@/Components/types';
 import { useProjectModal } from '@/Hooks/useProjectModal';
 import ProjectItem from '@/Components/Project/ProjectItem';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
@@ -13,6 +13,8 @@ import { Input } from '@/Components/ui/input';
 import ProjectHeader from '@/Components/Project/ProjectHeader';
 import ActionTooltip from '@/Components/ActionTooltip';
 
+export const ProjectStatus:ProjectStatusType[] =["Done","Ongoing","On-hold","Cancelled","Not Started","Planning"];
+
 type FIELD ="name"|"description"|"location"|"manpower"|"in_house"|"third_party"|"date_started"|"target_date"|"actual_cost"|"status"|"completion_date"|"remarks"|"created_at"|"updated_at";
 
 interface ProjectProps{
@@ -21,13 +23,15 @@ interface ProjectProps{
     sort:FIELD;
     order:'asc'|'desc';
     name_filter:string;
+    status:ProjectStatusType;
 }
 
 
-const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) => {
+const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter,status}) => {
     const {onOpen} = useProjectModal();
     const input=useRef<HTMLInputElement>(null);
     const [filter,setFilter] = useState(name_filter||"");
+    const [currentStatus] = useState<ProjectStatusType|"">(status||"");
     const [perPage,setPerPage] = useState(per_page||"10");
     const [sortBy,setSortBy] = useState<{
         field:FIELD
@@ -52,11 +56,24 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
             filter,
             perPage:newPerPage?newPerPage:perPage,
             sort:sort?sort:sortBy.field,
-            order:sort?newOrder:sortBy.order
+            order:sort?newOrder:sortBy.order,
+            status:currentStatus
         }),{
             preserveScroll:true,
             preserveState:sort?true:false
-        })
+        });
+    }
+
+    const onStatusChange = (selectedStatus:typeof currentStatus) =>{
+        get(route('projects.index',{
+            filter,
+            perPage:perPage,
+            sort:sortBy.field,
+            order:sortBy.order,
+            status:selectedStatus
+        }),{
+            preserveScroll:true,
+        });
     }
     
 
@@ -111,8 +128,19 @@ const Projects:FC<ProjectProps> = ({projects,per_page,sort,order,name_filter}) =
                 </div>
                 <div className='h-auto'>
                     <div className="flex flex-col space-y-1 md:space-y-0 md:flex-row items-center md:justify-between p-2">
-                        <form className='w-full md:w-auto' onSubmit={onSubmit}>
+                        <form className='flex flex-col space-y-1 md:flex-row md:space-y-0 md:space-x-1.5 w-full md:w-auto' onSubmit={onSubmit}>
                             <Input className='w-full md:w-auto' value={filter} onChange={({target})=>setFilter(target.value)} ref={input} placeholder='Search Project Name....' />
+                            <Select  value={currentStatus} onValueChange={(val:typeof currentStatus)=>{onStatusChange(val)}} >
+                                <SelectTrigger >
+                                    <SelectValue placeholder='Filter Status...' />
+                                </SelectTrigger>
+                                <SelectContent side="top">
+                                    {ProjectStatus.map((pS) => (
+                                        <SelectItem key={pS} value={`${pS}`}>{pS}</SelectItem>
+                                    ))}
+                                    <SelectItem  value="">No Filter</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </form>
                         <div className="flex items-center space-x-6 lg:space-x-8">
                             <div className="flex items-center space-x-2">

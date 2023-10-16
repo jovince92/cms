@@ -10,6 +10,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\QuotationRequestController;
 use App\Http\Controllers\StageController;
+use App\Models\Project;
+use App\Models\Quotation;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,7 +38,14 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('Dashboard',[
+            'approved_quotes'=>Quotation::where('status','Approved')->get(),
+            'projects'=>Project::orderBy('actual_cost','desc')->get(),
+            'most_recent'=>Project::orderBy('created_at','desc')->first(),
+            'pie_chart_data'=>Project::selectRaw('count(*) as value, status')
+                ->groupBy('status')
+                ->get(),
+        ]);
     })->name('dashboard');
 
     Route::prefix('/projects')->name('projects.')->group(function(){
@@ -98,7 +107,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
-Route::get('test', [ProjectController::class, 'set_actual_cost'])->name('test');
+//Route::get('test', [ProjectController::class, 'randomize_status'])->name('test');
 
 
 

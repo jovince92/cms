@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Project;
 use App\Models\Quotation;
+use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -20,15 +21,17 @@ class ProjectController extends Controller
     {
         $per_page=$request->perPage?intval($request->perPage):5;
         $order=$request->order ?? 'desc' ;
+        $status=$request->status ?? '' ;
         $sort=$request->sort ?? 'created_at';
         $filter=$request->filter ?? '';
-        $projects=Project::where('name','like','%'.$filter.'%')->orderBy($sort,$order)->paginate($per_page)->withQueryString();
+        $projects=Project::where('name','like','%'.$filter.'%')->where('status','like','%'.$status.'%')->orderBy($sort,$order)->paginate($per_page)->withQueryString();
         return Inertia::render('Projects',[
             'projects'=>$projects,
             'per_page'=>strval($per_page),
             'sort'=>$sort,
             'order'=>$order,
-            'filter'=>$filter
+            'filter'=>$filter,
+            'status'=>$status
         ]);
     }
 
@@ -135,6 +138,19 @@ class ProjectController extends Controller
             }
             $project->update([
                 'actual_cost'=>$actual_cost
+            ]);
+        }
+        return 'DONE!';
+
+    }
+
+    public function randomize_status(){
+        $faker = Factory::create();
+        $projects=Project::all();
+
+        foreach($projects as $project){
+            $project->update([
+                'status'=>$faker->randomElement(["Done","Ongoing","On-hold","Cancelled","Not Started","Planning"])
             ]);
         }
         return 'DONE!';

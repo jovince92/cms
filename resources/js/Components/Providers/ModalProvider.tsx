@@ -12,6 +12,7 @@ import NewAddressModal from '../Modals/NewAddressModal'
 import DeleteAddressModal from '../Modals/DeleteAddressModal'
 import CancelQuotationModal from '../Modals/CancelQuotationModal'
 import ApproveQuotationModal from '../Modals/ApproveQuotationModal'
+import NewUserModal from '../Modals/NewUserModal'
 
 const ModalProvider:FC = () => {
     return (
@@ -29,6 +30,7 @@ const ModalProvider:FC = () => {
             <DeleteAddressModal />
             <CancelQuotationModal />
             <ApproveQuotationModal />
+            <NewUserModal />
         </>
     )
 }
