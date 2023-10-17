@@ -34,6 +34,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     return (
         
             <text
+                //className='hover:scale-110 transition'
                 x={x}
                 y={y}
                 fill="white"

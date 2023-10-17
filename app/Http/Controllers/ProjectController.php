@@ -153,6 +153,11 @@ class ProjectController extends Controller
                 'status'=>$faker->randomElement(["Done","Ongoing","On-hold","Cancelled","Not Started","Planning"])
             ]);
         }
+        $dones=Project::where('status','Done')->get();
+        foreach($dones as $done){
+            $done->update(['completion_date'=>now()]);
+        }
+        
         return 'DONE!';
 
     }

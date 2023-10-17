@@ -107,7 +107,7 @@ class AddressController extends Controller
             'email'=>[
                 'required',
                 'email',
-                Rule::unique('addresses', 'email')->ignore($request->email,'email')
+                Rule::unique('addresses', 'email')->ignore($request->id,'id')
             ],
         ]);
         $address=Address::findOrFail($request->id);

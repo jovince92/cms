@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class AccountController extends Controller
@@ -38,7 +41,16 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>['required','string',],            
+            'company_id'=>['string','required','unique:users'],
+        ]);
+        User::create([
+            'name'=>$request->name,            
+            'company_id'=>$request->company_id,
+            'password'=>bcrypt('password')
+        ]);
+        return Redirect::back();
     }
 
     /**
@@ -70,9 +82,23 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>['required','string',],            
+            'company_id'=>['required',
+                'string',
+                Rule::unique('users', 'company_id')->ignore($request->id,'id')
+            ],
+        ]);
+
+        $users = User::findOrFail($request->id);
+
+        $users->update([
+            'name'=>$request->name,            
+            'company_id'=>$request->company_id,
+        ]);
+        return Redirect::back();
     }
 
     /**
@@ -84,5 +110,19 @@ class AccountController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function change_password(Request $request){
+        $request->validate([
+            'current_password'=>['required','current_password'],
+            'password'=>['required','confirmed']
+        ]);
+
+        $user=User::find(Auth::id());
+        $user->update([
+            'password'=>bcrypt($request->password)
+        ]);
+
+        return Redirect::back();
     }
 }

@@ -5,10 +5,11 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { useForm } from '@inertiajs/inertia-react';
 import { Button } from '../ui/button';
+import { toast } from 'react-toastify';
 
 const NewUserModal:FC = () => {
     const {isOpen,type,data:ModalData,onClose} = useAccountModal();
-    const {post,processing,data,setData,reset} = useForm({
+    const {post,processing,data,setData,reset,errors} = useForm({
         id:0,
         name:"",
         company_id:"",
@@ -17,6 +18,14 @@ const NewUserModal:FC = () => {
 
     const onSubmit:FormEventHandler<HTMLFormElement> =  (e) =>{
         e.preventDefault();
+        const url = !ModalData?.id?route('accounts.store'):route('accounts.update')
+        post(url,{
+            onSuccess:()=>{
+                toast.info( !ModalData?.id? 'Account Created':'Account Updated');
+                onClose();
+            },
+            onError:()=>toast.error('Something Went Wrong. Please try again...')
+        })
     }
 
     useEffect(()=>{
@@ -36,20 +45,22 @@ const NewUserModal:FC = () => {
                 <DialogHeader>
                     <DialogTitle>Account Manager</DialogTitle>
                     <DialogDescription  >
-                        Default Password is 'password'
+                        {!ModalData?.company_id? `Default Password is 'password'`:`Update Account '${ModalData.company_id}'`}
                     </DialogDescription>
                 </DialogHeader>
-                <form  className='flex flex-col space-y-2.5'>
-                    <div>
+                <form onSubmit={onSubmit} className='flex flex-col space-y-2.5'>
+                    <div className='flex flex-col space-y-1'>
                         <Label htmlFor='name'>Name</Label>
-                        <Input disabled={processing} id='name' value={data.name} onChange={({target})=>setData('name',target.value)} />
+                        <Input autoComplete='off' autoFocus required disabled={processing} id='name' value={data.name} onChange={({target})=>setData('name',target.value)} />
+                        {errors.name&& <p className='text-destructive text-xs'>{errors.name}</p>}
                     </div>
-                    <div>
+                    <div className='flex flex-col space-y-1'>
                         <Label htmlFor='name'>Company ID</Label>
-                        <Input disabled={processing} id='name' value={data.company_id} onChange={({target})=>setData('company_id',target.value)} />
+                        <Input autoComplete='off' required disabled={processing} id='name' value={data.company_id} onChange={({target})=>setData('company_id',target.value)} />
+                        {errors.company_id&& <p className='text-destructive text-xs'>{errors.company_id}</p>}
                     </div>
-                    <Button disabled={processing} className='font-semibold text-base' size='sm' variant='outline'>
-                        Create
+                    <Button disabled={processing} className='ml-auto font-semibold text-base' size='sm' variant='outline'>
+                        {!ModalData?.id? 'Create':'Update'}
                     </Button>
                 </form>
             </DialogContent>

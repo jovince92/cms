@@ -76,6 +76,9 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('/accounts')->name('accounts.')->group(function(){
         Route::get('/', [AccountController::class,'index'])->name('index');
+        Route::post('/store', [AccountController::class,'store'])->name('store');
+        Route::post('/update', [AccountController::class,'update'])->name('update');
+        Route::post('/change_password', [AccountController::class,'change_password'])->name('change_password');
     });
 
     
