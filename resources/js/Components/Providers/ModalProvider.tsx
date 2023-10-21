@@ -22,7 +22,6 @@ const ModalProvider:FC = () => {
             <UploadPictureModal />
             <DeletePictureModal />
             <QuotationModal />
-            <RequestModal />
             <NewPhaseModal />
             <DeletePhaseModal />
             <DeleteStageModal />

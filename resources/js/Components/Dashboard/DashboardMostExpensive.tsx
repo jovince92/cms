@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import React, { FC } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
+import { useForm } from '@inertiajs/inertia-react';
 
 
 
@@ -9,6 +10,7 @@ type Data = {
     rank:number;
     name:string;
     amount:number;
+    id:number;
 }
 
 interface Props{
@@ -17,6 +19,14 @@ interface Props{
 }
 
 const DashboardMostExpensive:FC<Props> = ({className,mostExpensive}) => {
+    const {get} = useForm();
+
+    const navigate = (project_id:number) =>{
+        get(route('quotations.index',{
+            project_id
+        }))
+    }
+
     return (
         <div className={cn('h-full overflow-y-auto relative',className)}>
             <p className='text-right font-bold tracking-tight sticky top-0 z-50 w-full bg-primary-foreground'>Most Expensive Projects</p>
@@ -31,8 +41,8 @@ const DashboardMostExpensive:FC<Props> = ({className,mostExpensive}) => {
                     </TableHeader>
                     <TableBody>
                         {
-                            mostExpensive.map(({rank,name,amount})=>(
-                                <TableRow key={name} className='z-40'>
+                            mostExpensive.map(({rank,name,amount,id})=>(
+                                <TableRow onClick={()=>navigate(id)} role='button'  key={name} className='z-40'>
                                     <TableCell className="font-medium">{rank}</TableCell>
                                     <TableCell className='text-primary font-bold'>{name}</TableCell>
                                     <TableCell className='text-primary font-bold'>{amount}</TableCell>

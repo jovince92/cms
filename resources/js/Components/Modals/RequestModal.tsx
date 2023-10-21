@@ -16,8 +16,9 @@ import ActionTooltip from '../ActionTooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '../ui/command';
 import { cn } from '@/lib/utils';
-import { Inertia } from '@inertiajs/inertia';
+import { Inertia, Page } from '@inertiajs/inertia';
 import { EmailAddress, PageProps } from '../types';
+import { usePage } from '@inertiajs/inertia-react';
 
 const RequestModal:FC = () => {
     const [sending,setSending] = useState(false);
@@ -26,9 +27,9 @@ const RequestModal:FC = () => {
     const {editor} = useEditorConfig();
     const OPEN = useMemo(()=>isOpen&&type==='RequestQuotation',[isOpen,type]);
     const [to,setTo] = useState<EmailAddress[]>([]);
-    const [addressBook,setAddressBook] = useState<EmailAddress[]>([]);
     const [showList,setShowList] = useState(false);
-
+    
+    const {addresses} = usePage<Page<PageProps>>().props;
     const onSubmit = () =>{
         
         if(!QuotationModalData?.quotation) return;
@@ -72,20 +73,6 @@ const RequestModal:FC = () => {
         }
     },[emailSubject,subj]);
 
-    useEffect(()=>{
-        if(!OPEN) {
-            setTo([]);
-            setAddressBook([]);
-            return;
-        };
-
-        
-        axios.get(route('addresses.show'))
-        .then(({data})=>setAddressBook(data))
-        .catch(()=>{
-            toast.error('Server Error. Please refresh the page');
-        });
-    },[OPEN]);
 
     
 
@@ -122,7 +109,7 @@ const RequestModal:FC = () => {
                         <Popover open={showList} onOpenChange={setShowList}>
                             
                             <PopoverTrigger asChild>
-                                <Button disabled={!addressBook||addressBook.length<1} variant='outline' size='sm'>
+                                <Button  variant='outline' size='sm'>
                                     <MailPlus className='h-6 w-6' />
                                 </Button>
                             </PopoverTrigger>
@@ -133,7 +120,7 @@ const RequestModal:FC = () => {
                                 <CommandInput placeholder="Search Emails..." />
                                 <CommandEmpty>No Email Found.</CommandEmpty>
                                 <CommandGroup>
-                                    {addressBook.map((address) => (
+                                    {addresses.map((address) => (
 
                                         <CommandItem
                                             className={cn(to.findIndex(({id})=>id===address.id)>-1&&'text-muted')}

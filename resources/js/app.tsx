@@ -18,7 +18,7 @@ createInertiaApp({
 
         root.render(
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-                <ToastContainer transition={Flip} autoClose={10000} pauseOnHover={false} theme='dark' />
+                <ToastContainer transition={Flip} autoClose={2345} pauseOnHover={false} theme='dark' />
                 <ModalProvider />
                 <App {...props} />
             </ThemeProvider>

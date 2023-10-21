@@ -24,11 +24,11 @@ const Dashboard:FC<DashboardProps> = ({projects,pie_chart_data,most_recent,appro
 
     return (
         <Layout label='Dashboard'>
-            <div className='h-full flex flex-col space-y-2.5 overflow-auto'>
+            <div className='h-full flex flex-col space-y-2.5 overflow-y-auto'>
                 <DashboardCardContainer projects={projects} mostRecent={most_recent} approvedQuotes={approved_quotes} />
                 <div className='flex flex-col space-y-1.5 lg:flex-row lg:space-y-0 lg:space-x-3.5 lg:justify-between lg:items-center lg:h-96'>
                     <DashboardPieChart data={pie_chart_data} className='w-full lg:w-1/2 h-full' />
-                    <DashboardMostExpensive mostExpensive={mostExpensive.map(({name,actual_cost},_idx)=>({rank:_idx+1,name,amount:actual_cost}))} className='w-full lg:w-1/2' />
+                    <DashboardMostExpensive mostExpensive={mostExpensive.map(({name,actual_cost,id},_idx)=>({rank:_idx+1,name,amount:actual_cost,id}))} className='w-full lg:w-1/2' />
                 </div>
             </div>
         </Layout>

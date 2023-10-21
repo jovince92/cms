@@ -23,6 +23,8 @@ class QuotationController extends Controller
         $order=$request->order ?? 'desc' ;
         $sort=$request->sort ?? 'created_at';
         $requisition_number=$request->filter ?? '';
+        
+        
 
         
 
