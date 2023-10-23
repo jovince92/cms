@@ -16,12 +16,12 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
 
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
+            <Card className='shadow-md shadow-red-500'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                         Total Projects
                     </CardTitle>
-                    <Box size={24} className='text-muted-foreground' />
+                    <Box size={24} className='text-red-500' />
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{projects.length}</div>
@@ -30,12 +30,12 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
                     </p>
                 </CardContent>
             </Card>
-            <Card>
+            <Card className='shadow-md shadow-blue-500'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                         Most Expensive Project
                     </CardTitle>
-                    <DollarSign size={24} className='text-muted-foreground' />
+                    <DollarSign size={24} className='text-blue-500' />
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">Php. {new Intl.NumberFormat().format(projects[0].actual_cost)}</div>
@@ -44,10 +44,10 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
                     </p>
                 </CardContent>
             </Card>
-            <Card>
+            <Card className='shadow-md shadow-green-600'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Most Recent Project</CardTitle>
-                    <BellPlus size={24} className='text-muted-foreground' />
+                    <BellPlus size={24} className='text-gray-500' />
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{mostRecent.name}</div>
@@ -56,12 +56,12 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
                     </p>
                 </CardContent>
             </Card>
-            <Card>
+            <Card className='shadow-md shadow-purple-500'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                         Approved Quotations
                     </CardTitle>
-                    <CheckCircle size={24} className='text-muted-foreground' />
+                    <CheckCircle size={24} className='text-purple-500' />
                 </CardHeader>
                 <CardContent>
                 <div className="text-2xl font-bold">{approvedQuotes.length}</div>
