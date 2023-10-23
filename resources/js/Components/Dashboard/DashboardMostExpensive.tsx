@@ -1,7 +1,8 @@
 import { cn } from '@/lib/utils';
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { useForm } from '@inertiajs/inertia-react';
+import { Loader2 } from 'lucide-react';
 
 
 
@@ -19,13 +20,8 @@ interface Props{
 }
 
 const DashboardMostExpensive:FC<Props> = ({className,mostExpensive}) => {
-    const {get} = useForm();
 
-    const navigate = (project_id:number) =>{
-        get(route('quotations.index',{
-            project_id
-        }))
-    }
+    
 
     return (
         <div className={cn('h-full overflow-y-auto relative',className)}>
@@ -41,12 +37,8 @@ const DashboardMostExpensive:FC<Props> = ({className,mostExpensive}) => {
                     </TableHeader>
                     <TableBody>
                         {
-                            mostExpensive.map(({rank,name,amount,id})=>(
-                                <TableRow onClick={()=>navigate(id)} role='button'  key={name} className='z-40'>
-                                    <TableCell className="font-medium">{rank}</TableCell>
-                                    <TableCell className='text-primary font-bold'>{name}</TableCell>
-                                    <TableCell className='text-primary font-bold'>{amount}</TableCell>
-                                </TableRow>
+                            mostExpensive.map(item=>(
+                                <MostExpensiveItems key={item.id} item={item} />
                             ))
                         }
                     </TableBody>
@@ -57,4 +49,28 @@ const DashboardMostExpensive:FC<Props> = ({className,mostExpensive}) => {
     )
 }
 
-export default DashboardMostExpensive
+export default DashboardMostExpensive;
+
+
+const MostExpensiveItems:FC<{item:Data}> = ({item}) =>{
+    const {get} = useForm();
+    const [navigating,setNavigating] = useState(false);
+    const navigate = (project_id:number) =>{
+        get(route('quotations.index',{
+            project_id
+        }),{
+            onStart:()=>setNavigating(true),
+            onFinish:()=>setNavigating(false)
+        });
+    }
+    const {rank,name,amount,id}=item;
+    return(
+        <TableRow onClick={()=>navigate(id)} role='button'  key={name} className={cn('z-40 relative',
+            navigating&&'opacity-60'    
+            )}>
+            <TableCell className="font-medium">{rank}</TableCell>
+            <TableCell className='text-primary font-bold'>{name}</TableCell>
+            <TableCell className='text-primary font-bold'>{amount}</TableCell>
+        </TableRow>
+    );
+}

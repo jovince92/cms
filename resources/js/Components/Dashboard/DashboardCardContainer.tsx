@@ -47,7 +47,7 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
             <Card className='shadow-md shadow-green-600'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Most Recent Project</CardTitle>
-                    <BellPlus size={24} className='text-gray-500' />
+                    <BellPlus size={24} className='text-green-500' />
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{mostRecent.name}</div>
