@@ -20,7 +20,19 @@ const QuotationItem:FC<Props> = ({quotation}) => {
             <TableCell className="font-medium">{project.name}</TableCell>
             <TableCell className=''>{requisition_number}</TableCell>
             <TableCell className='text-right'>{new Intl.NumberFormat().format(grand_total)}</TableCell>
-            <TableCell className=''>{status}</TableCell>
+            <TableCell className=''>
+                {
+                    status==='Approved'?(
+                        <div className='flex flex-col space-y-1.5 whitespace-nowrap'>
+                            <p>{status}</p>
+                            <p className='text-muted-foreground italic text-xs'>{`on ${format(new Date(updated_at),'Pp')}`}</p>
+                        </div>
+                    ):(
+                        <span>{status}</span>
+                    )
+                }
+                
+            </TableCell>
             <TableCell className="text-right">{formatDt(created_at)}</TableCell>
             <TableCell className="text-right">{formatDt(updated_at)}</TableCell>
             

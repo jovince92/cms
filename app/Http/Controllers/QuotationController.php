@@ -200,4 +200,26 @@ class QuotationController extends Controller
         return Redirect::back();
     }
 
+
+    public function approve($project_id,$id)
+    {
+        $project = Project::find($project_id);
+        $quotation = Quotation::where('project_id',$project_id)->where('id',$id)->firstOrFail();
+        $quotation->update([
+            'status'=>'Approved'
+        ]);
+
+        //UPDATE ACTUAL COST!!!!
+        $quotations = Quotation::with(['items'])->where('status','not like', "%cancel%")->where('project_id',$project_id)->get();
+        $actual_cost=0;
+        foreach($quotations as $quotation_item){
+            $actual_cost=$actual_cost+Item::where('quotation_id',$quotation_item->id)->sum('total');
+        }
+        $project->update([
+            'actual_cost'=>$actual_cost
+        ]);
+
+        return Redirect::back();
+    }
+
 }

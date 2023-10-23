@@ -15,19 +15,19 @@ const ApproveQuotationModal:FC = () => {
         if(!data?.quotation?.id) return null;
         if(!data?.quotation?.project_id) return null;
         
-        // post(route('quotations.destroy',{
-        //     project_id:data.quotation.project_id,
-        //     id:data.quotation.id
-        // }),{
+        post(route('quotations.approve',{
+            project_id:data.quotation.project_id,
+            id:data.quotation.id
+        }),{
             
-        //     onSuccess:()=>{
-        //         toast.success('Quotation Approved!')
-        //         onClose();
-        //     },
-        //     onError:()=>toast.error('Internal Error. Please Try again!'),
-        //     preserveScroll:true,
-        //     preserveState:true,
-        // });
+            onSuccess:()=>{
+                toast.success('Quotation Approved!')
+                onClose();
+            },
+            onError:()=>toast.error('Internal Error. Please Try again!'),
+            preserveScroll:true,
+            preserveState:true,
+        });
 
     },[post,data?.quotation?.id,data?.quotation?.project_id]);
 

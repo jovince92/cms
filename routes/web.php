@@ -71,6 +71,7 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/store', [QuotationController::class,'store'])->name('store');
         Route::post('/update', [QuotationController::class,'update'])->name('update');
         Route::post('/destroy/{id}', [QuotationController::class,'destroy'])->name('destroy');
+        Route::post('/approve/{id}', [QuotationController::class,'approve'])->name('approve');
         Route::post('/mail_request',[QuotationRequestController::class,'mail'])->name('mail_request');
     });
 

@@ -16,7 +16,7 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
 
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card className='shadow-md shadow-red-500'>
+            <Card className='shadow-sm shadow-red-500 hover:shadow-md hover:shadow-red-500  transition duration-300'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                         Total Projects
@@ -30,7 +30,7 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
                     </p>
                 </CardContent>
             </Card>
-            <Card className='shadow-md shadow-blue-500'>
+            <Card className='shadow-sm shadow-blue-500 hover:shadow-md hover:shadow-blue-500  transition duration-300'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                         Most Expensive Project
@@ -44,7 +44,7 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
                     </p>
                 </CardContent>
             </Card>
-            <Card className='shadow-md shadow-green-600'>
+            <Card className='shadow-sm shadow-green-600 hover:shadow-md hover:shadow-green-500  transition duration-300'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Most Recent Project</CardTitle>
                     <BellPlus size={24} className='text-green-500' />
@@ -56,7 +56,7 @@ const DashboardCardContainer:FC<Props> = ({projects,mostRecent,approvedQuotes}) 
                     </p>
                 </CardContent>
             </Card>
-            <Card className='shadow-md shadow-purple-500'>
+            <Card className='shadow-sm shadow-purple-500 hover:shadow-md hover:shadow-purple-500  transition duration-300'>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                         Approved Quotations
