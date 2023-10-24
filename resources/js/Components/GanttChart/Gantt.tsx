@@ -28,6 +28,7 @@ const Gantt:FC<GanttProps> = ({phases,viewMode='week',projectName}) => {
         gantt.config.resize_rows = true;
         gantt.config.grid_resize = true;
         gantt.config.scale_height = 60;
+        gantt.config.readonly = true;
         
         gantt.plugins({
             export_api: true,
